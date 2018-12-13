@@ -9,6 +9,7 @@ A full featured web app template on top of [nest](https://nestjs.com/), [TypeORM
 - API server - powered by [nest](https://nestjs.com/)
 - Authentication
 - [Material UI](https://material-ui.com/) design
+- Environment viriables using [dotenv](https://github.com/motdotla/dotenv)
 
 ## Setup
 
