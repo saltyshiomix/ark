@@ -1,0 +1,39 @@
+{
+  "private": true,
+  "name": "ark",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "nodemon server/main.ts",
+    "build": "next build && tsc --project tsconfig.server.json",
+    "start": "NODE_ENV=production node .next/production-server/main.js"
+  },
+  "dependencies": {
+    "@material-ui/core": "^3.6.2",
+    "@nestjs/common": "^5.5.0",
+    "@nestjs/core": "^5.5.0",
+    "@nestjs/typeorm": "^5.2.2",
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
+    "dotenv": "^6.2.0",
+    "jss": "^9.8.7",
+    "next": "^7.0.2",
+    "pg": "^7.7.1",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "react-jss": "^8.6.1",
+    "reflect-metadata": "^0.1.12",
+    "rxjs": "^6.3.3",
+    "typeorm": "^0.2.9"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.0",
+    "@types/node": "^10.12.12",
+    "@types/react": "^16.7.13",
+    "@types/react-dom": "^16.0.11",
+    "@zeit/next-typescript": "^1.1.1",
+    "nodemon": "^1.18.7",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.2.1"
+  }
+}
