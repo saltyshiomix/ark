@@ -2,14 +2,35 @@
 
 <p align="center">An easiest web app template on top of <a href="https://nestjs.com/">nest</a>, <a href="http://typeorm.io/">TypeORM</a>, <a href="https://nextjs.org/">Next.js</a> and <a href="https://material-ui.com/">Material UI</a>.</p>
 
-## Feature
+## Features
 
 - Database synchronization with entities - powered by [TypeORM](http://typeorm.io/)
 - Server Side Rendering - powered by [Next.js](https://nextjs.org/)
 - API server - powered by [nest](https://nestjs.com/)
-- Authentication
+- User authentication - powered by [Passport](http://www.passportjs.org/)
 - [Material UI](https://material-ui.com/) design
-- Environment viriables using [dotenv](https://github.com/motdotla/dotenv)
+- Environment viriables using [dotenv](https://github.com/motdotla/dotenv/)
+
+## Technologies
+
+- Lang
+    - [TypeScript](https://www.typescriptlang.org/) - Javascript that scales
+- Database
+    - [PostgreSQL](https://www.postgresql.org/) - The World's Most Advanced Open Source Relational Database
+- ORM (Object-relational mapping)
+    - [TypeORM](http://typeorm.io/) - ORM for TypeScript and JavaScript (ES7, ES6, ES5)
+- Server
+    - [nest](https://nestjs.com/) - A progressive Node.js framework for building efficient, reliable and scalable server-side applications
+        - internally using [Express](https://expressjs.com/) - Fast, unopinionated, minimalist web framework for Node.js
+    - [Next.js](https://nextjs.org/) - The React Framework
+- Environment variables
+    - [dotenv](https://github.com/motdotla/dotenv/) - Loads environment variables from .env for nodejs projects
+- User authentication
+    - [Passport](http://www.passportjs.org/) - Simple, unobtrusive authentication for Node.js
+- UI framework
+    - [React](https://reactjs.org/) - A JavaScript library for building user interfaces
+    - [Next.js](https://nextjs.org/) - The React Framework
+    - [Material UI](https://material-ui.com/) - React components that implement Google's Material Design.
 
 ## Setup
 
