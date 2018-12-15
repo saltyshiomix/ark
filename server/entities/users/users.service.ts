@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
@@ -21,8 +21,8 @@ export class UsersService {
     return await this.repository.findOne(id);
   }
 
-  async findOneByUsername(username: string): Promise<User> {
-    return await this.repository.findOne({ username });
+  async findOneByEmail(email: string): Promise<User> {
+    return await this.repository.findOne({ email });
   }
 
   async update(id: number, updateUserDto: UpdateUserDto): Promise<void> {

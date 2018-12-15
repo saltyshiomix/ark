@@ -2,8 +2,9 @@ import { join } from 'path';
 import { config } from 'dotenv';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { RenderModule } from './next-integration/render.module';
+import { RenderModule } from './services/next-integration/render.module';
 import * as next from 'next';
+import * as passport from 'passport';
 
 async function bootstrap() {
   config({ path: join(__dirname, '../.env') });
@@ -17,6 +18,12 @@ async function bootstrap() {
   server.use(require('cookie-parser')());
   server.use(require('body-parser').urlencoded({ extended: true }));
   server.use(require('body-parser').json());
+  server.use(require('express-session')({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: false }));
+  server.use(passport.initialize());
+  server.use(passport.session());
+
+  passport.serializeUser((user, cb) => cb(null, user));
+  passport.deserializeUser((obj, cb) => cb(null, obj));
 
   const renderer = server.get(RenderModule);
   renderer.register(server, app);
