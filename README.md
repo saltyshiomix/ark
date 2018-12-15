@@ -1,6 +1,6 @@
-# Ark
+<p align="center"><img src="https://i.imgur.com/NjfVsRm.png"></p>
 
-A full featured web app template on top of [nest](https://nestjs.com/), [TypeORM](http://typeorm.io/), [Next.js](https://nextjs.org/) and [Material UI](https://material-ui.com/).
+<p align="center">An easiest web app template on top of <a href="https://nestjs.com/">nest</a>, <a href="http://typeorm.io/">TypeORM</a>, <a href="https://nextjs.org/">Next.js</a> and <a href="https://material-ui.com/">Material UI</a>.</p>
 
 ## Feature
 
