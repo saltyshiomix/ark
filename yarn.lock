@@ -1938,6 +1938,13 @@ configstore@^3.0.0:
     write-file-atomic "^2.0.0"
     xdg-basedir "^3.0.0"
 
+connect-pg-simple@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/connect-pg-simple/-/connect-pg-simple-5.0.0.tgz#f0304a1ee4e1e1a69e7783123cbcbf68d2155a19"
+  integrity sha512-WZ7xkN+qe5bbDLgZ1L9GxnSbr155cJHmfNRzVR5hBvqio7Pg/vuH7Cf8lPUSFClQjtybYSejUqyO54sYt4cg+w==
+  dependencies:
+    pg "^7.4.3"
+
 consola@^1.4.3:
   version "1.4.5"
   resolved "https://registry.yarnpkg.com/consola/-/consola-1.4.5.tgz#09732d07cb50af07332e54e0f42fafb92b962c4a"
@@ -4721,7 +4728,7 @@ pg-types@~1.12.1:
     postgres-date "~1.0.0"
     postgres-interval "^1.1.0"
 
-pg@^7.7.1:
+pg@^7.4.3, pg@^7.7.1:
   version "7.7.1"
   resolved "https://registry.yarnpkg.com/pg/-/pg-7.7.1.tgz#546b192ff484322b69689391f885de3ba91a30d4"
   integrity sha512-p3I0mXOmUvCoVlCMFW6iYSrnguPol6q8He15NGgSIdM3sPGjFc+8JGCeKclw8ZR4ETd+Jxy2KNiaPUcocHZeMw==
