@@ -75,3 +75,7 @@ $ yarn start
 - [ ] Auth: [passport-twitter](https://github.com/jaredhanson/passport-twitter) (Twitter login)
 - [ ] Test: unit tests
 - [ ] Test: e2e tests
+
+## Articles
+
+- [A road to the easiest user authentication system for Node.js](https://dev.to/saltyshiomix/a-road-to-the-easiest-user-authentication-system-for-nodejs-138f)
