@@ -8,18 +8,25 @@ import * as passport from 'passport';
 import * as session from 'express-session';
 
 async function bootstrap() {
+  // enable environment variables
   config({ path: join(__dirname, '../.env') });
 
+  // prepare Next.js
   const dev = process.env.NODE_ENV !== 'production';
   const app = next({ dev });
-
   await app.prepare();
 
+  // create nest server
   const server = await NestFactory.create(AppModule);
+
+  // enable cookie
   server.use(require('cookie-parser')());
+
+  // enable json response
   server.use(require('body-parser').urlencoded({ extended: true }));
   server.use(require('body-parser').json());
 
+  // production ready session store
   const pgSession = require('connect-pg-simple')(session);
   server.use(session({
     secret: process.env.SESSION_SECRET,
@@ -36,14 +43,17 @@ async function bootstrap() {
     }
   }));
 
+  // enable passport session
   server.use(passport.initialize());
   server.use(passport.session());
   passport.serializeUser((user, cb) => cb(null, user));
   passport.deserializeUser((obj, cb) => cb(null, obj));
 
+  // integration between nest and Next.js
   const renderer = server.get(RenderModule);
   renderer.register(server, app);
 
+  // start server
   await server.listenAsync(process.env.PORT, '0.0.0.0');
 }
 
