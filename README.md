@@ -59,3 +59,18 @@ $ yarn dev
 $ yarn build
 $ yarn start
 ```
+
+## Roadmaps
+
+- [x] Security: environment variables
+- [x] Database: auto synchronization with entities
+- [x] Server: integration between [nest](https://nestjs.com/) and [Next.js](https://nextjs.org/)
+- [ ] API: define JSON API routes (if needed)
+- [x] UI: integration between [Next.js](https://nextjs.org/) and [Material UI](https://material-ui.com/)
+- [x] UI: top page
+- [ ] UI: user profile page
+- [x] Auth: [passport-local](https://github.com/jaredhanson/passport-local) (email & password)
+- [ ] Auth: [passport-github2](https://github.com/cfsghost/passport-github) (GitHub login)
+- [ ] Auth: [passport-twitter](https://github.com/jaredhanson/passport-twitter) (Twitter login)
+- [ ] Test: unit tests
+- [ ] Test: e2e tests
