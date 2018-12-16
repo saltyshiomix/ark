@@ -69,6 +69,7 @@ $ yarn start
 - [x] UI: integration between [Next.js](https://nextjs.org/) and [Material UI](https://material-ui.com/)
 - [x] UI: top page
 - [ ] UI: user profile page
+- [ ] UX: validation
 - [x] Auth: [passport-local](https://github.com/jaredhanson/passport-local) (email & password)
 - [ ] Auth: [passport-github2](https://github.com/cfsghost/passport-github) (GitHub login)
 - [ ] Auth: [passport-twitter](https://github.com/jaredhanson/passport-twitter) (Twitter login)
