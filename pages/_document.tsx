@@ -40,6 +40,7 @@ class MyDocument extends Document<Props> {
           <meta name="viewport" content={'user-scalable=0, initial-scale=1, minimum-scale=1, width=device-width, height=device-height'} />
           <meta name="theme-color" content={pageContext.theme.palette.primary.main} />
           <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" />
+          <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico" />
         </Head>
         <body>
           <Main />
