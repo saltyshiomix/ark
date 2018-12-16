@@ -60,6 +60,24 @@ $ yarn build
 $ yarn start
 ```
 
+`.env` file (development mode):
+
+```
+# DB
+DB_TYPE=postgres
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=arkuser
+DB_PASSWORD=arkark
+DB_DATABASE=arkdb
+DB_SYNCHRONIZE=true
+
+# App
+HOST=localhost
+PORT=4000
+SESSION_SECRET=ark
+```
+
 ## Roadmaps
 
 - [x] Security: environment variables
