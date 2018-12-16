@@ -13,6 +13,9 @@
 
 ## Technologies
 
+- Hot reloading for the developer experience :)
+    - [nodemon](https://nodemon.io/) - Monitor for any changes in your node.js application and automatically restart the server
+    - [Next.js](https://nextjs.org/) - The React Framework
 - Lang
     - [TypeScript](https://www.typescriptlang.org/) - Javascript that scales
 - Database
