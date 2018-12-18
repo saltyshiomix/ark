@@ -86,6 +86,7 @@ SESSION_SECRET=ark
 - [x] Security: environment variables
 - [x] Security: redirect if authenticated
 - [x] Security: redirect if not authenticated
+- [x] Security: production ready session store
 - [x] Database: auto synchronization with entities
 - [x] Server: integration between [nest](https://nestjs.com/) and [Next.js](https://nextjs.org/)
 - [x] UI: integration between [Next.js](https://nextjs.org/) and [Material UI](https://material-ui.com/)
