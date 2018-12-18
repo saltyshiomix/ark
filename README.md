@@ -84,16 +84,18 @@ SESSION_SECRET=ark
 ## Roadmaps
 
 - [x] Security: environment variables
+- [x] Security: redirect if authenticated
+- [x] Security: redirect if not authenticated
 - [x] Database: auto synchronization with entities
 - [x] Server: integration between [nest](https://nestjs.com/) and [Next.js](https://nextjs.org/)
-- [ ] API: define JSON API routes (if needed)
 - [x] UI: integration between [Next.js](https://nextjs.org/) and [Material UI](https://material-ui.com/)
-- [x] UI: top page
-- [ ] UI: user profile page
 - [ ] UX: validation
 - [x] Auth: [passport-local](https://github.com/jaredhanson/passport-local) (email & password)
 - [ ] Auth: [passport-github2](https://github.com/cfsghost/passport-github) (GitHub login)
 - [ ] Auth: [passport-twitter](https://github.com/jaredhanson/passport-twitter) (Twitter login)
+- [ ] API: define JSON API routes (if needed)
+- [x] Feature: authentication
+- [ ] Feature: blogging
 - [ ] Test: unit tests
 - [ ] Test: e2e tests
 
