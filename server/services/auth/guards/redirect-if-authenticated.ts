@@ -1,12 +1,13 @@
 import { parse } from 'url';
+import match from './match';
 
 export function redirectIfAuthenticated(req, res) {
   if (req.user) {
     const { pathname } = parse(req.url, true);
     const guards: string[] = [
-      '/auth/login',
-      '/auth/signup'
+      '\/auth\/login$',
+      '\/auth\/signup$'
     ];
-    guards.includes(pathname) && res.redirect('/');
+    match(pathname, guards) && res.redirect('/');
   }
 }
