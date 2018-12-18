@@ -1,6 +1,7 @@
-import { parse } from 'url';
 import { Injectable, MiddlewareFunction, NestMiddleware } from '@nestjs/common';
 import { RenderService } from './render.service';
+import { redirectIfAuthenticated } from '../auth/guards/redirect-if-authenticated';
+import { redirectIfNotAuthenticated } from '../auth/guards/redirect-if-not-authenticated';
 
 @Injectable()
 export class RenderMiddleware implements NestMiddleware {
@@ -8,21 +9,8 @@ export class RenderMiddleware implements NestMiddleware {
 
   public resolve(): MiddlewareFunction {
     return (req, res, next) => {
-      const { pathname } = parse(req.url, true);
-
-      if (req.user) {
-        const redirectIfAuthenticated = [
-          '/auth/login',
-          '/auth/signup'
-        ];
-        redirectIfAuthenticated.includes(pathname) && res.redirect('/');
-      } else {
-        const authGuards = [
-          '/'
-        ];
-        authGuards.includes(pathname) && res.redirect('/auth/login');
-      }
-
+      redirectIfAuthenticated(req, res);
+      redirectIfNotAuthenticated(req, res);
       this.renderer.next(req, res);
       if (next) {
         next();
