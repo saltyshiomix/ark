@@ -24,12 +24,16 @@ export class UsersController {
 
   @Get()
   public async findAll(@Query() query): Promise<User[]> {
-    return await this.service.findAll();
+    const users: User[] = await this.service.findAll();
+    users.map(user => delete user.password);
+    return users;
   }
 
   @Get(':id')
   public async findOne(@Param('id') id): Promise<User> {
-    return await this.service.findOne(id);
+    const user: User = await this.service.findOne(id);
+    delete user.password;
+    return user;
   }
 
   @Put(':id')
