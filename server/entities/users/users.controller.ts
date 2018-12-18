@@ -5,7 +5,6 @@ import {
   Put,
   Delete,
   Body,
-  Query,
   Param
 } from '@nestjs/common';
 import { User } from './user.entity';
@@ -23,7 +22,7 @@ export class UsersController {
   }
 
   @Get()
-  public async findAll(@Query() query): Promise<User[]> {
+  public async findAll(): Promise<User[]> {
     const users: User[] = await this.service.findAll();
     users.map(user => delete user.password);
     return users;
