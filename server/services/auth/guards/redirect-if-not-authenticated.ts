@@ -4,9 +4,9 @@ import match from './match';
 export function redirectIfNotAuthenticated(req, res) {
   if (!req.user) {
     const { pathname } = parse(req.url, true);
-    const guards: string[] = [
-      '\/api(.*)$',
-      '\/$'
+    const guards: RegExp[] = [
+      /\/api(.*)$/,
+      /\/$/
     ];
     match(pathname, guards) && res.redirect('/auth/login');
   }

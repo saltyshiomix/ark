@@ -4,9 +4,9 @@ import match from './match';
 export function redirectIfAuthenticated(req, res) {
   if (req.user) {
     const { pathname } = parse(req.url, true);
-    const guards: string[] = [
-      '\/auth\/login$',
-      '\/auth\/signup$'
+    const guards: RegExp[] = [
+      /\/auth\/login$/,
+      /\/auth\/signup$/
     ];
     match(pathname, guards) && res.redirect('/');
   }
