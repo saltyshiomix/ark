@@ -9,7 +9,7 @@
 - API server - powered by [nest](https://nestjs.com/)
 - User authentication - powered by [Passport](http://www.passportjs.org/)
 - [Material UI](https://material-ui.com/) design
-- Environment viriables using [dotenv](https://github.com/motdotla/dotenv/)
+- Environment variables using [dotenv](https://github.com/motdotla/dotenv/)
 
 ## Technologies
 
