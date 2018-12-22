@@ -10,12 +10,12 @@ import {
 export class AuthController {
   @Post('signup')
   public async localSignUp(@Req() req, @Res() res) {
-    res.redirect('/');
+    req.session.save(() => res.redirect('/'));
   }
 
   @Post('login')
   public async localLogin(@Req() req, @Res() res) {
-    res.redirect('/');
+    req.session.save(() => res.redirect('/'));
   }
 
   @Get('logout')
