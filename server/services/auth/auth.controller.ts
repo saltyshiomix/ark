@@ -20,7 +20,6 @@ export class AuthController {
 
   @Get('logout')
   public async logout(@Req() req, @Res() res) {
-    req.logout();
-    res.redirect('/auth/login');
+    req.session.destroy(() => res.redirect('/auth/login'));
   }
 }
