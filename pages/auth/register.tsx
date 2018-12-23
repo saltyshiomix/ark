@@ -79,7 +79,7 @@ const Register = withStyles(styles)(
         password: e.target.password.value
       }
 
-      const { data: user } = await this.client.post('auth/register', data);
+      const { data: user } = await this.client.post('api/auth/register', data);
       if (user) {
         window.location.href = '/';
       } else {

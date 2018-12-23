@@ -6,7 +6,7 @@ import {
   Res
 } from '@nestjs/common';
 
-@Controller('auth')
+@Controller('api/auth')
 export class AuthController {
   @Post('register')
   public async register(@Req() req, @Res() res) {

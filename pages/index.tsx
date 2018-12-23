@@ -33,7 +33,7 @@ const Home = withStyles(styles)(
     handleClick = async (e) => {
       e.preventDefault();
 
-      const { data: loggedOut } = await this.client.get('auth/logout');
+      const { data: loggedOut } = await this.client.get('api/auth/logout');
       if (loggedOut) {
         window.location.href = '/auth/login';
       } else {

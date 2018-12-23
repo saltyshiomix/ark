@@ -74,7 +74,7 @@ const Login = withStyles(styles)(
         password: e.target.password.value
       }
 
-      const { data: user } = await this.client.post('auth/login', data);
+      const { data: user } = await this.client.post('api/auth/login', data);
       if (user) {
         window.location.href = '/';
       } else {
