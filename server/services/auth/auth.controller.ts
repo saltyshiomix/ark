@@ -8,13 +8,13 @@ import {
 
 @Controller('auth')
 export class AuthController {
-  @Post('signup')
-  public async localSignUp(@Req() req, @Res() res) {
+  @Post('register')
+  public async register(@Req() req, @Res() res) {
     req.session.save(() => res.json(req.user));
   }
 
   @Post('login')
-  public async localLogin(@Req() req, @Res() res) {
+  public async login(@Req() req, @Res() res) {
     req.session.save(() => res.json(req.user));
   }
 

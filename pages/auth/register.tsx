@@ -33,7 +33,7 @@ const styles = ({ spacing }: Theme) => createStyles({
 
 interface Props extends WithStyles<typeof styles> {};
 
-const SignUp = withStyles(styles)(
+const Register = withStyles(styles)(
   class extends React.Component<Props> {
     private client: HttpClient;
     private nameLabelRef;
@@ -79,11 +79,11 @@ const SignUp = withStyles(styles)(
         password: e.target.password.value
       }
 
-      const { data: user } = await this.client.post('auth/signup', data);
+      const { data: user } = await this.client.post('auth/register', data);
       if (user) {
         window.location.href = '/';
       } else {
-        alert('Failed to sign up!');
+        alert('Failed to register!');
       }
     }
 
@@ -143,7 +143,7 @@ const SignUp = withStyles(styles)(
                   color="primary"
                   size="large"
                 >
-                  SIGN UP
+                  REGISTER
                 </Button>
                 <br />
                 <Button
@@ -161,4 +161,4 @@ const SignUp = withStyles(styles)(
   }
 )
 
-export default SignUp;
+export default Register;

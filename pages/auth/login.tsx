@@ -63,7 +63,7 @@ const Login = withStyles(styles)(
 
     handleClick = (e) => {
       e.preventDefault();
-      window.location.href = '/auth/signup';
+      window.location.href = '/auth/register';
     };
 
     handleSubmit = async (e) => {

@@ -6,7 +6,7 @@ import { AuthService } from '../auth.service';
 import { User } from '../../../entities/users/user.entity';
 
 @Injectable()
-export class LocalSignupStrategy extends PassportStrategy(Strategy, 'local-signup') {
+export class LocalRegisterStrategy extends PassportStrategy(Strategy, 'local-register') {
   constructor(private readonly service: AuthService) {
     super({
       usernameField: 'email',
