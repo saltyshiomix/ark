@@ -5,7 +5,9 @@ import {
   Put,
   Delete,
   Body,
-  Param
+  Param,
+  UseInterceptors,
+  ClassSerializerInterceptor
 } from '@nestjs/common';
 import { User } from './user.entity';
 import { UsersService } from './users.service';
@@ -22,17 +24,15 @@ export class UsersController {
   }
 
   @Get()
+  @UseInterceptors(ClassSerializerInterceptor)
   public async findAll(): Promise<User[]> {
-    const users: User[] = await this.service.findAll();
-    users.map(user => delete user.password);
-    return users;
+    return await this.service.findAll();
   }
 
   @Get(':id')
+  @UseInterceptors(ClassSerializerInterceptor)
   public async findOne(@Param('id') id): Promise<User> {
-    const user: User = await this.service.findOne(id);
-    delete user.password;
-    return user;
+    return await this.service.findOne(id);
   }
 
   @Put(':id')
