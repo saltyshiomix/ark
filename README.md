@@ -28,6 +28,7 @@
     - [Next.js](https://nextjs.org/) - The React Framework
 - Environment variables
     - [dotenv](https://github.com/motdotla/dotenv/) - Loads environment variables from .env for nodejs projects
+    - [dotenv-webpack](https://github.com/mrsteele/dotenv-webpack/) - A secure webpack plugin that supports dotenv and other environment variables and only exposes what you choose and use.
 - User authentication
     - [Passport](http://www.passportjs.org/) - Simple, unobtrusive authentication for Node.js
 - UI framework
@@ -36,6 +37,10 @@
     - [Material UI](https://material-ui.com/) - React components that implement Google's Material Design.
 
 ## Setup
+
+### Database
+
+For mac users, database setup is like this:
 
 ```bash
 # install database (postgresql)
@@ -49,8 +54,12 @@ $ createuser -P arkuser
 
 # create database "arkdb" owened by "arkuser"
 $ createdb arkdb -O arkuser
+```
 
-# prepare `.env`
+### Application
+
+```bash
+# prepare `.env` and edit it for your own environments
 $ cp .env.example .env
 
 # install dependencies
@@ -86,16 +95,16 @@ SESSION_SECRET=ark
 ## Roadmaps
 
 - [x] Security: environment variables both server and client
-- [x] Security: redirect if authenticated or not
 - [x] Security: production ready session store
+- [x] Security: custom auth guards
 - [x] Database: auto synchronization with entities
 - [x] Server: integration between [nest](https://nestjs.com/) and [Next.js](https://nextjs.org/)
 - [x] UI: integration between [Next.js](https://nextjs.org/) and [Material UI](https://material-ui.com/)
 - [ ] UX: validation
+- [x] API: JSON API routes
 - [x] Auth: [passport-local](https://github.com/jaredhanson/passport-local) (email & password)
 - [ ] Auth: [passport-github2](https://github.com/cfsghost/passport-github) (GitHub login)
 - [ ] Auth: [passport-twitter](https://github.com/jaredhanson/passport-twitter) (Twitter login)
-- [x] API: define JSON API routes
 - [x] Feature: authentication
 - [ ] Feature: blogging
 - [ ] Test: unit tests
