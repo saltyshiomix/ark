@@ -8,6 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
+import HttpClient from '../../lib/http-client';
 
 const styles = ({ spacing }: Theme) => createStyles({
   root: {
@@ -34,9 +35,10 @@ interface Props extends WithStyles<typeof styles> {};
 
 const SignUp = withStyles(styles)(
   class extends React.Component<Props> {
-    nameLabelRef;
-    emailLabelRef;
-    passwordLabelRef;
+    private client: HttpClient;
+    private nameLabelRef;
+    private emailLabelRef;
+    private passwordLabelRef;
 
     state = {
       name: '',
@@ -48,6 +50,8 @@ const SignUp = withStyles(styles)(
     };
 
     componentDidMount() {
+      this.client = new HttpClient;
+
       this.setState({
         nameLabelWidth: (ReactDOM.findDOMNode(this.nameLabelRef) as HTMLElement).offsetWidth,
         emailLabelWidth: (ReactDOM.findDOMNode(this.emailLabelRef) as HTMLElement).offsetWidth,
@@ -66,6 +70,23 @@ const SignUp = withStyles(styles)(
       window.location.href = '/auth/login';
     };
 
+    handleSubmit = async (e) => {
+      e.preventDefault();
+
+      const data = {
+        name: e.target.name.value,
+        email: e.target.email.value,
+        password: e.target.password.value
+      }
+
+      const { data: user } = await this.client.post('auth/signup', data);
+      if (user) {
+        window.location.href = '/';
+      } else {
+        alert('Failed to sign up!');
+      }
+    }
+
     render() {
       const { classes } = this.props;
 
@@ -73,11 +94,10 @@ const SignUp = withStyles(styles)(
         <div className={classes.root}>
           <Typography variant="h2">ARK</Typography>
           <form
-            method="POST"
-            action="/auth/signup"
+            onSubmit={this.handleSubmit}
             className={classes.container}
-            noValidate
             autoComplete="off"
+            noValidate
           >
             <Card className={classes.card}>
               <CardContent>

@@ -15,7 +15,7 @@ import { LocalSignupStrategy, LocalLoginStrategy } from './strategies/local.stra
 export class AuthModule implements NestModule {
   public configure(consumer: MiddlewareConsumer) {
     consumer
-      .apply(authenticate('local-signup', { failureRedirect: '/auth/signup' })).forRoutes({ path: '/auth/signup', method: RequestMethod.POST })
-      .apply(authenticate('local-login', { failureRedirect: '/auth/login' })).forRoutes({ path: '/auth/login', method: RequestMethod.POST });
+      .apply(authenticate('local-signup')).forRoutes({ path: '/auth/signup', method: RequestMethod.POST })
+      .apply(authenticate('local-login')).forRoutes({ path: '/auth/login', method: RequestMethod.POST });
   }
 }
