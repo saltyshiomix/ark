@@ -6,10 +6,7 @@ module.exports = withTypescript({
   webpack: config => {
     config.plugins = [
       ...(config.plugins || []),
-      new DotenvWebpackPlugin({
-        path: join(__dirname, '.env'),
-        systemvars: true
-      })
+      new DotenvWebpackPlugin({ path: join(__dirname, '.env') })
     ]
     return config;
   }
