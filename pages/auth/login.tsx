@@ -8,6 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
+import HttpClient from '../../lib/http-client';
 
 const styles = ({ spacing }: Theme) => createStyles({
   root: {
@@ -34,8 +35,9 @@ interface Props extends WithStyles<typeof styles> {};
 
 const Login = withStyles(styles)(
   class extends React.Component<Props> {
-    emailLabelRef;
-    passwordLabelRef;
+    private client: HttpClient;
+    private emailLabelRef;
+    private passwordLabelRef;
 
     state = {
       email: '',
@@ -45,6 +47,8 @@ const Login = withStyles(styles)(
     };
 
     componentDidMount() {
+      this.client = new HttpClient;
+
       this.setState({
         emailLabelWidth: (ReactDOM.findDOMNode(this.emailLabelRef) as HTMLElement).offsetWidth,
         passwordLabelWidth: (ReactDOM.findDOMNode(this.passwordLabelRef) as HTMLElement).offsetWidth,
@@ -59,8 +63,24 @@ const Login = withStyles(styles)(
 
     handleClick = (e) => {
       e.preventDefault();
-      window.location.href = '/auth/signup';
+      window.location.href = '/auth/register';
     };
+
+    handleSubmit = async (e) => {
+      e.preventDefault();
+
+      const data = {
+        email: e.target.email.value,
+        password: e.target.password.value
+      }
+
+      const { data: user } = await this.client.post('api/auth/login', data);
+      if (user) {
+        window.location.href = '/';
+      } else {
+        alert('Failed to login!');
+      }
+    }
 
     render() {
       const { classes } = this.props;
@@ -69,11 +89,10 @@ const Login = withStyles(styles)(
         <div className={classes.root}>
           <Typography variant="h2">ARK</Typography>
           <form
-            method="POST"
-            action="/auth/login"
+            onSubmit={this.handleSubmit}
             className={classes.container}
-            noValidate
             autoComplete="off"
+            noValidate
           >
             <Card className={classes.card}>
               <CardContent>

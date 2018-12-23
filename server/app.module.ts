@@ -3,8 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeOrmService } from './services/database/typeorm.service';
 import { EnvModule } from './services/env/env.module';
 import { RenderModule } from './services/next-integration/render.module';
-import { AuthModule } from './services/auth/auth.module';
-import { UsersModule } from './entities/users/users.module';
+import { AuthModule } from './api/auth/auth.module';
+import { UsersModule } from './api/users/users.module';
 
 @Module({
   imports: [
@@ -15,9 +15,9 @@ import { UsersModule } from './entities/users/users.module';
     }),
     EnvModule,
     RenderModule,
-    AuthModule,
 
-    // entities
+    // api routes
+    AuthModule,
     UsersModule
   ]
 })
