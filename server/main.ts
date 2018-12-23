@@ -11,10 +11,10 @@ import * as passport from 'passport';
 
 async function bootstrap() {
   // enable environment variables
-  config({ path: join(__dirname, '../.env') });
+  const dev = process.env.NODE_ENV !== 'production';
+  config({ path: join(__dirname, dev ? '../.env' : '../../.env') });
 
   // prepare Next.js
-  const dev = process.env.NODE_ENV !== 'production';
   const app = next({ dev });
   await app.prepare();
 

@@ -6,7 +6,7 @@ import { EnvService } from './env.service';
   providers: [
     {
       provide: EnvService,
-      useValue: new EnvService(join(__dirname, '../../../.env'))
+      useValue: new EnvService(join(__dirname, process.env.NODE_ENV === 'production' ? '../../../../.env' : '../../../.env'))
     }
   ],
   exports: [EnvService]

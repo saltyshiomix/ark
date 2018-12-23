@@ -50,20 +50,21 @@ $ createuser -P arkuser
 # create database "arkdb" owened by "arkuser"
 $ createdb arkdb -O arkuser
 
+# prepare `.env`
+$ cp .env.example .env
+
 # install dependencies
 $ yarn
 
 # development mode
-# please make sure to create the `.env` file!
 $ yarn dev
 
 # production mode
-# please make sure to create the `.next/.env` file!
 $ yarn build
 $ yarn start
 ```
 
-`.env` file (development mode):
+The `.env` file is like this:
 
 ```
 # DB
