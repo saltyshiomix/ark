@@ -1,5 +1,5 @@
 import { Module, NestModule, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
-import * as passport from 'passport';
+import { authenticate } from 'passport';
 import { PassportModule } from '@nestjs/passport';
 import { EnvModule } from '../env/env.module'
 import { UsersModule } from '../../entities/users/users.module';
@@ -20,7 +20,7 @@ import { LocalStrategy } from './strategies/local.strategy';
 export class AuthModule implements NestModule {
   public configure(consumer: MiddlewareConsumer) {
     consumer
-      .apply(passport.authenticate('local', { failureRedirect: '/auth/signup' })).forRoutes({ path: '/auth/signup', method: RequestMethod.POST })
-      .apply(passport.authenticate('local', { failureRedirect: '/auth/login' })).forRoutes({ path: '/auth/login', method: RequestMethod.POST });
+      .apply(authenticate('local', { failureRedirect: '/auth/signup' })).forRoutes({ path: '/auth/signup', method: RequestMethod.POST })
+      .apply(authenticate('local', { failureRedirect: '/auth/login' })).forRoutes({ path: '/auth/login', method: RequestMethod.POST });
   }
 }
