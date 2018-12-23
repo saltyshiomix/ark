@@ -6,6 +6,7 @@ import { RenderModule } from './services/next-integration/render.module';
 import * as next from 'next';
 import * as passport from 'passport';
 import * as session from 'express-session';
+import * as helmet from 'helmet';
 
 async function bootstrap() {
   // enable environment variables
@@ -17,7 +18,10 @@ async function bootstrap() {
   await app.prepare();
 
   // create nest server
-  const server = await NestFactory.create(AppModule);
+  const server = await NestFactory.create(AppModule, { enableCors: true });
+
+  // improve security
+  server.use(helmet());
 
   // enable cookie
   server.use(require('cookie-parser')());
