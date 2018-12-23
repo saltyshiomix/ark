@@ -4,9 +4,10 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { RenderModule } from './services/next-integration/render.module';
 import * as next from 'next';
-import * as passport from 'passport';
-import * as session from 'express-session';
 import * as helmet from 'helmet';
+import * as compression from 'compression';
+import * as session from 'express-session';
+import * as passport from 'passport';
 
 async function bootstrap() {
   // enable environment variables
@@ -22,6 +23,9 @@ async function bootstrap() {
 
   // improve security
   server.use(helmet());
+
+  // improve performance
+  server.use(compression());
 
   // enable cookie
   server.use(require('cookie-parser')());
