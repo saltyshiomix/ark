@@ -9,7 +9,7 @@ export default class HttpClient {
 
   constructor() {
     this.client = axios.create({
-      baseURL: `${process.env.NODE_ENV === 'production' ? 'https' : 'http'}://${process.env.HOST}:${process.env.PORT}`
+      baseURL: `${process.env.PROTOCOL}://${process.env.HOST}:${process.env.PORT}`
     });
   }
 
