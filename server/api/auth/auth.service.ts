@@ -2,21 +2,21 @@ import { Injectable } from '@nestjs/common';
 import { User } from '../../entities/user.entity';
 import { UsersService } from '../users/users.service';
 import { CreateUserDto } from '../users/dto/create-user.dto';
-import { CreateUserIfNotExistDto } from './dto/create-user-if-not-exist.dto';
+import { RegisterUserDto } from './dto/register-user.dto';
 
 @Injectable()
 export class AuthService {
   constructor(private readonly service: UsersService) {}
 
-  public async validateUser(email: string): Promise<User> {
+  public async validateUserByEmail(email: string): Promise<User> {
     return await this.service.findOneByEmail(email);
   }
 
-  public async createUserIfNotExist(createUserIfNotExistDto: CreateUserIfNotExistDto): Promise<User> {
-    const user: User = await this.validateUser(createUserIfNotExistDto.email);
+  public async registerUserIfNotExist(registerUserDto: RegisterUserDto): Promise<User> {
+    const user: User = await this.validateUserByEmail(registerUserDto.email);
     if (user) {
       return user;
     }
-    return await this.service.create(createUserIfNotExistDto as CreateUserDto);
+    return await this.service.create(registerUserDto as CreateUserDto);
   }
 }

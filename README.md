@@ -100,7 +100,7 @@ SESSION_SECRET=ark
 - [x] Database: auto synchronization with entities
 - [x] Server: integration between [nest](https://nestjs.com/) and [Next.js](https://nextjs.org/)
 - [x] UI: integration between [Next.js](https://nextjs.org/) and [Material UI](https://material-ui.com/)
-- [ ] UX: validation
+- [x] UX: validation
 - [x] API: JSON API routes
 - [x] Auth: [passport-local](https://github.com/jaredhanson/passport-local) (email & password)
 - [ ] Auth: [passport-github2](https://github.com/cfsghost/passport-github) (GitHub login)
