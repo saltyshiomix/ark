@@ -133,9 +133,40 @@ PORT=4000
 SESSION_SECRET=ark
 ```
 
+## Production Deployment
+
+With production usages, please use [pm2](https://github.com/Unitech/pm2/) for Node.js process managements.
+
+```bash
+# install pm2
+$ npm install --global pm2
+
+# run the app "ARK" with the config `ecosystem.config.js`
+$ pm2 start
+```
+
+The example `ecosystem.config.js`:
+
+```js
+module.exports = {
+  apps : [{
+    name: 'ARK',
+    script: '.next/production-server/main.js',
+    instances: 1,
+    autorestart: true,
+    watch: false,
+    max_memory_restart: '1G',
+    env: {
+      NODE_ENV: 'production'
+    }
+  }]
+};
+```
+
 ## Roadmaps
 
 - [x] Support: Mac, Linux and Windows
+- [x] Support: production usages
 - [x] Security: environment variables both server and client
 - [x] Security: production ready session store
 - [x] Security: custom auth guards
