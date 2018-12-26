@@ -38,25 +38,65 @@
 
 ## Setup
 
-### Database
+### Database Setup
 
-For mac users, database setup is like this:
+Ark uses [PostgreSQL](https://www.postgresql.org/).
+
+#### For Mac Users
 
 ```bash
-# install database (postgresql)
+# install postgresql
 $ brew install postgresql
 
 # if you want to start postgresql in startup, try do this
 $ brew services start postgresql
 
-# create user "arkuser" with password "arkark"
+# [MUST] create user "arkuser" with password "arkark"
 $ createuser -P arkuser
 
-# create database "arkdb" owened by "arkuser"
+# [MUST] create database "arkdb" owened by "arkuser"
 $ createdb arkdb -O arkuser
 ```
 
-### Application
+#### For Windows Users
+
+##### Python
+
+Because Ark uses [node.bcrypt.js](https://github.com/kelektiv/node.bcrypt.js/), we need a Python:
+
+- Download an installer at <https://www.python.org/downloads/windows/>
+- Install with "Add Python 3.X to PATH" checked
+
+##### [windows-build-tools](https://github.com/felixrieseberg/windows-build-tools/)
+
+- Run `npm install --global --production windows-build-tools` from an elevated PowerShell or CMD.exe **as Administrator**
+
+##### PostgreSQL
+
+- Download an installer at <https://www.postgresql.org/download/windows/>
+- Run the installer with a flag `--install_runtimes 0` like this:
+
+```cmd
+> postgresql-11.1-1-windows-x64.exe --install_runtimes 0
+```
+
+##### pgAdmin
+
+- Download a latest installer at <https://www.pgadmin.org/download/>
+- Run the pgAdmin and login with a root user
+- Right click `Login/Group Roles` and `Create > Login/Group Role`
+    - `General` Panel:
+        - `Name`: `arkuser`
+    - `Definition` Panel:
+        - `Password`: `arkark`
+    - `Priviledges` Panel:
+        - Check all `Yes`
+- Right click `Databases` and `Create > Database`
+    - `General` Tab:
+        - `Database`: `arkdb`
+        - `Owner`: `arkuser`
+
+### Application Setup
 
 ```bash
 # prepare `.env` and edit it for your own environments
@@ -94,6 +134,7 @@ SESSION_SECRET=ark
 
 ## Roadmaps
 
+- [x] Support: Mac, Linux and Windows
 - [x] Security: environment variables both server and client
 - [x] Security: production ready session store
 - [x] Security: custom auth guards
