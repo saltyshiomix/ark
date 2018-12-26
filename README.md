@@ -4,6 +4,7 @@
 
 ## Features
 
+- Cross platform - Mac, Linux and Windows
 - Database synchronization with entities - powered by [TypeORM](http://typeorm.io/)
 - Server Side Rendering - powered by [Next.js](https://nextjs.org/)
 - API server - powered by [nest](https://nestjs.com/)
