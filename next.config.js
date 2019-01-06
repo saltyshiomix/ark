@@ -7,7 +7,7 @@ module.exports = withTypescript({
     config.plugins = [
       ...(config.plugins || []),
       new DotenvWebpackPlugin({ path: join(__dirname, '.env') })
-    ]
+    ];
     return config;
   }
 });
