@@ -1,4 +1,3 @@
-import { hash } from 'bcrypt';
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
@@ -17,7 +16,6 @@ export class LocalRegisterStrategy extends PassportStrategy(Strategy, 'local-reg
 
   public async validate(req, email, password) {
     const { name } = req.body;
-    password = await hash(password, 8);
     const user: User = await this.service.registerUserIfNotExist({ name, email, password });
     if (user) {
       return user;
