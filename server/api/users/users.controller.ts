@@ -19,8 +19,9 @@ export class UsersController {
   constructor(private readonly service: UsersService) {}
 
   @Post()
-  public async create(@Body() createUserDto: CreateUserDto): Promise<void> {
-    await this.service.create(createUserDto);
+  public async create(@Body() createUserDto: CreateUserDto): Promise<User> {
+    const user: User = await this.service.create(createUserDto);
+    return await this.service.save(user);
   }
 
   @Get()
@@ -37,7 +38,10 @@ export class UsersController {
 
   @Put(':id')
   public async update(@Param('id') id, @Body() updateUserDto: UpdateUserDto): Promise<void> {
-    await this.service.update(id, updateUserDto);
+    const user: User = await this.service.findOne(id);
+    const { name } = updateUserDto;
+    user.name = name;
+    await this.service.save(user);
   }
 
   @Delete(':id')
