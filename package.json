@@ -33,7 +33,7 @@
     "react-dom": "^16.7.0",
     "react-jss": "^8.6.1",
     "reflect-metadata": "0.1.12",
-    "rxjs": "^6.3.3",
+    "rxjs": "^6.4.0",
     "typeorm": "^0.2.12"
   },
   "devDependencies": {
