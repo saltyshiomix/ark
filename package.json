@@ -38,9 +38,9 @@
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
-    "@types/node": "^10.12.24",
-    "@types/react": "^16.8.2",
-    "@types/react-dom": "^16.8.0",
+    "@types/node": "^11.9.3",
+    "@types/react": "^16.8.3",
+    "@types/react-dom": "^16.8.1",
     "@zeit/next-typescript": "^1.1.1",
     "cross-env": "^5.2.0",
     "dotenv-webpack": "^1.7.0",
