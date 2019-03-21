@@ -19,7 +19,7 @@ async function bootstrap() {
   await app.prepare();
 
   // create nest server
-  const server = await NestFactory.create(AppModule, { enableCors: true });
+  const server = await NestFactory.create(AppModule, { cors: true });
 
   // improve security
   server.use(helmet());

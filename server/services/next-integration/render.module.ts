@@ -30,7 +30,7 @@ export class RenderModule {
     this.service.setErrorRenderer(this.server.renderError.bind(this.server));
     this.service.bindHttpServer(this.app.getHttpAdapter());
 
-    this.app.use(new RenderMiddleware(this.service).resolve());
+    this.app.use(new RenderMiddleware(this.service).use);
     this.app.useGlobalFilters(
       new RenderFilter(
         this.service.getRequestHandler()!,
