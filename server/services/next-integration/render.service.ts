@@ -1,5 +1,5 @@
 import { HttpServer, Injectable } from '@nestjs/common';
-import { ErrorRenderer, Renderer, RequestHandler } from 'next';
+import { ErrorRenderer, Renderer, RequestHandler } from './next-types'
 
 @Injectable()
 export class RenderService {

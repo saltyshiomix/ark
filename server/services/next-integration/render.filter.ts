@@ -1,13 +1,13 @@
 import { ArgumentsHost, Catch, ExceptionFilter } from '@nestjs/common';
 import { parse as parseUrl } from 'url';
-import { ErrorRenderer, RequestHandler } from 'next';
+import { ErrorRenderer, RequestHandler } from './next-types'
 
 @Catch()
 export class RenderFilter implements ExceptionFilter {
   constructor(
     private readonly requestHandler: RequestHandler,
     private readonly errorRenderer: ErrorRenderer
-  ) {}
+  ) { }
 
   public async catch(err: any, ctx: ArgumentsHost) {
     const [req, res] = ctx.getArgs();
