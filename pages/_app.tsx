@@ -13,6 +13,14 @@ class MyApp extends App {
     this.pageContext = getPageContext();
   }
 
+  componentDidMount() {
+    // Remove the server-side injected CSS.
+    const jssStyles = document.querySelector('#jss-server-side');
+    if (jssStyles && jssStyles.parentNode) {
+      jssStyles.parentNode.removeChild(jssStyles);
+    }
+  }
+
   render() {
     const { Component, pageProps } = this.props;
 
