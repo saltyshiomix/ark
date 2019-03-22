@@ -18,7 +18,7 @@ class MyDocument extends Document<Props> {
       return WrappedComponent;
     });
 
-    let css; // It might be undefined, e.g. after an error.
+    let css: string; // It might be undefined, e.g. after an error.
     if (pageContext) {
       css = pageContext.sheetsRegistry.toString();
     }
