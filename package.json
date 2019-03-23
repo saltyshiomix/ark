@@ -15,7 +15,7 @@
     "@nestjs/platform-express": "^6.0.2",
     "@nestjs/typeorm": "^6.0.0",
     "axios": "^0.18.0",
-    "bcrypt": "^3.0.4",
+    "bcrypt": "^3.0.5",
     "body-parser": "^1.18.3",
     "class-transformer": "^0.2.0",
     "class-validator": "^0.9.1",
