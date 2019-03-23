@@ -22,7 +22,7 @@
     "compression": "^1.7.4",
     "connect-pg-simple": "^5.0.0",
     "cookie-parser": "^1.4.4",
-    "dotenv": "^6.2.0",
+    "dotenv": "^7.0.0",
     "express-session": "^1.15.6",
     "helmet": "^3.16.0",
     "jss": "^9.8.7",
