@@ -894,19 +894,19 @@
     prop-types "^15.6.0"
     react-is "^16.6.3"
 
-"@nestjs/common@^6.0.4":
-  version "6.0.4"
-  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-6.0.4.tgz#7cc7e07d43548cdd86466ed100848be9e8153e42"
-  integrity sha512-0xMUEonlptc+TGMu+qHQUlF7JP5YpuF29+MDKFoXexANb+VObwOYPks3tjS/Wl51Z8KzxMNaa9KGZXjc3p0BgA==
+"@nestjs/common@^6.0.5":
+  version "6.0.5"
+  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-6.0.5.tgz#2e33ced50e629a5c32df3b9a09efde61d4b5a2df"
+  integrity sha512-CbXtgBW/irevfUZF+rURDLFjhmT0Q6dmzbEYkuMg8bSjPmvgG6VzOBG6PwoPZbd+8PrPc2XLjN2A2Hg9mImp7A==
   dependencies:
     axios "0.18.0"
     cli-color "1.4.0"
     uuid "3.3.2"
 
-"@nestjs/core@^6.0.4":
-  version "6.0.4"
-  resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-6.0.4.tgz#1218b23e46a4f2fe22b40c8d5c90686d2f9806e3"
-  integrity sha512-OIKIBHeFCTwgBzpjlPattYEXNDVfCKEQbKUe2iaOs+QyD4RAJzQoQhktEN8tHERR8UANxmIvQDCkYKRMcGhAEg==
+"@nestjs/core@^6.0.5":
+  version "6.0.5"
+  resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-6.0.5.tgz#f17b91c7c0fcee178791040279be06ffc3785faf"
+  integrity sha512-diLLr9qb9vGKyvfkt8JFGox21rpgj4YiToCRb3Tbdab0bvssLopznh/f7cdEBNmk5Adtl3IvXjtdVRj+XH7VCw==
   dependencies:
     "@nuxtjs/opencollective" "0.2.1"
     fast-safe-stringify "2.0.6"
@@ -920,10 +920,10 @@
   resolved "https://registry.yarnpkg.com/@nestjs/passport/-/passport-6.0.0.tgz#b92fdf90e055eece02c0378fce98e6f60a864c54"
   integrity sha512-+82YJTQpmDrcqS65Jgtdv6+n5lWCZtANw7Cy3KWdSKPBbNheIYBWtKMV2uXZXXtVqxgGaCnrJ03XpHc22RX4xA==
 
-"@nestjs/platform-express@^6.0.4":
-  version "6.0.4"
-  resolved "https://registry.yarnpkg.com/@nestjs/platform-express/-/platform-express-6.0.4.tgz#a0c99a69b7a1aeb86a37e211345cc9883d456ee6"
-  integrity sha512-SXKnpZxIkGaGi1V1H7a9aw8eIMu6+YU0Go04c6PnqY4V3AjjKIdCC5Lm+sNSl5Y9BWOx+wjIoyiW+dQFX+EA8A==
+"@nestjs/platform-express@^6.0.5":
+  version "6.0.5"
+  resolved "https://registry.yarnpkg.com/@nestjs/platform-express/-/platform-express-6.0.5.tgz#148811f480583ecadc2958fd1a794e71fc55a5df"
+  integrity sha512-N3P0IcEN/tQlA4DkFmbKQSyCkwAG00uKDQ0ntkE+3FzMOunlI49+qKFCCUc0xlselTgJtVcZRg5eNot3vA1P/Q==
   dependencies:
     body-parser "1.18.3"
     cors "2.8.5"
