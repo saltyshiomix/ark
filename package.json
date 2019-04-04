@@ -38,7 +38,7 @@
     "typeorm": "^0.2.16"
   },
   "devDependencies": {
-    "@babel/core": "^7.3.4",
+    "@babel/core": "^7.4.3",
     "@types/next": "^8.0.3",
     "@types/next-server": "^7.0.5",
     "@types/node": "^11.12.0",
