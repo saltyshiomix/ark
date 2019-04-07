@@ -1,6 +1,6 @@
 <p align="center"><img src="https://i.imgur.com/NjfVsRm.png"></p>
 
-<p align="center">An easiest web app template on top of <a href="https://nestjs.com/">nest</a>, <a href="http://typeorm.io/">TypeORM</a>, <a href="https://nextjs.org/">Next.js</a> and <a href="https://material-ui.com/">Material UI</a>.</p>
+<p align="center">An easiest web app template on top of <a href="https://nestjs.com">nest</a>, <a href="http://typeorm.io">TypeORM</a>, <a href="https://nextjs.org">Next.js</a> and <a href="https://material-ui.com">Material UI</a>.</p>
 
 <div align="center">
   <a href="https://david-dm.org/saltyshiomix/ark">
@@ -14,43 +14,43 @@
 ## Features
 
 - Cross platform - Mac, Linux and Windows
-- Database synchronization with entities - powered by [TypeORM](http://typeorm.io/)
-- Server Side Rendering - powered by [Next.js](https://nextjs.org/)
-- API server - powered by [nest](https://nestjs.com/)
-- User authentication - powered by [Passport](http://www.passportjs.org/)
-- [Material UI](https://material-ui.com/) design
-- Environment variables using [dotenv](https://github.com/motdotla/dotenv/)
+- Database synchronization with entities - powered by [TypeORM](http://typeorm.io)
+- Server Side Rendering - powered by [Next.js](https://nextjs.org)
+- API server - powered by [nest](https://nestjs.com)
+- User authentication - powered by [Passport](http://www.passportjs.org)
+- [Material UI](https://material-ui.com) design
+- Environment variables using [dotenv](https://github.com/motdotla/dotenv)
 
 ## Technologies
 
 - Hot reloading for the developer experience :)
-    - [nodemon](https://nodemon.io/) - Monitor for any changes in your node.js application and automatically restart the server
-    - [Next.js](https://nextjs.org/) - The React Framework
+    - [nodemon](https://nodemon.io) - Monitor for any changes in your node.js application and automatically restart the server
+    - [Next.js](https://nextjs.org) - The React Framework
 - Lang
-    - [TypeScript](https://www.typescriptlang.org/) - Javascript that scales
+    - [TypeScript](https://www.typescriptlang.org) - Javascript that scales
 - Database
-    - [PostgreSQL](https://www.postgresql.org/) - The World's Most Advanced Open Source Relational Database
+    - [PostgreSQL](https://www.postgresql.org) - The World's Most Advanced Open Source Relational Database
 - ORM (Object-relational mapping)
-    - [TypeORM](http://typeorm.io/) - ORM for TypeScript and JavaScript (ES7, ES6, ES5)
+    - [TypeORM](http://typeorm.io) - ORM for TypeScript and JavaScript (ES7, ES6, ES5)
 - Server
-    - [nest](https://nestjs.com/) - A progressive Node.js framework for building efficient, reliable and scalable server-side applications
-        - internally using [Express](https://expressjs.com/) - Fast, unopinionated, minimalist web framework for Node.js
-    - [Next.js](https://nextjs.org/) - The React Framework
+    - [nest](https://nestjs.com) - A progressive Node.js framework for building efficient, reliable and scalable server-side applications
+        - internally using [Express](https://expressjs.com) - Fast, unopinionated, minimalist web framework for Node.js
+    - [Next.js](https://nextjs.org) - The React Framework
 - Environment variables
-    - [dotenv](https://github.com/motdotla/dotenv/) - Loads environment variables from .env for nodejs projects
-    - [dotenv-webpack](https://github.com/mrsteele/dotenv-webpack/) - A secure webpack plugin that supports dotenv and other environment variables and only exposes what you choose and use.
+    - [dotenv](https://github.com/motdotla/dotenv) - Loads environment variables from .env for nodejs projects
+    - [dotenv-webpack](https://github.com/mrsteele/dotenv-webpack) - A secure webpack plugin that supports dotenv and other environment variables and only exposes what you choose and use.
 - User authentication
-    - [Passport](http://www.passportjs.org/) - Simple, unobtrusive authentication for Node.js
+    - [Passport](http://www.passportjs.org) - Simple, unobtrusive authentication for Node.js
 - UI framework
-    - [React](https://reactjs.org/) - A JavaScript library for building user interfaces
-    - [Next.js](https://nextjs.org/) - The React Framework
-    - [Material UI](https://material-ui.com/) - React components that implement Google's Material Design.
+    - [React](https://reactjs.org) - A JavaScript library for building user interfaces
+    - [Next.js](https://nextjs.org) - The React Framework
+    - [Material UI](https://material-ui.com) - React components that implement Google's Material Design.
 
 ## Setup
 
 ### Database Setup
 
-Ark uses [PostgreSQL](https://www.postgresql.org/).
+Ark uses [PostgreSQL](https://www.postgresql.org).
 
 #### For Mac Users
 
@@ -72,18 +72,18 @@ $ createdb arkdb -O arkuser
 
 ##### Python
 
-Because Ark uses [node.bcrypt.js](https://github.com/kelektiv/node.bcrypt.js/), we need a Python:
+Because Ark uses [node.bcrypt.js](https://github.com/kelektiv/node.bcrypt.js), we need a Python:
 
-- Download an installer at <https://www.python.org/downloads/windows/>
+- Download an installer at <https://www.python.org/downloads/windows>
 - Install with "Add Python 3.X to PATH" checked
 
-##### [windows-build-tools](https://github.com/felixrieseberg/windows-build-tools/)
+##### [windows-build-tools](https://github.com/felixrieseberg/windows-build-tools)
 
 - Run `npm install --global --production windows-build-tools` from an elevated PowerShell or CMD.exe **as Administrator**
 
 ##### PostgreSQL
 
-- Download an installer at <https://www.postgresql.org/download/windows/>
+- Download an installer at <https://www.postgresql.org/download/windows>
 - Run the installer with a flag `--install_runtimes 0` like this:
 
 ```cmd
@@ -92,7 +92,7 @@ Because Ark uses [node.bcrypt.js](https://github.com/kelektiv/node.bcrypt.js/), 
 
 ##### pgAdmin
 
-- Download a latest installer at <https://www.pgadmin.org/download/>
+- Download a latest installer at <https://www.pgadmin.org/download>
 - Run the pgAdmin and login with a root user
 - Right click `Login/Group Roles` and `Create > Login/Group Role`
     - `General` Panel:
@@ -144,7 +144,7 @@ SESSION_SECRET=ark
 
 ## Production Deployment
 
-With production usages, please use [pm2](https://github.com/Unitech/pm2/) for Node.js process managements.
+With production usages, please use [pm2](https://github.com/Unitech/pm2) for Node.js process managements.
 
 ```bash
 # install pm2
@@ -180,8 +180,8 @@ module.exports = {
 - [x] Security: production ready session store
 - [x] Security: custom auth guards
 - [x] Database: auto synchronization with entities
-- [x] Server: integration between [nest](https://nestjs.com/) and [Next.js](https://nextjs.org/)
-- [x] UI: integration between [Next.js](https://nextjs.org/) and [Material UI](https://material-ui.com/)
+- [x] Server: integration between [nest](https://nestjs.com) and [Next.js](https://nextjs.org)
+- [x] UI: integration between [Next.js](https://nextjs.org) and [Material UI](https://material-ui.com)
 - [x] UX: validation
 - [x] API: JSON API routes
 - [x] Auth: [passport-local](https://github.com/jaredhanson/passport-local) (email & password)
