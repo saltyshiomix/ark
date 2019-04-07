@@ -87,7 +87,7 @@ Because Ark uses [node.bcrypt.js](https://github.com/kelektiv/node.bcrypt.js/), 
 - Run the installer with a flag `--install_runtimes 0` like this:
 
 ```cmd
-> postgresql-11.1-1-windows-x64.exe --install_runtimes 0
+> postgresql-11.2-1-windows-x64.exe --install_runtimes 0
 ```
 
 ##### pgAdmin
