@@ -1,6 +1,7 @@
 import { join } from 'path';
 import { config } from 'dotenv';
 import { NestFactory } from '@nestjs/core';
+import { INestApplication } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { RenderModule } from './services/next-integration/render.module';
 import * as next from 'next';
@@ -17,7 +18,7 @@ async function bootstrap() {
   await app.prepare();
 
   // create nest server
-  const server = await NestFactory.create(AppModule, { cors: true });
+  const server: INestApplication = await NestFactory.create(AppModule, { cors: true });
 
   // improve security
   server.use(require('helmet')());
