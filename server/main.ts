@@ -4,8 +4,6 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { RenderModule } from './services/next-integration/render.module';
 import * as next from 'next';
-import * as helmet from 'helmet';
-import * as compression from 'compression';
 import * as session from 'express-session';
 import * as passport from 'passport';
 
@@ -22,10 +20,10 @@ async function bootstrap() {
   const server = await NestFactory.create(AppModule, { cors: true });
 
   // improve security
-  server.use(helmet());
+  server.use(require('helmet')());
 
   // improve performance
-  server.use(compression());
+  server.use(require('compression')());
 
   // enable cookie
   server.use(require('cookie-parser')());
