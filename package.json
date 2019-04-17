@@ -23,7 +23,7 @@
     "connect-pg-simple": "^5.0.0",
     "cookie-parser": "^1.4.4",
     "dotenv": "^7.0.0",
-    "express-session": "^1.15.6",
+    "express-session": "^1.16.1",
     "helmet": "^3.16.0",
     "jss": "^9.8.7",
     "next": "^8.0.4",
