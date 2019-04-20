@@ -64,7 +64,7 @@ async function bootstrap() {
   renderer.register(server, app);
 
   // start server
-  await server.listenAsync(process.env.PORT, '0.0.0.0');
+  await server.listen(process.env.PORT, '0.0.0.0');
 }
 
 bootstrap();
