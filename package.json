@@ -49,7 +49,7 @@
     "dotenv-webpack": "^1.7.0",
     "nodemon": "^1.18.11",
     "ts-node": "^8.1.0",
-    "typescript": "^3.4.3",
+    "typescript": "^3.4.4",
     "webpack": "4.29.0"
   }
 }
