@@ -4,7 +4,6 @@ import { NestFactory } from '@nestjs/core';
 import { INestApplication } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { RenderModule } from './services/next-integration/render.module';
-import * as next from 'next';
 import * as session from 'express-session';
 import * as passport from 'passport';
 
@@ -12,10 +11,6 @@ async function bootstrap() {
   // enable environment variables
   const dev = process.env.NODE_ENV !== 'production';
   config({ path: join(__dirname, dev ? '../.env' : '../../.env') });
-
-  // prepare Next.js
-  const app = next({ dev });
-  await app.prepare();
 
   // create nest server
   const server: INestApplication = await NestFactory.create(AppModule);
@@ -61,7 +56,7 @@ async function bootstrap() {
 
   // integration between nest and Next.js
   const renderer = server.get(RenderModule);
-  renderer.register(server, app);
+  await renderer.register(server);
 
   // start server
   await server.listen(process.env.PORT, '0.0.0.0');

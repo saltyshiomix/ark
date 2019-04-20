@@ -1,5 +1,6 @@
 import { INestApplication, Module } from '@nestjs/common';
 import { Server } from 'next';
+import { NextService } from '../next/next.service';
 import { RenderFilter } from './render.filter';
 import { RenderMiddleware } from './render.middleware';
 import { RenderService } from './render.service';
@@ -9,21 +10,26 @@ export interface RegisterOptions {
 }
 
 @Module({
-  providers: [RenderService],
+  providers: [
+    NextService,
+    RenderService,
+  ],
 })
 export class RenderModule {
   private app?: INestApplication;
   private server?: Server;
 
-  constructor(private readonly service: RenderService) {}
+  constructor(
+    private readonly nextService: NextService,
+    private readonly service: RenderService,
+  ) {}
 
-  public register(
+  public async register(
     app: INestApplication,
-    server: Server,
     options: Partial<RegisterOptions> = {},
   ) {
     this.app = app;
-    this.server = server;
+    this.server = await this.nextService.getNextApp();
 
     this.service.setRequestHandler(this.server.getRequestHandler());
     this.service.setRenderer(this.server.render.bind(this.server));
