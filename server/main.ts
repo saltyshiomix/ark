@@ -9,8 +9,7 @@ import * as passport from 'passport';
 
 async function bootstrap() {
   // enable environment variables
-  const dev = process.env.NODE_ENV !== 'production';
-  config({ path: join(__dirname, dev ? '../.env' : '../../.env') });
+  config({ path: join(process.cwd(), '.env') });
 
   // create nest server
   const server: INestApplication = await NestFactory.create(AppModule);
