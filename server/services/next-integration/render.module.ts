@@ -29,7 +29,7 @@ export class RenderModule {
     options: Partial<RegisterOptions> = {},
   ) {
     this.app = app;
-    this.server = await this.nextService.getNextApp();
+    this.server = await this.nextService.getApp();
 
     this.service.setRequestHandler(this.server.getRequestHandler());
     this.service.setRenderer(this.server.render.bind(this.server));

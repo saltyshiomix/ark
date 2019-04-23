@@ -1,20 +1,25 @@
+import {
+  Res,
+  Req,
+} from '@nestjs/common';
 import * as next from 'next';
 import { Server } from 'next';
+import { Request, Response } from 'express';
 
 const dev = process.env.NODE_ENV !== 'production';
 
 export class NextService {
-  private initialized: boolean = false;
-  private readonly app: Server;
+  private app: Server;
 
-  constructor() {
-    this.app = next({ dev });
-  }
-
-  public async getNextApp(): Promise<Server> {
-    if (!this.initialized) {
+  public async getApp(): Promise<Server> {
+    if (!this.app) {
+      this.app = next({ dev });
       await this.app.prepare();
     }
     return this.app;
+  }
+
+  public async render(@Req() req: Request, @Res() res: Response, page: string) {
+    return (await this.getApp()).render(req, res, page, req.query);
   }
 }
