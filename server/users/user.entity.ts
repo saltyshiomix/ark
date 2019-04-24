@@ -1,8 +1,9 @@
 import {
   Entity,
   Column,
-  PrimaryGeneratedColumn,
+  PrimaryGeneratedColumn
 } from 'typeorm';
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export class User {
@@ -18,5 +19,10 @@ export class User {
   email: string;
 
   @Column('varchar')
+  @Exclude()
   password: string;
+
+  constructor(partial: Partial<User>) {
+    Object.assign(this, partial);
+  }
 }
