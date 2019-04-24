@@ -8,7 +8,7 @@ export class EnvService {
     this.config = parse(readFileSync(path));
   }
 
-  get(key: string): string {
+  public get(key: string): string {
     return this.config[key];
   }
 }

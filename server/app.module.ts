@@ -1,26 +1,33 @@
-import { Module } from '@nestjs/common';
+import {
+  Module,
+  NestModule,
+  MiddlewareConsumer,
+  RequestMethod,
+} from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TypeOrmService } from './services/database/typeorm.service';
-import { EnvModule } from './services/env/env.module';
-import { NextModule } from './services/next/next.module';
-import { RenderModule } from './services/next-integration/render.module';
-import { AuthModule } from './api/auth/auth.module';
-import { UsersModule } from './api/users/users.module';
+import { TypeOrmService } from './database/typeorm.service';
+import { EnvModule } from './env/env.module';
+import { NextModule } from './next/next.module';
+import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
+import { HomeModule } from './home/home.module';
+import { NextMiddleware } from './next/next.middleware';
 
 @Module({
   imports: [
-    // services
     TypeOrmModule.forRootAsync({
       imports: [EnvModule],
       useClass: TypeOrmService,
     }),
     EnvModule,
     NextModule,
-    RenderModule,
-
-    // api routes
+    UsersModule,
     AuthModule,
-    UsersModule
-  ]
+    HomeModule,
+  ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(NextMiddleware).forRoutes({ path: '_next*', method: RequestMethod.GET });
+  }
+}

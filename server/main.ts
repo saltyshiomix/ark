@@ -3,7 +3,6 @@ import { config } from 'dotenv';
 import { NestFactory } from '@nestjs/core';
 import { INestApplication } from '@nestjs/common';
 import { AppModule } from './app.module';
-import { RenderModule } from './services/next-integration/render.module';
 import * as session from 'express-session';
 import * as passport from 'passport';
 
@@ -52,10 +51,6 @@ async function bootstrap() {
   server.use(passport.session());
   passport.serializeUser((user, cb) => cb(null, user));
   passport.deserializeUser((obj, cb) => cb(null, obj));
-
-  // integration between nest and Next.js
-  const renderer = server.get(RenderModule);
-  await renderer.register(server);
 
   // start server
   await server.listen(process.env.PORT, '0.0.0.0');

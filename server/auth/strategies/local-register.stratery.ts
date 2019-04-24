@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
 import { AuthService } from '../auth.service';
-import { User } from '../../../entities/user.entity';
+import { User } from '../../users/user.entity';
 
 @Injectable()
 export class LocalRegisterStrategy extends PassportStrategy(Strategy, 'local-register') {
@@ -10,7 +10,7 @@ export class LocalRegisterStrategy extends PassportStrategy(Strategy, 'local-reg
     super({
       usernameField: 'email',
       passwordField: 'password',
-      passReqToCallback: true
+      passReqToCallback: true,
     });
   }
 
