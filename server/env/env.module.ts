@@ -6,9 +6,11 @@ import { EnvService } from './env.service';
   providers: [
     {
       provide: EnvService,
-      useValue: new EnvService(join(process.cwd(), '.env'))
-    }
+      useValue: new EnvService(join(process.cwd(), '.env')),
+    },
   ],
-  exports: [EnvService]
+  exports: [
+    EnvService,
+  ],
 })
 export class EnvModule {}
