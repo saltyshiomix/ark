@@ -8,12 +8,7 @@ export default class HttpClient {
   private client: AxiosInstance;
 
   constructor() {
-    let baseURL: string = `${process.env.PROTOCOL}://${process.env.HOST}:${process.env.PORT}`;
-    if ((process.env.PROTOCOL === 'https' && process.env.PORT === '443') || (process.env.PROTOCOL === 'http' && process.env.PORT === '80')) {
-      baseURL = `${process.env.PROTOCOL}://${process.env.HOST}`;
-    }
-
-    this.client = axios.create({ baseURL });
+    this.client = axios.create({ baseURL: `${process.env.HOST}:${process.env.PORT}` });
   }
 
   public async get(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse> {
