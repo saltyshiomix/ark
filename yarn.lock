@@ -811,7 +811,7 @@
     prop-types "^15.6.0"
     react-is "^16.6.3"
 
-"@nestjs/common@^6.1.1":
+"@nestjs/common@^6.2.4":
   version "6.2.4"
   resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-6.2.4.tgz#ee6ff8b07494ce7242b1e61fb7fae9f64ec963d6"
   integrity sha512-YZvJ6/S7yVQZK+9rupCzMCg4tpbc9DyVvLoTx0NBDqExTCUNcNEcCtn0AZrO/hLqbeYODnJwGE2NxkH1R/qw+w==
@@ -820,7 +820,7 @@
     cli-color "1.4.0"
     uuid "3.3.2"
 
-"@nestjs/core@^6.1.1":
+"@nestjs/core@^6.2.4":
   version "6.2.4"
   resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-6.2.4.tgz#ab2436ebfee356ae4ac66f19378f8ed57ac2c3c9"
   integrity sha512-aYKi3QGKmpxF6w32STAcobIqOHFqSUXrU8nF+Y9dOlStRkXFBTuVchsoJk94sY+3y4SJAlHH4Q/8R4yFaixrug==
@@ -832,12 +832,12 @@
     optional "0.1.4"
     uuid "3.3.2"
 
-"@nestjs/passport@^6.0.0":
+"@nestjs/passport@^6.1.0":
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/@nestjs/passport/-/passport-6.1.0.tgz#80da326cc976a82530648d8025b04c8e2d41c10e"
   integrity sha512-V4KdtFFLsdZQ/HlIECpiK6byzGz57Y12TAc+Iatykk8jWuVFE1jq8RJbpTfB0zG0PTfcGm9crQ6Ut2Rwdmis4Q==
 
-"@nestjs/platform-express@^6.1.1":
+"@nestjs/platform-express@^6.2.4":
   version "6.2.4"
   resolved "https://registry.yarnpkg.com/@nestjs/platform-express/-/platform-express-6.2.4.tgz#cf7d8d758f185d5d2513d3916475c17ecd394e76"
   integrity sha512-MmoQqFWO7nmgEvBIeO6ddz1CFVx3RIQluX1LMIzyfiyRghQzcZCGqTQsZSpck5ZnXNQNxrrI9bz/6a6cTwovmQ==
@@ -847,7 +847,7 @@
     express "4.17.0"
     multer "1.4.1"
 
-"@nestjs/typeorm@^6.0.0":
+"@nestjs/typeorm@^6.1.1":
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/@nestjs/typeorm/-/typeorm-6.1.1.tgz#bf1f45f79a2b498dd33b82c1f5bd04e7797cfec3"
   integrity sha512-KCtRYiftUfvU4QE0mlhNUHEVfo9LmFHZ7QPcSxgmV00Tf62lGX0P2vJ0Ee6zHrgPuT4TzUn+SkX70ZdeQxio3Q==
