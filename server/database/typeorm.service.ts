@@ -11,14 +11,14 @@ export class TypeOrmService implements TypeOrmOptionsFactory {
 
   createTypeOrmOptions(): TypeOrmModuleOptions {
     return {
-      type: this.env.get('DB_TYPE'),
+      type: 'postgres',
       host: this.env.get('DB_HOST'),
-      port: this.env.get('DB_PORT'),
+      port: parseInt(this.env.get('DB_PORT'), 10),
       username: this.env.get('DB_USERNAME'),
       password: this.env.get('DB_PASSWORD'),
       database: this.env.get('DB_DATABASE'),
       synchronize: this.env.get('DB_SYNCHRONIZE') === 'true' ? true : false,
       entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-    } as TypeOrmModuleOptions;
+    };
   }
 }

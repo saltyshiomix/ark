@@ -127,7 +127,6 @@ The `.env` file is like this:
 
 ```
 # DB
-DB_TYPE=postgres
 DB_HOST=localhost
 DB_PORT=5432
 DB_USERNAME=arkuser
