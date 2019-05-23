@@ -35,7 +35,7 @@
     "react-jss": "^8.6.1",
     "reflect-metadata": "0.1.12",
     "rxjs": "^6.5.2",
-    "typeorm": "^0.2.16"
+    "typeorm": "^0.2.17"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
