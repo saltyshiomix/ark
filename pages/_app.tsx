@@ -18,7 +18,7 @@ class MyApp extends App {
     return (
       <Container>
         <Head>
-          <title>My page</title>
+          <title>ARK</title>
         </Head>
         <ThemeProvider theme={theme}>
           <CssBaseline />
