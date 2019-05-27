@@ -1,52 +1,18 @@
 import React from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
+import { ServerStyleSheets } from '@material-ui/styles';
 import flush from 'styled-jsx/server';
+import theme from '../lib/theme';
 
-interface Props {
-  pageContext
-}
-
-class MyDocument extends Document<Props> {
-  static getInitialProps(ctx) {
-    let pageContext;
-    const page = ctx.renderPage(Component => {
-      const WrappedComponent = props => {
-        pageContext = props.pageContext;
-        return <Component {...props} />;
-      }
-
-      return WrappedComponent;
-    });
-
-    let css: string; // It might be undefined, e.g. after an error.
-    if (pageContext) {
-      css = pageContext.sheetsRegistry.toString();
-    }
-
-    return {
-      ...page,
-      pageContext,
-      styles: (
-        <React.Fragment>
-          <style id="jss-server-side" dangerouslySetInnerHTML={{ __html: css }} />
-          {flush() || null}
-        </React.Fragment>
-      )
-    }
-  }
-
+class MyDocument extends Document {
   render() {
-    const { pageContext } = this.props;
-    const themeColor = pageContext ? pageContext.theme.palette.primary.main : '';
-
     return (
       <html lang="en" dir="ltr">
         <Head>
           <meta charSet="utf-8" />
-          <meta name="viewport" content={'user-scalable=0, initial-scale=1, minimum-scale=1, width=device-width, height=device-height'} />
-          <meta name="theme-color" content={themeColor} />
-          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" />
-          <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico" />
+          <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no" />
+          <meta name="theme-color" content={theme.palette.primary.main} />
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" />
         </Head>
         <body>
           <Main />
@@ -56,5 +22,27 @@ class MyDocument extends Document<Props> {
     );
   }
 }
+
+MyDocument.getInitialProps = async ctx => {
+  const sheets = new ServerStyleSheets();
+  const originalRenderPage = ctx.renderPage;
+
+  ctx.renderPage = () =>
+    originalRenderPage({
+      enhanceApp: App => props => sheets.collect(<App {...props} />),
+    });
+
+  const initialProps = await Document.getInitialProps(ctx);
+
+  return {
+    ...initialProps,
+    styles: (
+      <React.Fragment>
+        {sheets.getStyleElement()}
+        {flush() || null}
+      </React.Fragment>
+    ),
+  };
+};
 
 export default MyDocument;

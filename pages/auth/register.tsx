@@ -1,6 +1,5 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { withStyles, WithStyles, Theme, createStyles } from '@material-ui/core/styles';
+import React, { useState, useRef, useEffect } from 'react';
+import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -10,155 +9,139 @@ import InputLabel from '@material-ui/core/InputLabel';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import HttpClient from '../../lib/http-client';
 
-const styles = ({ spacing }: Theme) => createStyles({
-  root: {
-    textAlign: 'center',
-    paddingTop: spacing.unit * 8
-  },
-  container: {
-    width: 480,
-    margin: `${spacing.unit * 2}px auto`
-  },
-  card: {
-    padding: spacing.unit * 4
-  },
-  formControl: {
-    minWidth: 320,
-    margin: `${spacing.unit}px 0`
-  },
-  submitButton: {
-    margin: `${spacing.unit * 4}px 0`
-  }
-});
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      textAlign: 'center',
+      paddingTop: theme.spacing(8),
+    },
+    container: {
+      width: 480,
+      margin: `${theme.spacing(2)}px auto`,
+    },
+    card: {
+      padding: theme.spacing(4),
+    },
+    formControl: {
+      minWidth: 320,
+      margin: `${theme.spacing(1)}px 0`,
+    },
+    submitButton: {
+      margin: `${theme.spacing(4)}px 0`,
+    },
+  }),
+);
 
-interface Props extends WithStyles<typeof styles> {};
+export default function Register() {
+  const client: HttpClient = new HttpClient;
 
-const Register = withStyles(styles)(
-  class extends React.Component<Props> {
-    private client: HttpClient;
-    private nameLabelRef;
-    private emailLabelRef;
-    private passwordLabelRef;
+  const classes = useStyles();
 
-    state = {
-      name: '',
-      nameLabelWidth: 0,
-      email: '',
-      emailLabelWidth: 0,
-      password: '',
-      passwordLabelWidth: 0
-    };
+  const [name, setName] = useState('');
+  const [nameLabelWidth, setNameLabelWidth] = useState(0);
+  const [email, setEmail] = useState('');
+  const [emailLabelWidth, setEmailLabelWidth] = useState(0);
+  const [password, setPassword] = useState('');
+  const [passwordLabelWidth, setPasswordLabelWidth] = useState(0);
 
-    componentDidMount() {
-      this.client = new HttpClient;
+  const nameLabelRef = useRef(null);
+  const emailLabelRef = useRef(null);
+  const passwordLabelRef = useRef(null);
+  useEffect(() => setNameLabelWidth(nameLabelRef.current.offsetWidth));
+  useEffect(() => setEmailLabelWidth(emailLabelRef.current.offsetWidth));
+  useEffect(() => setPasswordLabelWidth(passwordLabelRef.current.offsetWidth));
 
-      this.setState({
-        nameLabelWidth: (ReactDOM.findDOMNode(this.nameLabelRef) as HTMLElement).offsetWidth,
-        emailLabelWidth: (ReactDOM.findDOMNode(this.emailLabelRef) as HTMLElement).offsetWidth,
-        passwordLabelWidth: (ReactDOM.findDOMNode(this.passwordLabelRef) as HTMLElement).offsetWidth,
-      });
+  const handleName = (e) => setName(e.target.value);
+  const handleEmail = (e) => setEmail(e.target.value);
+  const handlePassword = (e) => setPassword(e.target.value);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    window.location.href = '/auth/login';
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const data = {
+      name: e.target.name.value,
+      email: e.target.email.value,
+      password: e.target.password.value
     }
 
-    handleChange =  e => {
-      this.setState({
-        [e.target.name]: e.target.value
-      });
-    };
-
-    handleClick = (e) => {
-      e.preventDefault();
-      window.location.href = '/auth/login';
-    };
-
-    handleSubmit = async (e) => {
-      e.preventDefault();
-
-      const data = {
-        name: e.target.name.value,
-        email: e.target.email.value,
-        password: e.target.password.value
-      }
-
-      const { data: user } = await this.client.post('auth/register', data);
-      if (user) {
-        window.location.href = '/';
-      } else {
-        alert('Failed to register!');
-      }
-    }
-
-    render() {
-      const { classes } = this.props;
-
-      return (
-        <div className={classes.root}>
-          <Typography variant="h2">ARK</Typography>
-          <form
-            onSubmit={this.handleSubmit}
-            className={classes.container}
-            autoComplete="off"
-            noValidate
-          >
-            <Card className={classes.card}>
-              <CardContent>
-                <FormControl className={classes.formControl} variant="outlined">
-                  <InputLabel htmlFor="name" ref={ref => this.nameLabelRef = ref}>NAME</InputLabel>
-                  <OutlinedInput
-                    id="name"
-                    name="name"
-                    type="name"
-                    value={this.state.name}
-                    onChange={this.handleChange}
-                    labelWidth={this.state.nameLabelWidth}
-                  />
-                </FormControl>
-                <FormControl className={classes.formControl} variant="outlined">
-                  <InputLabel htmlFor="email" ref={ref => this.emailLabelRef = ref}>EMAIL</InputLabel>
-                  <OutlinedInput
-                    id="email"
-                    name="email"
-                    type="email"
-                    value={this.state.email}
-                    onChange={this.handleChange}
-                    labelWidth={this.state.emailLabelWidth}
-                  />
-                </FormControl>
-                <br />
-                <FormControl className={classes.formControl} variant="outlined">
-                  <InputLabel htmlFor="password" ref={ref => this.passwordLabelRef = ref}>PASSWORD</InputLabel>
-                  <OutlinedInput
-                    id="password"
-                    name="password"
-                    type="password"
-                    value={this.state.password}
-                    onChange={this.handleChange}
-                    labelWidth={this.state.passwordLabelWidth}
-                  />
-                </FormControl>
-                <br />
-                <Button
-                  className={classes.submitButton}
-                  type="submit"
-                  variant="outlined"
-                  color="primary"
-                  size="large"
-                >
-                  REGISTER
-                </Button>
-                <br />
-                <Button
-                  size="small"
-                  onClick={this.handleClick}
-                >
-                  Have an account? Please login.
-                </Button>
-              </CardContent>
-            </Card>
-          </form>
-        </div>
-      );
+    const { data: user } = await client.post('auth/register', data);
+    if (user) {
+      window.location.href = '/';
+    } else {
+      alert('Failed to register!');
     }
   }
-)
 
-export default Register;
+  return (
+    <div className={classes.root}>
+      <Typography variant="h2">ARK</Typography>
+      <form
+        onSubmit={handleSubmit}
+        className={classes.container}
+        autoComplete="off"
+        noValidate
+      >
+        <Card className={classes.card}>
+          <CardContent>
+            <FormControl className={classes.formControl} variant="outlined">
+              <InputLabel htmlFor="name" ref={nameLabelRef}>NAME</InputLabel>
+              <OutlinedInput
+                id="name"
+                name="name"
+                type="name"
+                value={name}
+                onChange={handleName}
+                labelWidth={nameLabelWidth}
+              />
+            </FormControl>
+            <FormControl className={classes.formControl} variant="outlined">
+              <InputLabel htmlFor="email" ref={emailLabelRef}>EMAIL</InputLabel>
+              <OutlinedInput
+                id="email"
+                name="email"
+                type="email"
+                value={email}
+                onChange={handleEmail}
+                labelWidth={emailLabelWidth}
+              />
+            </FormControl>
+            <br />
+            <FormControl className={classes.formControl} variant="outlined">
+              <InputLabel htmlFor="password" ref={passwordLabelRef}>PASSWORD</InputLabel>
+              <OutlinedInput
+                id="password"
+                name="password"
+                type="password"
+                value={password}
+                onChange={handlePassword}
+                labelWidth={passwordLabelWidth}
+              />
+            </FormControl>
+            <br />
+            <Button
+              className={classes.submitButton}
+              type="submit"
+              variant="outlined"
+              color="primary"
+              size="large"
+            >
+              REGISTER
+            </Button>
+            <br />
+            <Button
+              size="small"
+              onClick={handleClick}
+            >
+              Have an account? Please login.
+            </Button>
+          </CardContent>
+        </Card>
+      </form>
+    </div>
+  );
+}
