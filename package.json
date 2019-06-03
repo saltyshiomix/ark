@@ -13,7 +13,7 @@
     "@nestjs/core": "^6.2.4",
     "@nestjs/passport": "^6.1.0",
     "@nestjs/platform-express": "^6.2.4",
-    "@nestjs/typeorm": "^6.1.1",
+    "@nestjs/typeorm": "^6.1.2",
     "axios": "^0.19.0",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
@@ -31,7 +31,7 @@
     "pg": "^7.11.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "reflect-metadata": "0.1.12",
+    "reflect-metadata": "^0.1.13",
     "rxjs": "^6.5.2",
     "typeorm": "^0.2.17"
   },
