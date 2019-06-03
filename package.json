@@ -8,7 +8,7 @@
     "start": "cross-env NODE_ENV=production node .next/production-server/main.js"
   },
   "dependencies": {
-    "@material-ui/core": "^4.0.1",
+    "@material-ui/core": "^4.0.2",
     "@nestjs/common": "^6.2.4",
     "@nestjs/core": "^6.2.4",
     "@nestjs/passport": "^6.1.0",
