@@ -194,3 +194,19 @@ module.exports = {
 ## Articles
 
 - [A road to the easiest user authentication system for Node.js](https://dev.to/saltyshiomix/a-road-to-the-easiest-user-authentication-system-for-nodejs-138f)
+
+## Trouble Shootings
+
+### Node.js v10 vs v12
+
+We use Node.js **v12**, so if you use v10, please `rm -f yarn.lock`:
+
+(Because Node.js v10 and v12 are incompatible in terms of no coexistence. APIs are compatible.)
+
+```bash
+# remove incompatible dependencies
+$ rm -rf node_modules yarn.lock
+
+# use your compatible dependencies
+$ yarn
+```
