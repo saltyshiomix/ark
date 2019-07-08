@@ -3,7 +3,7 @@ import {
   Req,
 } from '@nestjs/common';
 import next from 'next';
-import { Server } from 'next';
+import Server from 'next-server/dist/server/next-server';
 import { Request, Response } from 'express';
 
 const dev = process.env.NODE_ENV !== 'production';
