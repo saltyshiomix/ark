@@ -2,14 +2,14 @@ import {
   Res,
   Req,
 } from '@nestjs/common';
-import * as next from 'next';
+import next from 'next';
 import { Server } from 'next';
 import { Request, Response } from 'express';
 
 const dev = process.env.NODE_ENV !== 'production';
 
 export class NextService {
-  private app: Server;
+  private app!: Server;
 
   public async getApp(): Promise<Server> {
     if (!this.app) {

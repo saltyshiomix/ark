@@ -3,8 +3,8 @@ import { config } from 'dotenv';
 import { NestFactory } from '@nestjs/core';
 import { INestApplication } from '@nestjs/common';
 import { AppModule } from './app.module';
-import * as session from 'express-session';
-import * as passport from 'passport';
+import session from 'express-session';
+import passport from 'passport';
 
 async function bootstrap() {
   // enable environment variables
@@ -32,7 +32,7 @@ async function bootstrap() {
   // production ready session store
   const pgSession = require('connect-pg-simple')(session);
   server.use(session({
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET as string,
     store: new pgSession({
       conString: `postgres://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`,
       crear_interval: 60 * 60 // sec
@@ -53,7 +53,7 @@ async function bootstrap() {
   passport.deserializeUser((obj, cb) => cb(null, obj));
 
   // start server
-  await server.listen(process.env.PORT, '0.0.0.0');
+  await server.listen(process.env.PORT as string, '0.0.0.0');
 }
 
 bootstrap();

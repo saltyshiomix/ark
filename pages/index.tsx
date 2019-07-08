@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -27,7 +27,7 @@ export default function Index() {
 
   const classes = useStyles({});
 
-  const handleClick = async (e) => {
+  const handleClick = async (e: React.MouseEvent) => {
     e.preventDefault();
 
     const { data: loggedOut } = await client.get('auth/logout');

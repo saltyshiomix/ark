@@ -19,11 +19,11 @@ export class UsersService {
     return await this.repository.find();
   }
 
-  async findOne(id: number): Promise<User> {
+  async findOne(id: number): Promise<User|undefined> {
     return await this.repository.findOne(id);
   }
 
-  async findOneByEmail(email: string): Promise<User> {
+  async findOneByEmail(email: string): Promise<User|undefined> {
     return await this.repository.findOne({ email });
   }
 
