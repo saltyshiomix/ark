@@ -1,6 +1,6 @@
 <p align="center"><img src="https://i.imgur.com/Jq9XCVg.png"></p>
 
-<p align="center">An easiest web app template on top of <a href="https://nestjs.com">nest</a>, <a href="http://typeorm.io">TypeORM</a>, <a href="https://nextjs.org">Next.js</a> and <a href="https://material-ui.com">Material UI</a>.</p>
+<p align="center">An easiest web app template on top of <a href="https://nestjs.com">nest</a>, <a href="http://typeorm.io">TypeORM</a>, <a href="https://nextjs.org">Next.js (v9)</a> and <a href="https://material-ui.com">Material UI (v4)</a>.</p>
 
 <div align="center">
   <a href="https://david-dm.org/saltyshiomix/ark">
