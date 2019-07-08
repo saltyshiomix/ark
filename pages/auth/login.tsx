@@ -35,27 +35,27 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function Login() {
   const client: HttpClient = new HttpClient;
 
-  const classes = useStyles();
+  const classes = useStyles({});
 
   const [email, setEmail] = useState('');
   const [emailLabelWidth, setEmailLabelWidth] = useState(0);
   const [password, setPassword] = useState('');
   const [passwordLabelWidth, setPasswordLabelWidth] = useState(0);
 
-  const emailLabelRef = useRef(null);
-  const passwordLabelRef = useRef(null);
+  const emailLabelRef = useRef({} as HTMLLabelElement);
+  const passwordLabelRef = useRef({} as HTMLLabelElement);
   useEffect(() => setEmailLabelWidth(emailLabelRef.current.offsetWidth));
   useEffect(() => setPasswordLabelWidth(passwordLabelRef.current.offsetWidth));
 
-  const handleEmail = (e) => setEmail(e.target.value);
-  const handlePassword = (e) => setPassword(e.target.value);
+  const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
+  const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
 
-  const handleClick = (e) => {
+  const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     window.location.href = '/auth/register';
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     const data = {

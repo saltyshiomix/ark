@@ -7,12 +7,12 @@ import { RegisterUserDto } from './dto/register-user.dto';
 export class AuthService {
   constructor(private readonly service: UsersService) {}
 
-  public async validateUserByEmail(email: string): Promise<User> {
+  public async validateUserByEmail(email: string): Promise<User|undefined> {
     return await this.service.findOneByEmail(email);
   }
 
   public async registerUserIfNotExist(registerUserDto: RegisterUserDto): Promise<User> {
-    let user: User = await this.validateUserByEmail(registerUserDto.email);
+    let user: User|undefined = await this.validateUserByEmail(registerUserDto.email);
     if (user) {
       return user;
     }
