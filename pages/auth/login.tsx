@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function Login() {
   const client: HttpClient = new HttpClient;
 
-  const classes = useStyles();
+  const classes = useStyles({});
 
   const [email, setEmail] = useState('');
   const [emailLabelWidth, setEmailLabelWidth] = useState(0);

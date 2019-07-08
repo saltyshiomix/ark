@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function Register() {
   const client: HttpClient = new HttpClient;
 
-  const classes = useStyles();
+  const classes = useStyles({});
 
   const [name, setName] = useState('');
   const [nameLabelWidth, setNameLabelWidth] = useState(0);

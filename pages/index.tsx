@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function Index() {
   const client: HttpClient = new HttpClient;
 
-  const classes = useStyles();
+  const classes = useStyles({});
 
   const handleClick = async (e) => {
     e.preventDefault();
