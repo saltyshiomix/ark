@@ -36,7 +36,7 @@
     "typeorm": "^0.2.18"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.0",
+    "@babel/core": "^7.5.4",
     "@types/bcrypt": "^3.0.0",
     "@types/dotenv": "^6.1.1",
     "@types/express-session": "^1.15.13",
