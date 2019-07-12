@@ -4,3 +4,4 @@ node_modules
 .DS_Store
 yarn*.log
 yarn.lock
+__tests__/__snapshots__/

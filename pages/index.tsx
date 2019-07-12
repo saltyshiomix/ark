@@ -22,18 +22,19 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function Index() {
+export default function Index(): React.ReactElement {
   const client: HttpClient = new HttpClient;
 
   const classes = useStyles({});
 
-  const handleClick = async (e: React.MouseEvent) => {
+  const handleClick = async (e: React.MouseEvent): Promise<void> => {
     e.preventDefault();
 
     const { data: loggedOut } = await client.get('auth/logout');
     if (loggedOut) {
       window.location.href = '/auth/login';
     } else {
+      // eslint-disable-next-line no-alert, no-undef
       alert('Failed to log out!');
     }
   };
