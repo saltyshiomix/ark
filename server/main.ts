@@ -2,11 +2,12 @@ import { join } from 'path';
 import { config } from 'dotenv';
 import { NestFactory } from '@nestjs/core';
 import { INestApplication } from '@nestjs/common';
-import { AppModule } from './app.module';
 import session from 'express-session';
 import passport from 'passport';
 
-async function bootstrap() {
+import { AppModule } from './app.module';
+
+async function bootstrap(): Promise<void> {
   // enable environment variables
   config({ path: join(process.cwd(), '.env') });
 

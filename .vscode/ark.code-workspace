@@ -4,5 +4,135 @@
 			"path": ".."
 		}
 	],
-	"settings": {}
+	"settings": {
+    "jest.debugMode": false,
+    "jest.restartJestOnSnapshotUpdate": true,
+    "jest.pathToJest": "yarn test",
+    "javascript.format.enable": false,
+    "typescript.format.enable": false,
+    "eslint.autoFixOnSave": true,
+    "eslint.enable": true,
+    "prettier.eslintIntegration": true,
+    "files.autoSave": "onWindowChange",
+    "editor.formatOnSave": true,
+    "[javascript]": {
+      "editor.formatOnSave": false
+    },
+    "[javascriptreact]": {
+      "editor.formatOnSave": false
+    },
+    "[typescript]": {
+      "editor.formatOnSave": false
+    },
+    "[typescriptreact]": {
+      "editor.formatOnSave": false
+    },
+    "eslint.trace.server": "messages",
+    "eslint.validate": [
+      "javascript",
+      "javascriptreact",
+      {
+        "language": "typescript",
+        "autoFix": true
+      },
+      {
+        "language": "typescriptreact",
+        "autoFix": true
+      }
+    ],
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "less.lint.duplicateProperties": "warning",
+    "less.lint.float": "warning",
+    "eslint.alwaysShowStatus": true,
+    "eslint.packageManager": "yarn",
+    "eslint.provideLintTask": true,
+    "eslint.run": "onType",
+    "editor.tabSize": 2,
+    "scss.lint.boxModel": "warning",
+    "scss.lint.compatibleVendorPrefixes": "warning",
+    "scss.lint.duplicateProperties": "warning",
+    "scss.lint.float": "warning",
+    "scss.lint.idSelector": "warning",
+    "scss.lint.ieHack": "warning",
+    "scss.lint.important": "warning",
+    "scss.lint.importStatement": "warning",
+    "scss.lint.universalSelector": "warning",
+    "scss.lint.unknownVendorSpecificProperties": "warning",
+    "scss.lint.zeroUnits": "warning",
+    "prettier.printWidth": 120,
+    "better-comments.tags": [{
+        "tag": "!",
+        "color": "#FF2D00",
+        "strikethrough": false,
+        "backgroundColor": "transparent"
+      },
+      {
+        "tag": "?",
+        "color": "#3498DB",
+        "strikethrough": false,
+        "backgroundColor": "transparent"
+      },
+      {
+        "tag": "//",
+        "color": "#474747",
+        "strikethrough": true,
+        "backgroundColor": "transparent"
+      },
+      {
+        "tag": "todo",
+        "color": "#FF8C00",
+        "strikethrough": false,
+        "backgroundColor": "transparent"
+      },
+      {
+        "tag": "fixme",
+        "color": "#FFD666",
+        "strikethrough": false,
+        "backgroundColor": "transparent"
+      },
+      {
+        "tag": "debug",
+        "color": "#FF0000",
+        "strikethrough": false,
+        "backgroundColor": "transparent"
+      },
+      {
+        "tag": "eslint",
+        "color": "#FFD666",
+        "strikethrough": false,
+        "backgroundColor": "transparent"
+      },
+      {
+        "tag": "*",
+        "color": "#98C379",
+        "strikethrough": false,
+        "backgroundColor": "transparent"
+      }
+    ],
+    "todo-tree.defaultHighlight": {
+      "icon": "check",
+      "type": "line",
+      "foreground": "red",
+      "background": "white",
+      "opacity": 10,
+      "iconColour": "#FF8C00"
+    },
+    "todo-tree.customHighlight": {
+      "TODO": {
+        "icon": "issue-opened",
+        "foreground": "#FF8C00",
+        "iconColour": "#FF8C00"
+      },
+      "FIXME": {
+        "icon": "bug",
+        "foreground": "#FFD666",
+        "iconColour": "#FFD666"
+      },
+      "DEBUG": {
+        "icon": "bug",
+        "foreground": "#FFD666",
+        "iconColour": "#FFD666"
+      }
+    }
+	}
 }
