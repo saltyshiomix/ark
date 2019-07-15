@@ -1,3 +1,5 @@
+/** @format */
+
 import { join } from 'path';
 import { Module } from '@nestjs/common';
 import { EnvService } from './env.service';
@@ -9,8 +11,6 @@ import { EnvService } from './env.service';
       useValue: new EnvService(join(process.cwd(), '.env')),
     },
   ],
-  exports: [
-    EnvService,
-  ],
+  exports: [EnvService],
 })
 export class EnvModule {}

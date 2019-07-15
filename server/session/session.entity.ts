@@ -1,14 +1,12 @@
-import {
-  Entity,
-  Column,
-  PrimaryColumn
-} from 'typeorm';
+/** @format */
+
+import { Entity, Column, PrimaryColumn } from 'typeorm';
 
 @Entity()
 export class Session {
   @PrimaryColumn({
     type: 'varchar',
-    collation: 'default'
+    collation: 'default',
   })
   sid: string;
 

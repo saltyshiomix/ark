@@ -1,17 +1,19 @@
+/** @format */
+
 module.exports = {
-  "parser": "@typescript-eslint/parser",
-  "plugins": [
-    "@typescript-eslint",
-    "eslint-comments",
-    "react-hooks",
-    "jest",
-    "promise",
-    "unicorn",
-    "prettier"
+  parser: '@typescript-eslint/parser',
+  plugins: [
+    '@typescript-eslint',
+    'eslint-comments',
+    'react-hooks',
+    'jest',
+    'promise',
+    'unicorn',
+    'prettier',
   ],
-  "settings": {
-    "react": {
-      "version": "16.8"
+  settings: {
+    react: {
+      version: '16.8',
     },
     // "import/resolver": {
     //   "node": {
@@ -19,167 +21,160 @@ module.exports = {
     //   }
     // }
   },
-  "globals": {
+  globals: {
     window: true,
     document: true,
     process: true,
   },
-  "extends": [
-    "airbnb-typescript",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:eslint-comments/recommended",
-    "plugin:jest/recommended",
-    "plugin:react/recommended",
-    "plugin:prettier/recommended",
-    "plugin:promise/recommended",
-    "plugin:unicorn/recommended",
-    "prettier",
-    "prettier/react",
-    "prettier/@typescript-eslint"
+  extends: [
+    'airbnb-typescript',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:eslint-comments/recommended',
+    'plugin:jest/recommended',
+    'plugin:react/recommended',
+    'plugin:prettier/recommended',
+    'plugin:promise/recommended',
+    'plugin:unicorn/recommended',
+    'prettier',
+    'prettier/react',
+    'prettier/@typescript-eslint',
   ],
-  "parserOptions": {
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "jsx": true
-    }
+  parserOptions: {
+    sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true,
+    },
   },
-  "rules": {
-    "no-useless-constructor": 0,
-    "@typescript-eslint/no-var-requires": 0,
-    "no-param-reassign": 1,
-    "class-methods-use-this": 0,
-    "react-hooks/rules-of-hooks": 2,
-    "react-hooks/exhaustive-deps": 1,
-    "no-underscore-dangle": 0,
-    "import/no-unresolved": 0,
-    "import/extensions": 0,
-    "global-require": 1,
-    "@typescript-eslint/indent": [
+  rules: {
+    'no-useless-constructor': 0,
+    '@typescript-eslint/no-var-requires': 0,
+    'no-param-reassign': 1,
+    'class-methods-use-this': 0,
+    'react-hooks/rules-of-hooks': 2,
+    'react-hooks/exhaustive-deps': 1,
+    'no-underscore-dangle': 0,
+    'import/no-unresolved': 0,
+    'import/extensions': 0,
+    'global-require': 1,
+    '@typescript-eslint/indent': [
       1,
       2,
       {
-        "flatTernaryExpressions": false,
-        "ignoreComments": true,
-        "VariableDeclarator": 2
-      }
+        flatTernaryExpressions: false,
+        ignoreComments: true,
+        VariableDeclarator: 2,
+      },
     ],
-    "prettier/prettier": [
-      "error",
+    'prettier/prettier': [
+      'error',
       {
-        "parser": "typescript",
-        "printWidth": 120,
-        "singleQuote": true,
-        "useTabs": false,
-        "tabWidth": 2,
-        "semi": true,
-        "bracketSpacing": true,
-        "trailingComma": "all",
-        "jsxBracketSameLine": false,
-        "arrowParens": "always",
-        "insertPragma": true,
-        "quoteProps": "consistent",
-        "jsxSingleQuote": false,
-        "requirePragma": true,
-        "htmlWhitespaceSensivity": "css"
-      }
+        parser: 'typescript',
+        printWidth: 80,
+        singleQuote: true,
+        useTabs: false,
+        tabWidth: 2,
+        semi: true,
+        bracketSpacing: true,
+        trailingComma: 'all',
+        jsxBracketSameLine: true,
+        arrowParens: 'always',
+        insertPragma: true,
+        quoteProps: 'consistent',
+        jsxSingleQuote: false,
+        htmlWhitespaceSensivity: 'css',
+      },
     ],
-    "@typescript-eslint/no-non-null-assertion": 1,
-    "@typescript-eslint/no-explicit-any": 0,
-    "no-unused-vars": [
-      "warn",
+    '@typescript-eslint/no-non-null-assertion': 1,
+    '@typescript-eslint/no-explicit-any': 0,
+    'no-unused-vars': [
+      'warn',
       {
-        "argsIgnorePattern": "^(_|[A-Z]+)",
-        "varsIgnorePattern": "^(_|[A-Z]+)"
-      }
+        argsIgnorePattern: '^(_|[A-Z]+)',
+        varsIgnorePattern: '^(_|[A-Z]+)',
+      },
     ],
-    "@typescript-eslint/no-unused-vars": [
-      "warn",
+    '@typescript-eslint/no-unused-vars': [
+      'warn',
       {
-        "argsIgnorePattern": "^(_|[A-Z]+)",
-        "varsIgnorePattern": "^(_|[A-Z]+)"
-      }
+        argsIgnorePattern: '^(_|[A-Z]+)',
+        varsIgnorePattern: '^(_|[A-Z]+)',
+      },
     ],
-    "no-debugger": 1,
-    "new-cap": "off",
-    "no-extra-boolean-cast": 0,
-    "indent": 0,
-    "react/jsx-one-expression-per-line": "off",
-    "quotes": [
-      "error",
-      "single"
-    ],
-    "import/no-extraneous-dependencies": [
-      "error",
+    'no-debugger': 1,
+    'new-cap': 'off',
+    'no-extra-boolean-cast': 0,
+    indent: 0,
+    'react/jsx-one-expression-per-line': 'off',
+    quotes: ['error', 'single'],
+    'import/no-extraneous-dependencies': [
+      'error',
       {
-        "optionalDependencies": true
-      }
+        optionalDependencies: true,
+      },
     ],
-    "import/extensions": [
-      "error",
-      "always",
+    'import/extensions': [
+      'error',
+      'always',
       {
-        "js": "never",
-        "jsx": "never",
-        "ts": "never",
-        "tsx": "never"
-      }
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+      },
     ],
-    "react/forbid-prop-types": "off",
-    "no-var-requires": "off",
-    "arrow-body-style": 0,
-    "dot-notation": 0,
-    "no-console": "off",
-    "react/jsx-key": 0,
-    "semi": [
-      "error",
-      "always"
-    ],
-    "react/sort-comp": 1,
-    "no-prototype-builtins": "off",
-    "import/prefer-default-export": "off",
-    "import/no-default-export": 1,
-    "react/destructuring-assignment": "off",
-    "react/jsx-filename-extension": "off",
-    "no-use-before-define": [
-      "error",
+    'react/forbid-prop-types': 'off',
+    'no-var-requires': 'off',
+    'arrow-body-style': 0,
+    'dot-notation': 0,
+    'no-console': 'off',
+    'react/jsx-key': 0,
+    semi: ['error', 'always'],
+    'react/sort-comp': 1,
+    'no-prototype-builtins': 'off',
+    'import/prefer-default-export': 'off',
+    'import/no-default-export': 1,
+    'react/destructuring-assignment': 'off',
+    'react/jsx-filename-extension': 'off',
+    'no-use-before-define': [
+      'error',
       {
-        "functions": false,
-        "classes": true,
-        "variables": true
-      }
+        functions: false,
+        classes: true,
+        variables: true,
+      },
     ],
-    "@typescript-eslint/explicit-function-return-type": [
-      "warn",
+    '@typescript-eslint/explicit-function-return-type': [
+      'warn',
       {
-        "allowExpressions": true,
-        "allowTypedFunctionExpressions": true
-      }
+        allowExpressions: true,
+        allowTypedFunctionExpressions: true,
+      },
     ],
-    "@typescript-eslint/no-empty-interface": 0,
-    "react/no-unused-state": 1,
-    "@typescript-eslint/no-use-before-define": [
-      "error",
+    '@typescript-eslint/no-empty-interface': 0,
+    'react/no-unused-state': 1,
+    '@typescript-eslint/no-use-before-define': [
+      'error',
       {
-        "functions": false,
-        "classes": true,
-        "variables": true,
-        "typedefs": true
-      }
+        functions: false,
+        classes: true,
+        variables: true,
+        typedefs: true,
+      },
     ],
-    "unicorn/prevent-abbreviations": "off",
-    "import/extensions": 0,
-    "no-empty-function": 0,
-    "import/no-default-export": 0,
-    "unicorn/filename-case": 0,
-    "@typescript-eslint/explicit-member-accessibility": 0,
-    "@typescript-eslint/no-empty-interface": 1,
-    "no-empty-pattern": 0,
-    "@typescript-eslint/no-non-null-assertion": 0,
-    "@typescript-eslint/no-parameter-properties" : [
-      "error",
+    'unicorn/prevent-abbreviations': 'off',
+    'import/extensions': 0,
+    'no-empty-function': 0,
+    'import/no-default-export': 0,
+    'unicorn/filename-case': 0,
+    '@typescript-eslint/explicit-member-accessibility': 0,
+    '@typescript-eslint/no-empty-interface': 1,
+    'no-empty-pattern': 0,
+    '@typescript-eslint/no-non-null-assertion': 0,
+    '@typescript-eslint/no-parameter-properties': [
+      'error',
       {
-        "allows": [ "private readonly" ]
-      }
-    ]
-  }
-}
+        allows: ['private readonly'],
+      },
+    ],
+  },
+};

@@ -1,3 +1,5 @@
+/** @format */
+
 import React from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/styles';
@@ -10,7 +12,10 @@ class MyDocument extends Document {
       <html lang="en" dir="ltr">
         <Head>
           <meta charSet="utf-8" />
-          <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no" />
+          <meta
+            name="viewport"
+            content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
+          />
           <meta name="theme-color" content={theme.palette.primary.main} />
         </Head>
         <body>
@@ -39,7 +44,7 @@ MyDocument.getInitialProps = async ctx => {
       <React.Fragment key={0}>
         {initialProps.styles}
         {sheets.getStyleElement()}
-      </React.Fragment>
+      </React.Fragment>,
     ],
   };
 };

@@ -1,3 +1,5 @@
+/** @format */
+
 import { join } from 'path';
 import { config } from 'dotenv';
 import { NestFactory } from '@nestjs/core';
@@ -33,20 +35,22 @@ async function bootstrap(): Promise<void> {
 
   // production ready session store
   const pgSession = require('connect-pg-simple')(session);
-  server.use(session({
-    secret: process.env.SESSION_SECRET as string,
-    store: new pgSession({
-      conString: `postgres://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`,
-      crear_interval: 60 * 60 // sec
+  server.use(
+    session({
+      secret: process.env.SESSION_SECRET as string,
+      store: new pgSession({
+        conString: `postgres://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`,
+        crear_interval: 60 * 60, // sec
+      }),
+      resave: false,
+      saveUninitialized: false,
+      rolling: true,
+      cookie: {
+        httpOnly: false,
+        maxAge: 60 * 60 * 1000, // msec
+      },
     }),
-    resave: false,
-    saveUninitialized: false,
-    rolling: true,
-    cookie: {
-      httpOnly: false,
-      maxAge: 60 * 60 * 1000 // msec
-    }
-  }));
+  );
 
   // enable passport session
   server.use(passport.initialize());

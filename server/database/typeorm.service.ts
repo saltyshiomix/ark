@@ -1,8 +1,7 @@
+/** @format */
+
 import { Injectable } from '@nestjs/common';
-import {
-  TypeOrmOptionsFactory,
-  TypeOrmModuleOptions,
-} from '@nestjs/typeorm';
+import { TypeOrmOptionsFactory, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { EnvService } from '../env/env.service';
 
 @Injectable()

@@ -1,3 +1,5 @@
+/** @format */
+
 import React from 'react';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -14,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     container: {
       width: 480,
-      margin: `${theme.spacing(2)}px auto`
+      margin: `${theme.spacing(2)}px auto`,
     },
     card: {
       padding: theme.spacing(4),
@@ -23,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function Index(): React.ReactElement {
-  const client: HttpClient = new HttpClient;
+  const client: HttpClient = new HttpClient();
 
   const classes = useStyles({});
 

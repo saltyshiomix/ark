@@ -1,3 +1,5 @@
+/** @format */
+
 import { readFileSync } from 'fs';
 import { parse } from 'dotenv';
 

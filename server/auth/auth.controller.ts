@@ -1,3 +1,5 @@
+/** @format */
+
 import {
   Controller,
   Get,
@@ -7,11 +9,7 @@ import {
   Next,
   ValidationPipe,
 } from '@nestjs/common';
-import {
-  Request,
-  Response,
-  NextFunction,
-} from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { authenticate } from 'passport';
 import { NextService } from '../next/next.service';
 import { RegisterUser } from './decorators/register-user.decorator';
@@ -28,45 +26,54 @@ export class AuthController {
   constructor(private readonly nextService: NextService) {}
 
   @Get('register')
-  public async showRegister(@Req() req: Request, @Res() res: Response): Promise<void> {
+  public async showRegister(
+    @Req() req: Request,
+    @Res() res: Response,
+  ): Promise<void> {
     return this.nextService.render(req, res, '/auth/register');
   }
 
   @Post('register')
   public async register(
-    @RegisterUser(new ValidationPipe) _user: RegisterUserDto,
+    @RegisterUser(new ValidationPipe()) _user: RegisterUserDto,
     @Req() req: RequestWithSession,
     @Res() res: Response,
-    @Next() next: NextFunction
+    @Next() next: NextFunction,
   ): Promise<void> {
     authenticate('local-register', (_error, user) => {
-      req.logIn(user, (_err) => {
+      req.logIn(user, _err => {
         req.session.save(() => res.json(req.user));
       });
     })(req, res, next);
   }
 
   @Get('login')
-  public async showLogin(@Req() req: Request, @Res() res: Response): Promise<void> {
+  public async showLogin(
+    @Req() req: Request,
+    @Res() res: Response,
+  ): Promise<void> {
     return this.nextService.render(req, res, '/auth/login');
   }
 
   @Post('login')
   public async login(
-    @LoginUser(new ValidationPipe) _user: LoginUserDto,
+    @LoginUser(new ValidationPipe()) _user: LoginUserDto,
     @Req() req: RequestWithSession,
     @Res() res: Response,
-    @Next() next: NextFunction
+    @Next() next: NextFunction,
   ): Promise<void> {
     authenticate('local-login', (_error, user) => {
-      req.logIn(user, (_err) => {
+      req.logIn(user, _err => {
         req.session.save(() => res.json(req.user));
       });
     })(req, res, next);
   }
 
   @Get('logout')
-  public async logout(@Req() req: RequestWithSession, @Res() res: Response): Promise<void> {
+  public async logout(
+    @Req() req: RequestWithSession,
+    @Res() res: Response,
+  ): Promise<void> {
     req.session.destroy(() => res.json(true));
   }
 }

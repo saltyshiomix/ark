@@ -1,3 +1,5 @@
+/** @format */
+
 import { createParamDecorator } from '@nestjs/common';
 import { RegisterUserDto } from '../dto/register-user.dto';
 

@@ -1,3 +1,5 @@
+/** @format */
+
 import { Injectable } from '@nestjs/common';
 import { User } from '../users/user.entity';
 import { UsersService } from '../users/users.service';
@@ -7,12 +9,16 @@ import { RegisterUserDto } from './dto/register-user.dto';
 export class AuthService {
   constructor(private readonly service: UsersService) {}
 
-  public async validateUserByEmail(email: string): Promise<User|undefined> {
+  public async validateUserByEmail(email: string): Promise<User | undefined> {
     return this.service.findOneByEmail(email);
   }
 
-  public async registerUserIfNotExist(registerUserDto: RegisterUserDto): Promise<User> {
-    let user: User|undefined = await this.validateUserByEmail(registerUserDto.email);
+  public async registerUserIfNotExist(
+    registerUserDto: RegisterUserDto,
+  ): Promise<User> {
+    let user: User | undefined = await this.validateUserByEmail(
+      registerUserDto.email,
+    );
     if (user) {
       return user;
     }
