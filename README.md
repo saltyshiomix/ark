@@ -24,27 +24,31 @@
 ## Technologies
 
 - Hot reloading for the developer experience :)
-    - [nodemon](https://nodemon.io) - Monitor for any changes in your node.js application and automatically restart the server
-    - [Next.js](https://nextjs.org) - The React Framework
+  - [nodemon](https://nodemon.io) - Monitor for any changes in your node.js application and automatically restart the server
+  - [Next.js](https://nextjs.org) - The React Framework
 - Lang
-    - [TypeScript](https://www.typescriptlang.org) - Javascript that scales
+  - [TypeScript](https://www.typescriptlang.org) - Javascript that scales
+- Linter
+  - ESLint
+- Unit test
+  - Jest, Enzyme
 - Database
-    - [PostgreSQL](https://www.postgresql.org) - The World's Most Advanced Open Source Relational Database
+  - [PostgreSQL](https://www.postgresql.org) - The World's Most Advanced Open Source Relational Database
 - ORM (Object-relational mapping)
-    - [TypeORM](http://typeorm.io) - ORM for TypeScript and JavaScript (ES7, ES6, ES5)
+  - [TypeORM](http://typeorm.io) - ORM for TypeScript and JavaScript (ES7, ES6, ES5)
 - Server
-    - [nest](https://nestjs.com) - A progressive Node.js framework for building efficient, reliable and scalable server-side applications
-        - internally using [Express](https://expressjs.com) - Fast, unopinionated, minimalist web framework for Node.js
-    - [Next.js](https://nextjs.org) - The React Framework
+  - [nest](https://nestjs.com) - A progressive Node.js framework for building efficient, reliable and scalable server-side applications
+    - internally using [Express](https://expressjs.com) - Fast, unopinionated, minimalist web framework for Node.js
+  - [Next.js](https://nextjs.org) - The React Framework
 - Environment variables
-    - [dotenv](https://github.com/motdotla/dotenv) - Loads environment variables from .env for nodejs projects
-    - [dotenv-webpack](https://github.com/mrsteele/dotenv-webpack) - A secure webpack plugin that supports dotenv and other environment variables and only exposes what you choose and use.
+  - [dotenv](https://github.com/motdotla/dotenv) - Loads environment variables from .env for nodejs projects
+  - [dotenv-webpack](https://github.com/mrsteele/dotenv-webpack) - A secure webpack plugin that supports dotenv and other environment variables and only exposes what you choose and use.
 - User authentication
-    - [Passport](http://www.passportjs.org) - Simple, unobtrusive authentication for Node.js
+  - [Passport](http://www.passportjs.org) - Simple, unobtrusive authentication for Node.js
 - UI framework
-    - [React](https://reactjs.org) - A JavaScript library for building user interfaces
-    - [Next.js](https://nextjs.org) - The React Framework
-    - [Material UI](https://material-ui.com) - React components that implement Google's Material Design.
+  - [React](https://reactjs.org) - A JavaScript library for building user interfaces
+  - [Next.js](https://nextjs.org) - The React Framework
+  - [Material UI](https://material-ui.com) - React components that implement Google's Material Design.
 
 ## Setup
 
@@ -95,16 +99,16 @@ Because Ark uses [node.bcrypt.js](https://github.com/kelektiv/node.bcrypt.js), w
 - Download a latest installer at <https://www.pgadmin.org/download>
 - Run the pgAdmin and login with a root user
 - Right click `Login/Group Roles` and `Create > Login/Group Role`
-    - `General` Panel:
-        - `Name`: `arkuser`
-    - `Definition` Panel:
-        - `Password`: `arkark`
-    - `Priviledges` Panel:
-        - Check all `Yes`
+  - `General` Panel:
+    - `Name`: `arkuser`
+  - `Definition` Panel:
+    - `Password`: `arkark`
+  - `Priviledges` Panel:
+    - Check all `Yes`
 - Right click `Databases` and `Create > Database`
-    - `General` Tab:
-        - `Database`: `arkdb`
-        - `Owner`: `arkuser`
+  - `General` Tab:
+    - `Database`: `arkdb`
+    - `Owner`: `arkuser`
 
 ### Application Setup
 
@@ -125,7 +129,7 @@ $ yarn start
 
 The `.env` file is like this:
 
-```
+```bash
 # DB
 DB_HOST=localhost
 DB_PORT=5432
@@ -188,7 +192,7 @@ module.exports = {
 - [ ] Auth: [passport-twitter](https://github.com/jaredhanson/passport-twitter) (Twitter login)
 - [x] Feature: authentication
 - [ ] Feature: blogging
-- [ ] Test: unit tests
+- [x] Test: unit tests
 - [ ] Test: e2e tests
 
 ## Articles
