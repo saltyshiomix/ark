@@ -6,6 +6,7 @@
     "dev": "nodemon server/main.ts",
     "build": "next build && tsc --project tsconfig.server.json",
     "start": "cross-env NODE_ENV=production node .next/production-server/main.js",
+    "prettier": "prettier --write \"**/*.{js,ts,tsx}\"",
     "storybook": "start-storybook",
     "test": "jest"
   },
