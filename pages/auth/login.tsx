@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState, useRef, useEffect } from 'react';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -33,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function Login(): React.ReactElement {
-  const client: HttpClient = new HttpClient;
+  const client: HttpClient = new HttpClient();
 
   const classes = useStyles({});
 
@@ -42,31 +44,37 @@ export default function Login(): React.ReactElement {
   const [password, setPassword] = useState('');
   const [passwordLabelWidth, setPasswordLabelWidth] = useState(0);
 
-  const emailLabelRef = useRef({} as HTMLLabelElement);
-  const passwordLabelRef = useRef({} as HTMLLabelElement);
+  const emailLabelRef = useRef<HTMLLabelElement | any>({});
+  const passwordLabelRef = useRef<HTMLLabelElement | any>({});
   useEffect(() => setEmailLabelWidth(emailLabelRef.current.offsetWidth), []);
-  useEffect(() => setPasswordLabelWidth(passwordLabelRef.current.offsetWidth), []);
+  useEffect(
+    () => setPasswordLabelWidth(passwordLabelRef.current.offsetWidth),
+    [],
+  );
 
-  const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
-  const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
+  const handleEmail = (e: React.ChangeEvent<HTMLInputElement>): void =>
+    setEmail(e.target.value);
+  const handlePassword = (e: React.ChangeEvent<HTMLInputElement>): void =>
+    setPassword(e.target.value);
 
-  const handleClick = (e: React.MouseEvent) => {
+  const handleClick = (e: React.MouseEvent): void => {
     e.preventDefault();
     window.location.href = '/auth/register';
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: any): Promise<void> => {
     e.preventDefault();
 
     const data = {
       email: e.target.email.value,
-      password: e.target.password.value
+      password: e.target.password.value,
     };
 
     const { data: user } = await client.post('auth/login', data);
     if (user) {
       window.location.href = '/';
     } else {
+      // eslint-disable-next-line no-alert, no-undef
       alert('Failed to login!');
     }
   };
@@ -83,7 +91,9 @@ export default function Login(): React.ReactElement {
         <Card className={classes.card}>
           <CardContent>
             <FormControl className={classes.formControl} variant="outlined">
-              <InputLabel htmlFor="email" ref={emailLabelRef}>EMAIL</InputLabel>
+              <InputLabel htmlFor="email" ref={emailLabelRef}>
+                EMAIL
+              </InputLabel>
               <OutlinedInput
                 id="email"
                 name="email"
@@ -95,7 +105,9 @@ export default function Login(): React.ReactElement {
             </FormControl>
             <br />
             <FormControl className={classes.formControl} variant="outlined">
-              <InputLabel htmlFor="password" ref={passwordLabelRef}>PASSWORD</InputLabel>
+              <InputLabel htmlFor="password" ref={passwordLabelRef}>
+                PASSWORD
+              </InputLabel>
               <OutlinedInput
                 id="password"
                 name="password"
@@ -116,10 +128,7 @@ export default function Login(): React.ReactElement {
               LOGIN
             </Button>
             <br />
-            <Button
-              size="small"
-              onClick={handleClick}
-            >
+            <Button size="small" onClick={handleClick}>
               Or create an account
             </Button>
           </CardContent>

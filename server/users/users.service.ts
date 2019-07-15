@@ -16,23 +16,23 @@ export class UsersService {
   async create(createUserDto: CreateUserDto): Promise<User> {
     let { name, email, password } = createUserDto;
     password = await hash(password, 8);
-    return await this.repository.create({ name, email, password });
+    return this.repository.create({ name, email, password });
   }
 
   async findAll(): Promise<User[]> {
-    return await this.repository.find();
+    return this.repository.find();
   }
 
   async findOne(id: number): Promise<User | undefined> {
-    return await this.repository.findOne(id);
+    return this.repository.findOne(id);
   }
 
   async findOneByEmail(email: string): Promise<User | undefined> {
-    return await this.repository.findOne({ email });
+    return this.repository.findOne({ email });
   }
 
   async save(user: User): Promise<User> {
-    return await this.repository.save(user);
+    return this.repository.save(user);
   }
 
   async delete(id: number): Promise<void> {
