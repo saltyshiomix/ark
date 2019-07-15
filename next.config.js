@@ -1,3 +1,5 @@
+/** @format */
+
 const { join } = require('path');
 const DotenvWebpackPlugin = require('dotenv-webpack');
 
@@ -10,7 +12,10 @@ const withPlugins = require('next-compose-plugins');
 function withCustomWebpack(conf = {}) {
   const { webpack } = conf;
 
-  conf.webpack = (config, { /* buildId, */ dev, isServer /* , defaultLoaders */, ...rest }) => {
+  conf.webpack = (
+    config,
+    { /* buildId, */ dev, isServer /* , defaultLoaders */, ...rest },
+  ) => {
     config.plugins = [
       ...(config.plugins || []),
       new DotenvWebpackPlugin({ path: join(__dirname, '.env') }),
@@ -20,14 +25,14 @@ function withCustomWebpack(conf = {}) {
   };
 
   return conf;
-};
+}
 
 const plugins = [
   [withCSS],
   [withSass],
   [withFonts],
   // [withBundleAnalyzer],
-  [withCustomWebpack]
+  [withCustomWebpack],
 ];
 
 const config = {
