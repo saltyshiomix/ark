@@ -1,13 +1,13 @@
 {
-	"folders": [
-		{
-			"path": ".."
-		}
-	],
-	"settings": {
+  "folders": [
+    {
+      "path": ".."
+    }
+  ],
+  "settings": {
     "jest.debugMode": false,
     "jest.restartJestOnSnapshotUpdate": true,
-    "jest.pathToJest": "yarn test",
+    // "jest.pathToJest": "yarn test",
     "javascript.format.enable": false,
     "typescript.format.enable": false,
     "eslint.autoFixOnSave": true,
@@ -60,7 +60,8 @@
     "scss.lint.unknownVendorSpecificProperties": "warning",
     "scss.lint.zeroUnits": "warning",
     "prettier.printWidth": 120,
-    "better-comments.tags": [{
+    "better-comments.tags": [
+      {
         "tag": "!",
         "color": "#FF2D00",
         "strikethrough": false,
@@ -134,5 +135,5 @@
         "iconColour": "#FFD666"
       }
     }
-	}
+  }
 }
