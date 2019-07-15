@@ -2,6 +2,7 @@ import { join } from 'path';
 import { config } from 'dotenv';
 import { NestFactory } from '@nestjs/core';
 import { INestApplication } from '@nestjs/common';
+import bodyParser from 'body-parser';
 import session from 'express-session';
 import passport from 'passport';
 
@@ -27,8 +28,8 @@ async function bootstrap(): Promise<void> {
   server.use(require('cookie-parser')());
 
   // enable json response
-  server.use(require('body-parser').urlencoded({ extended: true }));
-  server.use(require('body-parser').json());
+  server.use(bodyParser.urlencoded({ extended: true }));
+  server.use(bodyParser.json());
 
   // production ready session store
   const pgSession = require('connect-pg-simple')(session);

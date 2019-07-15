@@ -19,7 +19,7 @@ export class NextService {
     return this.app;
   }
 
-  public async render(@Req() req: Request, @Res() res: Response, page: string) {
+  public async render(@Req() req: Request, @Res() res: Response, page: string): Promise<void> {
     return (await this.getApp()).render(req, res, page, req.query);
   }
 }

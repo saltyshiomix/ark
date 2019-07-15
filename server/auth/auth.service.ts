@@ -8,7 +8,7 @@ export class AuthService {
   constructor(private readonly service: UsersService) {}
 
   public async validateUserByEmail(email: string): Promise<User|undefined> {
-    return await this.service.findOneByEmail(email);
+    return this.service.findOneByEmail(email);
   }
 
   public async registerUserIfNotExist(registerUserDto: RegisterUserDto): Promise<User> {
@@ -19,6 +19,6 @@ export class AuthService {
 
     const { name, email, password } = registerUserDto;
     user = await this.service.create({ name, email, password });
-    return await this.service.save(user);
+    return this.service.save(user);
   }
 }

@@ -29,8 +29,14 @@
     },
     "eslint.trace.server": "messages",
     "eslint.validate": [
-      "javascript",
-      "javascriptreact",
+      {
+        "language": "javascript",
+        "autoFix": true
+      },
+      {
+        "language": "javascriptreact",
+        "autoFix": true
+      },
       {
         "language": "typescript",
         "autoFix": true

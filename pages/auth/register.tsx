@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function Register() {
+export default function Register(): React.ReactElement {
   const client: HttpClient = new HttpClient;
 
   const classes = useStyles({});
@@ -47,9 +47,9 @@ export default function Register() {
   const nameLabelRef = useRef({} as HTMLLabelElement);
   const emailLabelRef = useRef({} as HTMLLabelElement);
   const passwordLabelRef = useRef({} as HTMLLabelElement);
-  useEffect(() => setNameLabelWidth(nameLabelRef.current.offsetWidth));
-  useEffect(() => setEmailLabelWidth(emailLabelRef.current.offsetWidth));
-  useEffect(() => setPasswordLabelWidth(passwordLabelRef.current.offsetWidth));
+  useEffect(() => setNameLabelWidth(nameLabelRef.current.offsetWidth), []);
+  useEffect(() => setEmailLabelWidth(emailLabelRef.current.offsetWidth), []);
+  useEffect(() => setPasswordLabelWidth(passwordLabelRef.current.offsetWidth), []);
 
   const handleName = (e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value);
   const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
@@ -67,7 +67,7 @@ export default function Register() {
       name: e.target.name.value,
       email: e.target.email.value,
       password: e.target.password.value
-    }
+    };
 
     const { data: user } = await client.post('auth/register', data);
     if (user) {
@@ -75,7 +75,7 @@ export default function Register() {
     } else {
       alert('Failed to register!');
     }
-  }
+  };
 
   return (
     <div className={classes.root}>

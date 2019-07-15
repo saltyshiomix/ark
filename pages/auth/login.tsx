@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function Login() {
+export default function Login(): React.ReactElement {
   const client: HttpClient = new HttpClient;
 
   const classes = useStyles({});
@@ -44,8 +44,8 @@ export default function Login() {
 
   const emailLabelRef = useRef({} as HTMLLabelElement);
   const passwordLabelRef = useRef({} as HTMLLabelElement);
-  useEffect(() => setEmailLabelWidth(emailLabelRef.current.offsetWidth));
-  useEffect(() => setPasswordLabelWidth(passwordLabelRef.current.offsetWidth));
+  useEffect(() => setEmailLabelWidth(emailLabelRef.current.offsetWidth), []);
+  useEffect(() => setPasswordLabelWidth(passwordLabelRef.current.offsetWidth), []);
 
   const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
   const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
@@ -61,7 +61,7 @@ export default function Login() {
     const data = {
       email: e.target.email.value,
       password: e.target.password.value
-    }
+    };
 
     const { data: user } = await client.post('auth/login', data);
     if (user) {
@@ -69,7 +69,7 @@ export default function Login() {
     } else {
       alert('Failed to login!');
     }
-  }
+  };
 
   return (
     <div className={classes.root}>

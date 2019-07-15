@@ -27,7 +27,7 @@ import { NextMiddleware } from './next/next.middleware';
   ],
 })
 export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
+  public configure(consumer: MiddlewareConsumer): void {
     consumer.apply(NextMiddleware).forRoutes({ path: '_next*', method: RequestMethod.GET });
   }
 }

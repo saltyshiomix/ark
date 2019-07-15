@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 
-import App from '../pages';
+import App from '..';
 
 describe('App', () => {
   it('should render correctly', () => {

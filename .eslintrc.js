@@ -44,6 +44,10 @@ module.exports = {
     }
   },
   "rules": {
+    "no-useless-constructor": 0,
+    "@typescript-eslint/no-var-requires": 0,
+    "no-param-reassign": 1,
+    "class-methods-use-this": 0,
     "react-hooks/rules-of-hooks": 2,
     "react-hooks/exhaustive-deps": 1,
     "no-underscore-dangle": 0,
@@ -164,10 +168,18 @@ module.exports = {
     ],
     "unicorn/prevent-abbreviations": "off",
     "import/extensions": 0,
+    "no-empty-function": 0,
     "import/no-default-export": 0,
     "unicorn/filename-case": 0,
-    "@typescript-eslint/explicit-member-accessibility": 1,
+    "@typescript-eslint/explicit-member-accessibility": 0,
     "@typescript-eslint/no-empty-interface": 1,
-    "no-empty-pattern": 0
+    "no-empty-pattern": 0,
+    "@typescript-eslint/no-non-null-assertion": 0,
+    "@typescript-eslint/no-parameter-properties" : [
+      "error",
+      {
+        "allows": [ "private readonly" ]
+      }
+    ]
   }
 }
