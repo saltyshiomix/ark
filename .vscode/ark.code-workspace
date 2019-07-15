@@ -7,7 +7,6 @@
   "settings": {
     "jest.debugMode": false,
     "jest.restartJestOnSnapshotUpdate": true,
-    // "jest.pathToJest": "yarn test",
     "javascript.format.enable": false,
     "typescript.format.enable": false,
     "eslint.autoFixOnSave": true,

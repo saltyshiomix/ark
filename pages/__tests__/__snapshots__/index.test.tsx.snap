@@ -1,3 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`App should render correctly 1`] = `ShallowWrapper {}`;
+exports[`App app: render correctly 1`] = `
+<div
+  className="makeStyles-root-1"
+>
+  <WithStyles(ForwardRef(Typography))
+    variant="h2"
+  >
+    ARK
+  </WithStyles(ForwardRef(Typography))>
+  <div
+    className="makeStyles-container-2"
+  >
+    <WithStyles(ForwardRef(Card))
+      className="makeStyles-card-3"
+    >
+      <WithStyles(ForwardRef(CardContent))>
+        <WithStyles(ForwardRef(Typography))
+          variant="body1"
+        >
+          You are now logged in :)
+        </WithStyles(ForwardRef(Typography))>
+        <br />
+        <WithStyles(ForwardRef(Button))
+          color="primary"
+          onClick={[Function]}
+          size="large"
+          type="submit"
+          variant="outlined"
+        >
+          LOGOUT
+        </WithStyles(ForwardRef(Button))>
+      </WithStyles(ForwardRef(CardContent))>
+    </WithStyles(ForwardRef(Card))>
+  </div>
+</div>
+`;

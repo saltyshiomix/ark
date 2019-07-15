@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function Index(): React.ReactElement {
+export default function App(): React.ReactElement {
   const client: HttpClient = new HttpClient();
 
   const classes = useStyles({});

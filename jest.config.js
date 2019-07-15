@@ -13,6 +13,7 @@ module.exports = {
   testMatch: ['**/__tests__/*.(ts|tsx)'],
   setupFiles: ['./jest.setup.ts'],
   testPathIgnorePatterns: ['./.next/', './node_modules/'],
+  snapshotSerializers: ['enzyme-to-json/serializer'],
   globals: {
     'ts-jest': {
       tsConfig: 'tsconfig.jest.json',

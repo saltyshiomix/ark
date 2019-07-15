@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState, useRef, useEffect } from 'react';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -33,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function Register(): React.ReactElement {
-  const client: HttpClient = new HttpClient;
+  const client: HttpClient = new HttpClient();
 
   const classes = useStyles({});
 
@@ -44,35 +46,42 @@ export default function Register(): React.ReactElement {
   const [password, setPassword] = useState('');
   const [passwordLabelWidth, setPasswordLabelWidth] = useState(0);
 
-  const nameLabelRef = useRef({} as HTMLLabelElement);
-  const emailLabelRef = useRef({} as HTMLLabelElement);
-  const passwordLabelRef = useRef({} as HTMLLabelElement);
+  const nameLabelRef = useRef<HTMLLabelElement | any>({});
+  const emailLabelRef = useRef<HTMLLabelElement | any>({});
+  const passwordLabelRef = useRef<HTMLLabelElement | any>({});
   useEffect(() => setNameLabelWidth(nameLabelRef.current.offsetWidth), []);
   useEffect(() => setEmailLabelWidth(emailLabelRef.current.offsetWidth), []);
-  useEffect(() => setPasswordLabelWidth(passwordLabelRef.current.offsetWidth), []);
+  useEffect(
+    () => setPasswordLabelWidth(passwordLabelRef.current.offsetWidth),
+    [],
+  );
 
-  const handleName = (e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value);
-  const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
-  const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
+  const handleName = (e: React.ChangeEvent<HTMLInputElement>): void =>
+    setName(e.target.value);
+  const handleEmail = (e: React.ChangeEvent<HTMLInputElement>): void =>
+    setEmail(e.target.value);
+  const handlePassword = (e: React.ChangeEvent<HTMLInputElement>): void =>
+    setPassword(e.target.value);
 
-  const handleClick = (e: React.MouseEvent) => {
+  const handleClick = (e: React.MouseEvent): void => {
     e.preventDefault();
     window.location.href = '/auth/login';
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: any): Promise<void> => {
     e.preventDefault();
 
     const data = {
       name: e.target.name.value,
       email: e.target.email.value,
-      password: e.target.password.value
+      password: e.target.password.value,
     };
 
     const { data: user } = await client.post('auth/register', data);
     if (user) {
       window.location.href = '/';
     } else {
+      // eslint-disable-next-line no-alert, no-undef
       alert('Failed to register!');
     }
   };
@@ -89,7 +98,9 @@ export default function Register(): React.ReactElement {
         <Card className={classes.card}>
           <CardContent>
             <FormControl className={classes.formControl} variant="outlined">
-              <InputLabel htmlFor="name" ref={nameLabelRef}>NAME</InputLabel>
+              <InputLabel htmlFor="name" ref={nameLabelRef}>
+                NAME
+              </InputLabel>
               <OutlinedInput
                 id="name"
                 name="name"
@@ -100,7 +111,9 @@ export default function Register(): React.ReactElement {
               />
             </FormControl>
             <FormControl className={classes.formControl} variant="outlined">
-              <InputLabel htmlFor="email" ref={emailLabelRef}>EMAIL</InputLabel>
+              <InputLabel htmlFor="email" ref={emailLabelRef}>
+                EMAIL
+              </InputLabel>
               <OutlinedInput
                 id="email"
                 name="email"
@@ -112,7 +125,9 @@ export default function Register(): React.ReactElement {
             </FormControl>
             <br />
             <FormControl className={classes.formControl} variant="outlined">
-              <InputLabel htmlFor="password" ref={passwordLabelRef}>PASSWORD</InputLabel>
+              <InputLabel htmlFor="password" ref={passwordLabelRef}>
+                PASSWORD
+              </InputLabel>
               <OutlinedInput
                 id="password"
                 name="password"
@@ -133,10 +148,7 @@ export default function Register(): React.ReactElement {
               REGISTER
             </Button>
             <br />
-            <Button
-              size="small"
-              onClick={handleClick}
-            >
+            <Button size="small" onClick={handleClick}>
               Have an account? Please login.
             </Button>
           </CardContent>

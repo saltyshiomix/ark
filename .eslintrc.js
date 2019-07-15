@@ -76,7 +76,7 @@ module.exports = {
         semi: true,
         bracketSpacing: true,
         trailingComma: 'all',
-        jsxBracketSameLine: true,
+        jsxBracketSameLine: false,
         arrowParens: 'always',
         insertPragma: true,
         quoteProps: 'consistent',

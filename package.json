@@ -15,9 +15,18 @@
     }
   },
   "lint-staged": {
-    "*.{js,jsx}": ["prettier --write", "git add"],
-    "*.{ts,tsx}": ["prettier --write", "git add"],
-    "*.{md,html}": ["prettier --write", "git add"]
+    "*.{js,jsx}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.{ts,tsx}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.{md,html}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "dependencies": {
     "@material-ui/core": "^4.2.0",
@@ -79,6 +88,7 @@
     "dotenv-webpack": "^1.7.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
+    "enzyme-to-json": "^3.3.5",
     "eslint": "^6.0.1",
     "eslint-config-airbnb": "^17.1.1",
     "eslint-config-airbnb-typescript": "^4.0.1",
