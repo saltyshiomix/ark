@@ -4,6 +4,10 @@ import { join } from 'path';
 import { config } from 'dotenv';
 import { NestFactory } from '@nestjs/core';
 import { INestApplication } from '@nestjs/common';
+import helmet from 'helmet';
+import compression from 'compression';
+import cookieParser from 'cookie-parser';
+import connectPgSimple from 'connect-pg-simple';
 import bodyParser from 'body-parser';
 import session from 'express-session';
 import passport from 'passport';
@@ -21,26 +25,26 @@ async function bootstrap(): Promise<void> {
   server.enableCors();
 
   // improve security
-  server.use(require('helmet')());
+  server.use(helmet());
 
   // improve performance
-  server.use(require('compression')());
+  server.use(compression());
 
   // enable cookie
-  server.use(require('cookie-parser')());
+  server.use(cookieParser());
 
   // enable json response
   server.use(bodyParser.urlencoded({ extended: true }));
   server.use(bodyParser.json());
 
   // production ready session store
-  const pgSession = require('connect-pg-simple')(session);
+  const pgSession = connectPgSimple(session);
   server.use(
     session({
       secret: process.env.SESSION_SECRET as string,
       store: new pgSession({
         conString: `postgres://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`,
-        crear_interval: 60 * 60, // sec
+        // crear_interval: 60 * 60, // sec
       }),
       resave: false,
       saveUninitialized: false,

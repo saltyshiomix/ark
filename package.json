@@ -6,7 +6,8 @@
     "dev": "nodemon server/main.ts",
     "build": "next build && tsc --project tsconfig.server.json",
     "start": "cross-env NODE_ENV=production node .next/production-server/main.js",
-    "prettier": "prettier --write \"**/*.{js,ts,tsx}\"",
+    "prettier": "prettier --ignore-path .gitignore --write \"**/*.{js,jsx,ts,tsx}\"",
+    "lint": "eslint --ignore-path .gitignore --fix \"{lib,pages,server}/**/*.{js,jsx,ts,tsx}\"",
     "storybook": "start-storybook",
     "test": "jest"
   },
@@ -18,10 +19,12 @@
   "lint-staged": {
     "*.{js,jsx}": [
       "prettier --write",
+      "eslint --ignore-path .gitignore",
       "git add"
     ],
     "*.{ts,tsx}": [
       "prettier --write",
+      "eslint --ignore-path .gitignore",
       "git add"
     ],
     "*.{md,html}": [
@@ -70,10 +73,14 @@
     "@babel/core": "^7.5.4",
     "@storybook/react": "^5.1.9",
     "@types/bcrypt": "^3.0.0",
+    "@types/compression": "^0.0.36",
+    "@types/connect-pg-simple": "^4.2.0",
+    "@types/cookie-parser": "^1.4.1",
     "@types/dotenv": "^6.1.1",
     "@types/enzyme": "^3.10.2",
     "@types/enzyme-adapter-react-16": "^1.0.5",
     "@types/express-session": "^1.15.13",
+    "@types/helmet": "^0.0.43",
     "@types/jest": "^24.0.15",
     "@types/next": "^8.0.6",
     "@types/next-server": "^8.1.2",
@@ -96,7 +103,7 @@
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-eslint-comments": "^3.1.2",
     "eslint-plugin-import": "^2.18.0",
-    "eslint-plugin-jest": "^22.7.2",
+    "eslint-plugin-jest": "^22.8.0",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-promise": "^4.2.1",

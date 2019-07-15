@@ -65,6 +65,7 @@ module.exports = {
         VariableDeclarator: 2,
       },
     ],
+    '@typescript-eslint/indent': 0,
     'prettier/prettier': [
       'error',
       {

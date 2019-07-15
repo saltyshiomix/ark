@@ -14,6 +14,7 @@ export class UsersService {
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
+    // eslint-disable-next-line prefer-const
     let { name, email, password } = createUserDto;
     password = await hash(password, 8);
     return this.repository.create({ name, email, password });
