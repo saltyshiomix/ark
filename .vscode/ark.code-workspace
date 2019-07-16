@@ -6,6 +6,7 @@
   ],
   "settings": {
     "jest.debugMode": false,
+    "jest.pathToJest": "yarn run test",
     "jest.restartJestOnSnapshotUpdate": true,
     "javascript.format.enable": false,
     "typescript.format.enable": false,
