@@ -41,7 +41,7 @@ export class AuthController {
     @Next() next: NextFunction,
   ): Promise<void> {
     authenticate('local-register', (_error, user) => {
-      req.logIn(user, _err => {
+      req.logIn(user, (_err) => {
         req.session.save(() => res.json(req.user));
       });
     })(req, res, next);
@@ -63,7 +63,7 @@ export class AuthController {
     @Next() next: NextFunction,
   ): Promise<void> {
     authenticate('local-login', (_error, user) => {
-      req.logIn(user, _err => {
+      req.logIn(user, (_err) => {
         req.session.save(() => res.json(req.user));
       });
     })(req, res, next);

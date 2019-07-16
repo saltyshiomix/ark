@@ -3,10 +3,7 @@
     "target": "esnext",
     "module": "esnext",
     "jsx": "preserve",
-    "lib": [
-      "dom",
-      "es2017",
-    ],
+    "lib": ["dom", "es2017"],
     "moduleResolution": "node",
     "noEmit": true,
     "allowJs": true,
@@ -23,9 +20,7 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
+    "experimentalDecorators": true
   },
-  "exclude": [
-    "node_modules",
-  ],
+  "exclude": ["node_modules"]
 }

@@ -12,7 +12,7 @@ export class NextService {
 
   public async getApp(): Promise<Server> {
     if (!this.app) {
-      this.app = next({ dev });
+      this.app = next({ dev, quiet: !dev });
       await this.app.prepare();
     }
     return this.app;
