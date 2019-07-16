@@ -43,9 +43,9 @@ comment on column app_public.users.is_admin is
 create policy select_all on app_public.users for select using (true);
 create policy update_self on app_public.users for update using (id = app_public.current_user_id());
 create policy delete_self on app_public.users for delete using (id = app_public.current_user_id());
-grant select on app_public.users to graphiledemo_visitor;
-grant update(name, avatar_url) on app_public.users to graphiledemo_visitor;
-grant delete on app_public.users to graphiledemo_visitor;
+grant select on app_public.users to arkuser_visitor;
+grant update(name, avatar_url) on app_public.users to arkuser_visitor;
+grant delete on app_public.users to arkuser_visitor;
 
 create function app_private.tg_users__make_first_user_admin() returns trigger as $$
 begin
@@ -143,9 +143,9 @@ comment on column app_public.user_emails.is_verified is
 create policy select_own on app_public.user_emails for select using (user_id = app_public.current_user_id());
 create policy insert_own on app_public.user_emails for insert with check (user_id = app_public.current_user_id());
 create policy delete_own on app_public.user_emails for delete using (user_id = app_public.current_user_id()); -- TODO check this isn't the last one!
-grant select on app_public.user_emails to graphiledemo_visitor;
-grant insert (email) on app_public.user_emails to graphiledemo_visitor;
-grant delete on app_public.user_emails to graphiledemo_visitor;
+grant select on app_public.user_emails to arkuser_visitor;
+grant insert (email) on app_public.user_emails to arkuser_visitor;
+grant delete on app_public.user_emails to arkuser_visitor;
 
 --------------------------------------------------------------------------------
 
@@ -210,8 +210,8 @@ comment on column app_public.user_authentications.details is
 
 create policy select_own on app_public.user_authentications for select using (user_id = app_public.current_user_id());
 create policy delete_own on app_public.user_authentications for delete using (user_id = app_public.current_user_id()); -- TODO check this isn't the last one, or that they have a verified email address
-grant select on app_public.user_authentications to graphiledemo_visitor;
-grant delete on app_public.user_authentications to graphiledemo_visitor;
+grant select on app_public.user_authentications to arkuser_visitor;
+grant delete on app_public.user_authentications to arkuser_visitor;
 
 --------------------------------------------------------------------------------
 

@@ -1,7 +1,7 @@
 -- First, we clean out the old stuff
 
 drop schema if exists app_public cascade;
-drop schema if exists app_hidden cascade;
+-- drop schema if exists app_hidden cascade;
 drop schema if exists app_private cascade;
 drop schema if exists app_jobs cascade;
 
@@ -31,6 +31,6 @@ drop schema if exists app_jobs cascade;
 -- email or customising the user tables to your whim
 
 -- Forum tables
-\ir 700_forum.sql
+-- \ir 700_forum.sql
 
-\ir 999_data.sql
+-- \ir 999_data.sql

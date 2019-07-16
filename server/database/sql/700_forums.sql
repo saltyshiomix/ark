@@ -27,10 +27,10 @@ create policy select_all on app_public.forums for select using (true);
 create policy insert_admin on app_public.forums for insert with check (app_public.current_user_is_admin());
 create policy update_admin on app_public.forums for update using (app_public.current_user_is_admin());
 create policy delete_admin on app_public.forums for delete using (app_public.current_user_is_admin());
-grant select on app_public.forums to graphiledemo_visitor;
-grant insert(slug, name, description) on app_public.forums to graphiledemo_visitor;
-grant update(slug, name, description) on app_public.forums to graphiledemo_visitor;
-grant delete on app_public.forums to graphiledemo_visitor;
+grant select on app_public.forums to arkuser_visitor;
+grant insert(slug, name, description) on app_public.forums to arkuser_visitor;
+grant update(slug, name, description) on app_public.forums to arkuser_visitor;
+grant delete on app_public.forums to arkuser_visitor;
 
 --------------------------------------------------------------------------------
 
@@ -60,10 +60,10 @@ create policy select_all on app_public.topics for select using (true);
 create policy insert_admin on app_public.topics for insert with check (author_id = app_public.current_user_id());
 create policy update_admin on app_public.topics for update using (author_id = app_public.current_user_id() or app_public.current_user_is_admin());
 create policy delete_admin on app_public.topics for delete using (author_id = app_public.current_user_id() or app_public.current_user_is_admin());
-grant select on app_public.topics to graphiledemo_visitor;
-grant insert(forum_id, title, body) on app_public.topics to graphiledemo_visitor;
-grant update(title, body) on app_public.topics to graphiledemo_visitor;
-grant delete on app_public.topics to graphiledemo_visitor;
+grant select on app_public.topics to arkuser_visitor;
+grant insert(forum_id, title, body) on app_public.topics to arkuser_visitor;
+grant update(title, body) on app_public.topics to arkuser_visitor;
+grant delete on app_public.topics to arkuser_visitor;
 
 create function app_public.topics_body_summary(
   t app_public.topics,
@@ -116,10 +116,10 @@ create policy select_all on app_public.posts for select using (true);
 create policy insert_admin on app_public.posts for insert with check (author_id = app_public.current_user_id());
 create policy update_admin on app_public.posts for update using (author_id = app_public.current_user_id() or app_public.current_user_is_admin());
 create policy delete_admin on app_public.posts for delete using (author_id = app_public.current_user_id() or app_public.current_user_is_admin());
-grant select on app_public.posts to graphiledemo_visitor;
-grant insert(topic_id, body) on app_public.posts to graphiledemo_visitor;
-grant update(body) on app_public.posts to graphiledemo_visitor;
-grant delete on app_public.posts to graphiledemo_visitor;
+grant select on app_public.posts to arkuser_visitor;
+grant insert(topic_id, body) on app_public.posts to arkuser_visitor;
+grant update(body) on app_public.posts to arkuser_visitor;
+grant delete on app_public.posts to arkuser_visitor;
 
 
 create function app_public.random_number() returns int
