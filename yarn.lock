@@ -2180,10 +2180,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.6.2.tgz#a5ccec6abb6060d5f20d256fb03ed743e9774999"
   integrity sha512-gojym4tX0FWeV2gsW4Xmzo5wxGjXGm550oVUII7f7G5o4BV6c7DBdiG1RRQd+y1bvqRyYtPfMK85UM95vsapqQ==
 
-"@types/node@^12.6.3":
-  version "12.6.3"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.6.3.tgz#44d507c5634f85e7164707ca36bba21b5213d487"
-  integrity sha512-7TEYTQT1/6PP53NftXXabIZDaZfaoBdeBm8Md/i7zsWRoBe0YwOXguyK8vhHs8ehgB/w9U4K/6EWuTyp0W6nIA==
+"@types/node@^12.6.6":
+  version "12.6.6"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.6.6.tgz#831587377c35bb28fa33b6fe5f849a26a3f4a412"
+  integrity sha512-SMgj3x28MkJyHdWaMv/g/ca3LYDi5gR7O8mX0VKazvFOnmlDXctSEdd/8jfSqozjKFK1R9If1QZWkafX7yQTpA==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -5579,10 +5579,10 @@ eslint-plugin-import@^2.18.0:
     read-pkg-up "^2.0.0"
     resolve "^1.11.0"
 
-eslint-plugin-jest@^22.8.0:
-  version "22.8.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-22.8.0.tgz#242ef5459e8da25d2c41438e95eb546e03d7fae1"
-  integrity sha512-2VftZMfILmlhL3VMq5ptHRIuyyXb3ShDEDb1J1UjvWNzm4l+UK/YmwNuTuJcM0gv8pJuOfiR/8ZptJ8Ou68pFw==
+eslint-plugin-jest@^22.9.0:
+  version "22.9.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-22.9.0.tgz#2573dbcb4f1066b96a6e6d3b9aa439c80b28975a"
+  integrity sha512-V89BUiwf76FHlhj1mlNhNyvpzTy8VbWCh2RZpKYz/XDSl/pcuwFiE/LMt7r3q1sRKygzEMjbYeDob8MMuvakXg==
 
 eslint-plugin-jsx-a11y@^6.2.3:
   version "6.2.3"
@@ -9403,10 +9403,10 @@ next-fonts@^0.17.0:
     file-loader "^2.0.0"
     url-loader "^1.1.1"
 
-next-server@9.0.1, next-server@^9.0.1:
-  version "9.0.1"
-  resolved "https://registry.yarnpkg.com/next-server/-/next-server-9.0.1.tgz#9b57487d27042adf1f95e6609458aca07f05b6d4"
-  integrity sha512-o2OT9iAxwavKaobZdCsT12pmwCEBHHY338yIY8DzeXR6PhOFkn1qBghAycFKxRc3NPtkbqnBI8Hv9YGwpM74eQ==
+next-server@9.0.2, next-server@^9.0.2:
+  version "9.0.2"
+  resolved "https://registry.yarnpkg.com/next-server/-/next-server-9.0.2.tgz#8e119734c2492fd20faa7e487989b7d376d67d70"
+  integrity sha512-SGN20hjHKkz/WJ5H4FsWnaIefV8x3hoQWwNKVKqTOQSCNNQLMmVQJtTybCTR2ZZz3UJUFpt0fvvoDukWV7Du2A==
   dependencies:
     amp-toolbox-optimizer "1.2.0-alpha.1"
     content-type "1.0.4"
@@ -9427,10 +9427,10 @@ next-tick@1, next-tick@^1.0.0:
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
   integrity sha1-yobR/ogoFpsBICCOPchCS524NCw=
 
-next@^9.0.1:
-  version "9.0.1"
-  resolved "https://registry.yarnpkg.com/next/-/next-9.0.1.tgz#a1f45114db771659b2444758431d58e13f8cb914"
-  integrity sha512-4VQ85H/2V3E4wdIxsZIFrcuWozNFLj/RVpotfe7QDG+cPX/j13l1dfu0REF3tQ/eb/FV5QAeFq+4dUcqY3oxFA==
+next@^9.0.2:
+  version "9.0.2"
+  resolved "https://registry.yarnpkg.com/next/-/next-9.0.2.tgz#4de9da7ca64d89dd1759ad2b5d9d23a9dc3ca63b"
+  integrity sha512-ICZWI4a7oqjGIf3qoq8amCSeF+mP00azqODqFWSwFGCxm3SnBZu4xqNr5QmeOMFCML8J/eRlI6o8vE7aE0yTTw==
   dependencies:
     "@babel/core" "7.4.5"
     "@babel/plugin-proposal-class-properties" "7.4.4"
@@ -9458,7 +9458,7 @@ next@^9.0.1:
     launch-editor "2.2.1"
     loader-utils "1.2.3"
     mkdirp "0.5.1"
-    next-server "9.0.1"
+    next-server "9.0.2"
     prop-types "15.7.2"
     prop-types-exact "1.2.0"
     react-error-overlay "5.1.6"
