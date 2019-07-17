@@ -1,8 +1,10 @@
 /** @format */
 
+// #region Imports NPM
 import { Injectable, NestMiddleware, Header } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { NextService } from './next.service';
+// #endregion
 
 @Injectable()
 export class NextMiddleware implements NestMiddleware {

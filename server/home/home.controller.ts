@@ -1,8 +1,10 @@
 /** @format */
 
+// #region Imports NPM
 import { Controller, Get, Req, Res } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { NextService } from '../next/next.service';
+// #endregion
 
 @Controller()
 export class HomeController {

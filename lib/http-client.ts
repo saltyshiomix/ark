@@ -1,14 +1,23 @@
 /** @format */
 
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+// import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+
+interface AxiosResponse {}
+interface AxiosRequestConfig {}
+interface AxiosInstance {
+  get: any;
+  put: any;
+  post: any;
+  delete: any;
+}
 
 export default class HttpClient {
   private client: AxiosInstance;
 
   constructor() {
-    this.client = axios.create({
-      baseURL: `${process.env.HOST}:${process.env.PORT}`,
-    });
+    // this.client = axios.create({
+    //   baseURL: `${process.env.HOST}:${process.env.PORT}`,
+    // });
   }
 
   public async get(

@@ -1,27 +1,27 @@
 /** @format */
 
 // #region Imports NPM
-import { LoggerService } from '@nestjs/common';
+import { Logger } from '@nestjs/common';
 // #endregion
 
-export class AppLogger implements LoggerService {
+export class AppLogger extends Logger {
   log(message: string): void {
-    console.log(message);
+    super.log(message);
   }
 
   error(message: string, trace: string): void {
-    console.error(message, trace);
+    super.error(message, trace);
   }
 
   warn(message: string): void {
-    console.warn(message);
+    super.warn(message);
   }
 
   debug(message: string): void {
-    console.debug(message);
+    super.debug(message);
   }
 
   verbose(message: string): void {
-    console.info(message);
+    super.verbose(message);
   }
 }

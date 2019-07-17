@@ -9,7 +9,7 @@ import CardContent from '@material-ui/core/CardContent';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
-import HttpClient from '../../lib/http-client';
+// import HttpClient from '../../lib/http-client';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function Login(): React.ReactElement {
-  const client: HttpClient = new HttpClient();
+  // const client: HttpClient = new HttpClient();
 
   const classes = useStyles({});
 
@@ -65,18 +65,18 @@ export default function Login(): React.ReactElement {
   const handleSubmit = async (e: any): Promise<void> => {
     e.preventDefault();
 
-    const data = {
-      email: e.target.email.value,
-      password: e.target.password.value,
-    };
+    // const data = {
+    //   email: e.target.email.value,
+    //   password: e.target.password.value,
+    // };
 
-    const { data: user } = await client.post('auth/login', data);
-    if (user) {
-      window.location.href = '/';
-    } else {
-      // eslint-disable-next-line no-alert, no-undef
-      alert('Failed to login!');
-    }
+    // const { data: user } = await client.post('auth/login', data);
+    // if (user) {
+    //   window.location.href = '/';
+    // } else {
+    // eslint-disable-next-line no-alert, no-undef
+    // alert('Failed to login!');
+    // }
   };
 
   return (

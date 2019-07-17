@@ -1,6 +1,6 @@
 {
   "watch": ["server"],
   "execMap": {
-    "ts": "NODE_OPTIONS=--inspect ts-node --project tsconfig.server.json"
+    "ts": "TS_NODE_PROJECT='tsconfig.server.json' node -r ts-node/register"
   }
 }

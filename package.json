@@ -3,7 +3,7 @@
   "name": "ark",
   "version": "3.1.0",
   "scripts": {
-    "dev": "nodemon server/main.ts",
+    "dev": "nodemon --inspect server/main.ts",
     "build": "next build && tsc --project tsconfig.server.json",
     "start": "cross-env NODE_ENV=production node .next/production-server/main.js",
     "prettier": "prettier --ignore-path .gitignore --write \"**/*.{js,jsx,ts,tsx}\"",
@@ -116,6 +116,6 @@
     "ts-jest": "^24.0.2",
     "ts-node": "^8.3.0",
     "typescript": "^3.5.3",
-    "webpack": "4.35.3"
+    "webpack": "4.36.0"
   }
 }

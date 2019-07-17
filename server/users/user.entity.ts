@@ -1,26 +1,28 @@
 /** @format */
 
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-import { Exclude } from 'class-transformer';
+export class User {}
 
-@Entity()
-export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
+// import { Exclude } from 'class-transformer';
+// import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-  @Column('varchar')
-  name: string;
+// @Entity()
+// export class User {
+//   @PrimaryGeneratedColumn()
+//   id: number;
 
-  @Column('varchar', {
-    unique: true,
-  })
-  email: string;
+//   @Column('varchar')
+//   name: string;
 
-  @Column('varchar')
-  @Exclude()
-  password: string;
+//   @Column('varchar', {
+//     unique: true,
+//   })
+//   email: string;
 
-  constructor(partial: Partial<User>) {
-    Object.assign(this, partial);
-  }
-}
+//   @Column('varchar')
+//   @Exclude()
+//   password: string;
+
+//   constructor(partial: Partial<User>) {
+//     Object.assign(this, partial);
+//   }
+// }

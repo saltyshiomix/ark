@@ -23,7 +23,7 @@ async function bootstrap(): Promise<void> {
   config({ path: join(process.cwd(), '.env') });
   // #endregion
 
-  // #region create nest server
+  // #region create NestJS server
   const server: INestApplication = await NestFactory.create(AppModule, {
     // logger: new AppLogger(),
   });

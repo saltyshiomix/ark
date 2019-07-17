@@ -10,11 +10,13 @@ import {
   RequestMethod,
   CacheModule,
 } from '@nestjs/common';
+import { APP_FILTER } from '@nestjs/core';
 import redisStore from 'cache-manager-redis';
 import { PostGraphileModule } from 'postgraphile-nest';
+import { IncomingMessage } from 'http';
 // #endregion
 // #region Imports Local
-import { IncomingMessage } from 'http';
+import { AppHttpExceptionFilter } from './exceptions';
 import { ConfigModule } from './config/config.module';
 import { NextModule } from './next/next.module';
 // import { UsersModule } from './users/users.module';
@@ -22,6 +24,7 @@ import { NextModule } from './next/next.module';
 import { HomeModule } from './home/home.module';
 import { NextMiddleware } from './next/next.middleware';
 import { ConfigService } from './config/config.service';
+import { NextService } from './next/next.service';
 // #endregion
 
 @Module({
@@ -53,7 +56,7 @@ import { ConfigService } from './config/config.service';
     PostGraphileModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (configService: ConfigService) => {
+      useFactory: async (configService: ConfigService) => {
         return {
           pgConfig: configService.get('DATABASE_URL'),
           schema: configService.get('DATABASE_SCHEMA')!.split(','),
@@ -79,6 +82,18 @@ import { ConfigService } from './config/config.service';
 
     // #region Home page
     HomeModule,
+    // #endregion
+  ],
+
+  providers: [
+    // #region Errors: ExceptionFilter
+    {
+      provide: APP_FILTER,
+      inject: [NextService],
+      useFactory: (nextService: NextService) => {
+        return new AppHttpExceptionFilter(nextService);
+      },
+    },
     // #endregion
   ],
 })
