@@ -8,10 +8,11 @@ import {
   NestModule,
   MiddlewareConsumer,
   RequestMethod,
-  CacheModule,
+  // CacheModule,
+  // CacheInterceptor,
 } from '@nestjs/common';
-import { APP_FILTER } from '@nestjs/core';
-import redisStore from 'cache-manager-redis';
+import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
+// import redisStore from 'cache-manager-redis';
 import { PostGraphileModule } from 'postgraphile-nest';
 import { IncomingMessage } from 'http';
 // #endregion
@@ -32,24 +33,24 @@ import { NextService } from './next/next.service';
     ConfigModule,
 
     // #region Cache Manager - Redis
-    CacheModule.registerAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => ({
-        store: redisStore,
-        host: configService.get('REDIS_HOST'),
-        port: parseInt(configService.get('REDIS_PORT'), 10),
-        db: configService.get('REDIS_DB')
-          ? parseInt(configService.get('REDIS_DB'), 10)
-          : undefined,
-        password: configService.get('REDIS_PASSWORD')
-          ? configService.get('REDIS_PASSWORD')
-          : undefined,
-        keyPrefix: configService.get('REDIS_PREFIX')
-          ? configService.get('REDIS_PREFIX')
-          : undefined,
-      }),
-    }),
+    // CacheModule.registerAsync({
+    // imports: [ConfigModule],
+    // inject: [ConfigService],
+    // useFactory: async (configService: ConfigService) => ({
+    // store: redisStore,
+    // host: configService.get('REDIS_HOST'),
+    // port: parseInt(configService.get('REDIS_PORT'), 10),
+    // db: configService.get('REDIS_DB')
+    //   ? parseInt(configService.get('REDIS_DB'), 10)
+    //   : undefined,
+    // password: configService.get('REDIS_PASSWORD')
+    //   ? configService.get('REDIS_PASSWORD')
+    //   : undefined,
+    // keyPrefix: configService.get('REDIS_PREFIX')
+    //   ? configService.get('REDIS_PREFIX')
+    //   : undefined,
+    // }),
+    // }),
     // #endregion
 
     // #region PostGraphile
@@ -64,7 +65,7 @@ import { NextService } from './next/next.service';
             // role: 'visitor',
             // 'jwt.claims.user.id': `${req.user_id}`,
           }),
-          playground: !!(process.env.NODE_ENV !== 'production'),
+          playground: !(process.env.NODE_ENV === 'production'),
           playgroundRoute: '/graphiql',
         };
       },
@@ -86,6 +87,8 @@ import { NextService } from './next/next.service';
   ],
 
   providers: [
+    // #region Time
+    // #endregion
     // #region Errors: ExceptionFilter
     {
       provide: APP_FILTER,
@@ -94,6 +97,12 @@ import { NextService } from './next/next.service';
         return new AppHttpExceptionFilter(nextService);
       },
     },
+    // #endregion
+    // #region CacheInterceptor
+    // {
+    //   provide: APP_INTERCEPTOR,
+    //   useClass: CacheInterceptor,
+    // },
     // #endregion
   ],
 })

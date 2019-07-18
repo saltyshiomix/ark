@@ -1,4 +1,5 @@
 /** @format */
+/* eslint no-param-reassign: 0 */
 
 const { join } = require('path');
 const DotenvWebpackPlugin = require('dotenv-webpack');
@@ -8,6 +9,7 @@ const withSass = require('@zeit/next-sass');
 const withCSS = require('@zeit/next-css');
 const withFonts = require('next-fonts');
 const withPlugins = require('next-compose-plugins');
+const Webpack = require('webpack');
 
 function withCustomWebpack(conf = {}) {
   const { webpack } = conf;
@@ -18,6 +20,9 @@ function withCustomWebpack(conf = {}) {
   ) => {
     config.plugins = [
       ...(config.plugins || []),
+      new Webpack.DefinePlugin({
+        __DEV__: JSON.stringify(dev),
+      }),
       new DotenvWebpackPlugin({ path: join(__dirname, '.env') }),
     ];
 

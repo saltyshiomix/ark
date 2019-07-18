@@ -28,8 +28,8 @@
     ]
   },
   "dependencies": {
-    "@material-ui/core": "^4.2.0",
-    "@material-ui/styles": "^4.2.0",
+    "@material-ui/core": "^4.2.1",
+    "@material-ui/styles": "^4.2.1",
     "@nestjs/common": "^6.5.2",
     "@nestjs/core": "^6.5.2",
     "@nestjs/passport": "^6.1.0",
@@ -49,7 +49,7 @@
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "express-session": "^1.16.2",
-    "helmet": "^3.18.0",
+    "helmet": "^3.19.0",
     "next": "^9.0.2",
     "next-compose-plugins": "^2.2.0",
     "next-fonts": "^0.17.0",
@@ -64,11 +64,12 @@
     "react-dom": "^16.8.6",
     "redis": "^2.8.0",
     "reflect-metadata": "^0.1.13",
+    "response-time": "^2.3.2",
     "rxjs": "^6.5.2",
-    "typeface-roboto": "^0.0.54"
+    "typeface-roboto": "^0.0.75"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.4",
+    "@babel/core": "^7.5.5",
     "@storybook/react": "^5.1.9",
     "@types/bcrypt": "^3.0.0",
     "@types/compression": "^0.0.36",
@@ -82,11 +83,12 @@
     "@types/jest": "^24.0.15",
     "@types/next": "^8.0.6",
     "@types/next-server": "^8.1.2",
-    "@types/node": "^12.6.6",
+    "@types/node": "^12.6.8",
     "@types/passport": "^1.0.0",
     "@types/passport-local": "^1.0.33",
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.8.4",
+    "@types/response-time": "^2.3.3",
     "@typescript-eslint/eslint-plugin": "^1.12.0",
     "@typescript-eslint/parser": "^1.12.0",
     "babel-loader": "^8.0.6",
@@ -101,7 +103,7 @@
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-eslint-comments": "^3.1.2",
     "eslint-plugin-import": "^2.18.0",
-    "eslint-plugin-jest": "^22.9.0",
+    "eslint-plugin-jest": "^22.10.0",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-promise": "^4.2.1",
@@ -116,6 +118,6 @@
     "ts-jest": "^24.0.2",
     "ts-node": "^8.3.0",
     "typescript": "^3.5.3",
-    "webpack": "4.36.0"
+    "webpack": "4.36.1"
   }
 }

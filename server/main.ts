@@ -4,7 +4,9 @@
 import { join } from 'path';
 import { config } from 'dotenv';
 import { NestFactory } from '@nestjs/core';
-import { INestApplication } from '@nestjs/common';
+import { INestApplication, Logger } from '@nestjs/common';
+import { NestApplicationOptions } from '@nestjs/common/interfaces/nest-application-options.interface';
+import responseTime from 'response-time';
 import helmet from 'helmet';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
@@ -24,13 +26,21 @@ async function bootstrap(): Promise<void> {
   // #endregion
 
   // #region create NestJS server
-  const server: INestApplication = await NestFactory.create(AppModule, {
-    // logger: new AppLogger(),
-  });
+  const nestjsOptions: NestApplicationOptions = {
+    cors: {
+      credentials: true,
+    },
+    logger: new Logger('ARK', true),
+    // httpsOptions: {},
+  };
+  const server: INestApplication = await NestFactory.create(
+    AppModule,
+    nestjsOptions,
+  );
   // #endregion
 
-  // #region CORS
-  server.enableCors();
+  // #region X-Response-Time
+  server.use(responseTime());
   // #endregion
 
   // #region improve security
