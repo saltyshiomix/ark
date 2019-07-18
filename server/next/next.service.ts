@@ -10,11 +10,12 @@ const dev = process.env.NODE_ENV !== 'production';
 export class NextService {
   private app!: Server;
 
+  constructor() {
+    this.app = next({ dev, quiet: !dev });
+    this.app.prepare();
+  }
+
   public async getApp(): Promise<Server> {
-    if (!this.app) {
-      this.app = next({ dev, quiet: !dev });
-      await this.app.prepare();
-    }
     return this.app;
   }
 
@@ -24,10 +25,8 @@ export class NextService {
     status: number,
     exception: HttpException | unknown,
   ): Promise<void> {
-    const app = await this.getApp();
-
     if (status === 404) {
-      return app.render404(req, res);
+      return this.app.render404(req, res);
     }
 
     const message =
@@ -35,7 +34,7 @@ export class NextService {
         ? exception.toString()
         : 'Internal server error';
 
-    return app.renderError(new Error(message), req, res, req.url);
+    return this.app.renderError(new Error(message), req, res, req.url);
   }
 
   public async render(
@@ -43,6 +42,6 @@ export class NextService {
     @Res() res: Response,
     page: string,
   ): Promise<void> {
-    return (await this.getApp()).render(req, res, page, req.query);
+    return this.app.render(req, res, page, req.query);
   }
 }
