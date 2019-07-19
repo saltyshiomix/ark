@@ -46,8 +46,12 @@ export class ConfigService {
       REDIS_DB: Joi.number()
         .default(0)
         .required(),
-      REDIS_PASSWORD: Joi.string().allow(''),
-      REDIS_PREFIX: Joi.string().allow(''),
+      REDIS_PASSWORD: Joi.string()
+        .allow('')
+        .empty(),
+      REDIS_PREFIX: Joi.string()
+        .allow('')
+        .empty(),
       SESSION_SECRET: Joi.string()
         .default('ark')
         .required(),
