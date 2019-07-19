@@ -12,10 +12,15 @@
     "test": "jest"
   },
   "browserslist": [
-    "last 1 version",
-    "> 1%",
+    "last 3 version",
+    "> .5%",
     "not dead"
   ],
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
@@ -127,6 +132,7 @@
     "lint-staged": "^9.2.0",
     "nodemon": "^1.19.1",
     "prettier": "^1.18.2",
+    "stylelint": "^10.1.0",
     "supertest": "^4.0.2",
     "ts-jest": "^24.0.2",
     "ts-node": "^8.3.0",
