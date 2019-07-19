@@ -1,10 +1,25 @@
 /** @format */
 
+// #region Imports NPM
 import React from 'react';
+import postcss from 'postcss';
+import autoprefixer from 'autoprefixer';
+import cssnano from 'cssnano';
 import Document, { Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/styles';
 import 'typeface-roboto';
+// #endregion
+// #region Imports Local
 import theme from '../lib/theme';
+// #endregion
+
+// You can find a benchmark of the available CSS minifiers under
+// https://github.com/GoalSmashers/css-minification-benchmark
+// We have found that clean-css is faster than cssnano but the output is larger.
+// Waiting for https://github.com/cssinjs/jss/issues/279
+// 4% slower but 12% smaller output than doing it in a single step.
+const prefixer = postcss([autoprefixer]);
+const minifier = postcss([cssnano]);
 
 class MyDocument extends Document {
   render(): React.ReactElement {
@@ -38,12 +53,28 @@ MyDocument.getInitialProps = async (ctx) => {
 
   const initialProps = await Document.getInitialProps(ctx);
 
+  let minifiedStyles: string;
+  if (process.env.NODE_ENV === 'production') {
+    minifiedStyles = await prefixer
+      .process(sheets.toString())
+      .then((result) => minifier.process(result.css))
+      .then((result) => result.css);
+  } else {
+    minifiedStyles = sheets.toString();
+  }
+
   return {
     ...initialProps,
+    // Styles fragment is rendered after the app and page rendering finish.
     styles: [
-      <React.Fragment key={0}>
+      <React.Fragment key="styles">
         {initialProps.styles}
-        {sheets.getStyleElement()}
+        <style
+          id="jss-server-side"
+          key="jss-server-side"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: minifiedStyles }}
+        />
       </React.Fragment>,
     ],
   };

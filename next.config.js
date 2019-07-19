@@ -35,7 +35,7 @@ function withCustomWebpack(conf = {}) {
 const plugins = [
   [withCSS],
   [withSass],
-  [withFonts],
+  [withFonts, { enableSvg: true }],
   // [withBundleAnalyzer],
   [withCustomWebpack],
 ];

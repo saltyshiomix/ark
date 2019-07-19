@@ -16,8 +16,6 @@ export class NextMiddleware implements NestMiddleware {
     res: Response,
     _next: Function,
   ): Promise<void> {
-    const app = await this.nextService.getApp();
-    const handle = app.getRequestHandler();
-    return handle(req, res);
+    return this.nextService.app.getRequestHandler()(req, res);
   }
 }

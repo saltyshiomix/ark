@@ -6,6 +6,7 @@
     "lib": ["dom", "es2017"],
     "moduleResolution": "node",
     "noEmit": true,
+    "sourceMap": true,
     "allowJs": true,
     "alwaysStrict": true,
     "esModuleInterop": true,

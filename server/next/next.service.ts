@@ -8,15 +8,11 @@ import { Request, Response } from 'express';
 const dev = process.env.NODE_ENV !== 'production';
 
 export class NextService {
-  private app!: Server;
+  public app!: Server;
 
   constructor() {
     this.app = next({ dev, quiet: !dev });
     this.app.prepare();
-  }
-
-  public async getApp(): Promise<Server> {
-    return this.app;
   }
 
   public async error(
