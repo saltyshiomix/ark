@@ -1,45 +1,38 @@
 <!-- @format -->
 
-<!-- @format -->
+# Portal
 
-<p align="center"><img src="https://i.imgur.com/Jq9XCVg.png"></p>
+An easiest web app template on top of [Nest.js](https://nestjs.com), [GraphQL](https://graphql.org/), [PostGraphile](https://www.graphile.org/postgraphile/),
+[Next.js (v9)](https://nextjs.org) and [Material UI (v4)](https://material-ui.com)
 
-<p align="center">An easiest web app template on top of <a href="https://nestjs.com">nest</a>, <a href="http://typeorm.io">TypeORM</a>, <a href="https://nextjs.org">Next.js (v9)</a> and <a href="https://material-ui.com">Material UI (v4)</a>.</p>
-
-<div align="center">
-  <a href="https://david-dm.org/saltyshiomix/ark">
-    <img src="https://david-dm.org/saltyshiomix/ark.svg" alt="Dependency Status" />
-  </a>
-  <a href="https://david-dm.org/saltyshiomix/ark?type=dev"> 
-    <img src="https://david-dm.org/saltyshiomix/ark/dev-status.svg" alt="devDependency Status" />
-  </a>
-</div>
+<!-- ![Ark](https://i.imgur.com/Jq9XCVg.png) -->
 
 ## Features
 
-- Cross platform - Mac, Linux and Windows
-- Database synchronization with entities - powered by [TypeORM](http://typeorm.io)
-- Server Side Rendering - powered by [Next.js](https://nextjs.org)
-- API server - powered by [nest](https://nestjs.com)
-- User authentication - powered by [Passport](http://www.passportjs.org)
-- [Material UI](https://material-ui.com) design
-- Environment variables using [dotenv](https://github.com/motdotla/dotenv)
+- [x] Cross platform - Mac, Linux and Windows
+- [x] API server - powered by [Nest](https://nestjs.com)
+- [x] Environment variables using [dotenv](https://github.com/motdotla/dotenv)
+- [x] Server Side Rendering - powered by [Next.js](https://nextjs.org)
+- [x] [Material UI](https://material-ui.com) design
+- [ ] Intergrated [postgraphile-nest](https://github.com/alex-ald/postgraphile-nest)
+- [ ] WebSockets
+- [ ] User authentication - powered by [Passport](http://www.passportjs.org)
+- [ ] Admin page
 
 ## Technologies
 
-- Hot reloading for the developer experience :)
+- Hot reloading for the developer experience
   - [nodemon](https://nodemon.io) - Monitor for any changes in your node.js application and automatically restart the server
   - [Next.js](https://nextjs.org) - The React Framework
 - Lang
   - [TypeScript](https://www.typescriptlang.org) - Javascript that scales
-- Linter
-  - ESLint
-- Unit test
-  - Jest, Enzyme
-- Database
-  - [PostgreSQL](https://www.postgresql.org) - The World's Most Advanced Open Source Relational Database
-- ORM (Object-relational mapping)
-  - [TypeORM](http://typeorm.io) - ORM for TypeScript and JavaScript (ES7, ES6, ES5)
+- Tests
+  - [ESLint](https://eslint.org/) - A fully pluggable tool for identifying and reporting on patterns in JavaScript
+  - [Jest](https://jestjs.io/) - Delightful JavaScript Testing
+  - [Enzyme](https://airbnb.io/enzyme/) - JavaScript Testing utilities for React
+  - [@material-ui/core/test-utils](https://material-ui.com/guides/testing/)
+  - [@nestjs/testing](https://docs.nestjs.com/fundamentals/testing) - unit testing, e2e testing
+  - [Supertest](https://github.com/visionmedia/supertest) - for e2e testing
 - Server
   - [nest](https://nestjs.com) - A progressive Node.js framework for building efficient, reliable and scalable server-side applications
     - internally using [Express](https://expressjs.com) - Fast, unopinionated, minimalist web framework for Node.js
@@ -47,6 +40,14 @@
 - Environment variables
   - [dotenv](https://github.com/motdotla/dotenv) - Loads environment variables from .env for nodejs projects
   - [dotenv-webpack](https://github.com/mrsteele/dotenv-webpack) - A secure webpack plugin that supports dotenv and other environment variables and only exposes what you choose and use.
+- Database
+  - [PostgreSQL](https://www.postgresql.org) - The World's Most Advanced Open Source Relational Database
+  - [GraphQL](https://github.com/graphql/express-graphql) - Create a GraphQL HTTP server with Express.
+- PostGraphile
+  - [PostGraphile](https://www.graphile.org/postgraphile/usage-library/) - Execute one command (or mount one Node.js middleware) and get an instant high-performance GraphQL API for your PostgreSQL database!
+  - [postgraphile-nest](https://github.com/alex-ald/postgraphile-nest) - GraphQL with Postgres with Nest. A module for Nest that allows you to easily integrate PostGraphile into your application.
+- WebSockets
+  - subscription
 - User authentication
   - [Passport](http://www.passportjs.org) - Simple, unobtrusive authentication for Node.js
 - UI framework
@@ -135,18 +136,20 @@ The `.env` file is like this:
 
 ```bash
 # DB
-DB_HOST=localhost
-DB_PORT=5432
-DB_USERNAME=arkuser
-DB_PASSWORD=arkark
-DB_DATABASE=arkdb
-DB_SYNCHRONIZE=true
+DATABASE_URL=postgres://arkuser:arkark@localhost:5432/arkdb
+DATABASE_SCHEMA=app_public,app_private
+
+# Redis
+REDIS_HOST=localhost
+REDIS_PORT=6379
+REDIS_DB=0
+REDIS_PASSWORD=
+REDIS_PREFIX=
 
 # App
-PROTOCOL=http
-HOST=localhost
+HOST=http://localhost
 PORT=4000
-SESSION_SECRET=ark
+SESSION_SECRET=portal
 ```
 
 ## Production Deployment
@@ -188,22 +191,19 @@ module.exports = {
 - [x] Security: environment variables both server and client
 - [x] Security: production ready session store
 - [x] Security: custom auth guards
-- [x] Database: auto synchronization with entities
-- [x] Server: integration between [nest](https://nestjs.com) and [Next.js](https://nextjs.org)
+- [x] Server: integration between [Nest](https://nestjs.com) and [Next.js](https://nextjs.org)
 - [x] UI: integration between [Next.js](https://nextjs.org) and [Material UI](https://material-ui.com)
-- [x] UX: validation
-- [x] API: JSON API routes
-- [x] Auth: [passport-local](https://github.com/jaredhanson/passport-local) (email & password)
+- [x] Test: unit tests
+- [x] Test: e2e tests
+- [ ] PostGraphile
+- [ ] WebSockets
+- [ ] API: JSON API routes
+- [ ] UX: validation
+- [ ] Auth: [passport-local](https://github.com/jaredhanson/passport-local) (email & password)
 - [ ] Auth: [passport-github2](https://github.com/cfsghost/passport-github) (GitHub login)
 - [ ] Auth: [passport-twitter](https://github.com/jaredhanson/passport-twitter) (Twitter login)
-- [x] Feature: authentication
+- [ ] Feature: authentication
 - [ ] Feature: blogging
-- [x] Test: unit tests
-- [ ] Test: e2e tests
-
-## Articles
-
-- [A road to the easiest user authentication system for Node.js](https://dev.to/saltyshiomix/a-road-to-the-easiest-user-authentication-system-for-nodejs-138f)
 
 ## Trouble Shootings
 

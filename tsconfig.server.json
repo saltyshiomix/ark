@@ -2,10 +2,9 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "module": "commonjs",
+    "sourceMap": true,
     "noEmit": false,
-    "outDir": ".next/production-server/",
+    "outDir": ".next/production-server/"
   },
-  "include": [
-    "server",
-  ],
+  "include": ["typings/global.d.ts", "server/**/*"]
 }

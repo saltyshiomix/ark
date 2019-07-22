@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import HttpClient from '../lib/http-client';
+// import HttpClient from '../lib/http-client';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,20 +25,20 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function App(): React.ReactElement {
-  const client: HttpClient = new HttpClient();
+  // const client: HttpClient = new HttpClient();
 
   const classes = useStyles({});
 
   const handleClick = async (e: React.MouseEvent): Promise<void> => {
     e.preventDefault();
 
-    const { data: loggedOut } = await client.get('auth/logout');
-    if (loggedOut) {
-      window.location.href = '/auth/login';
-    } else {
-      // eslint-disable-next-line no-alert, no-undef
-      alert('Failed to log out!');
-    }
+    // const { data: loggedOut } = await client.get('auth/logout');
+    // if (loggedOut) {
+    //   window.location.href = '/auth/login';
+    // } else {
+    //   // eslint-disable-next-line no-alert, no-undef
+    //   alert('Failed to log out!');
+    // }
   };
 
   return (

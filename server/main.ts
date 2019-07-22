@@ -1,50 +1,75 @@
 /** @format */
 
+// #region Imports NPM
 import { join } from 'path';
 import { config } from 'dotenv';
 import { NestFactory } from '@nestjs/core';
-import { INestApplication } from '@nestjs/common';
+import { INestApplication, Logger } from '@nestjs/common';
+import { NestApplicationOptions } from '@nestjs/common/interfaces/nest-application-options.interface';
+import responseTime from 'response-time';
 import helmet from 'helmet';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
-import connectPgSimple from 'connect-pg-simple';
 import bodyParser from 'body-parser';
 import session from 'express-session';
+import redisStore from 'connect-redis';
 import passport from 'passport';
-
+// #endregion
+// #region Imports Local
+// import { AppLogger } from './logger';
 import { AppModule } from './app.module';
+// #endregion
 
 async function bootstrap(): Promise<void> {
-  // enable environment variables
+  // #region enable environment variables
   config({ path: join(process.cwd(), '.env') });
+  // #endregion
 
-  // create nest server
-  const server: INestApplication = await NestFactory.create(AppModule);
+  // #region create NestJS server
+  const nestjsOptions: NestApplicationOptions = {
+    cors: {
+      credentials: true,
+    },
+    logger: new Logger('ARK', true),
+    // httpsOptions: {},
+  };
+  const server: INestApplication = await NestFactory.create(
+    AppModule,
+    nestjsOptions,
+  );
+  // #endregion
 
-  // CORS
-  server.enableCors();
+  // #region X-Response-Time
+  server.use(responseTime());
+  // #endregion
 
-  // improve security
+  // #region improve security
   server.use(helmet());
+  // #endregion
 
-  // improve performance
+  // #region improve performance
   server.use(compression());
+  // #endregion
 
-  // enable cookie
+  // #region enable cookie
   server.use(cookieParser());
+  // #endregion
 
-  // enable json response
+  // #region enable json response
   server.use(bodyParser.urlencoded({ extended: true }));
   server.use(bodyParser.json());
+  // #endregion
 
-  // production ready session store
-  const pgSession = connectPgSimple(session);
+  // #region production ready session store
   server.use(
     session({
       secret: process.env.SESSION_SECRET as string,
-      store: new pgSession({
-        conString: `postgres://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`,
-        // crear_interval: 60 * 60, // sec
+      store: new (redisStore(session))({
+        host: process.env.REDIS_HOST || 'localhost',
+        port: process.env.REDIS_PORT
+          ? parseInt(process.env.REDIS_PORT, 10)
+          : 6379,
+        db: process.env.REDIS_DB ? parseInt(process.env.REDIS_DB, 10) : 0,
       }),
       resave: false,
       saveUninitialized: false,
@@ -55,15 +80,18 @@ async function bootstrap(): Promise<void> {
       },
     }),
   );
+  // #endregion
 
-  // enable passport session
+  // #region enable passport session
   server.use(passport.initialize());
   server.use(passport.session());
   passport.serializeUser((user, cb) => cb(null, user));
   passport.deserializeUser((obj, cb) => cb(null, obj));
+  // #endregion
 
-  // start server
+  // #region start server
   await server.listen(process.env.PORT as string, '0.0.0.0');
+  // #endregion
 }
 
 bootstrap();

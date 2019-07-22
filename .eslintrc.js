@@ -25,6 +25,7 @@ module.exports = {
     window: true,
     document: true,
     process: true,
+    __DEV__: true,
   },
   extends: [
     'airbnb-typescript',

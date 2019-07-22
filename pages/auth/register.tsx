@@ -9,7 +9,7 @@ import CardContent from '@material-ui/core/CardContent';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
-import HttpClient from '../../lib/http-client';
+// import HttpClient from '../../lib/http-client';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function Register(): React.ReactElement {
-  const client: HttpClient = new HttpClient();
+  // const client: HttpClient = new HttpClient();
 
   const classes = useStyles({});
 
@@ -71,19 +71,19 @@ export default function Register(): React.ReactElement {
   const handleSubmit = async (e: any): Promise<void> => {
     e.preventDefault();
 
-    const data = {
-      name: e.target.name.value,
-      email: e.target.email.value,
-      password: e.target.password.value,
-    };
+    // const data = {
+    //   name: e.target.name.value,
+    //   email: e.target.email.value,
+    //   password: e.target.password.value,
+    // };
 
-    const { data: user } = await client.post('auth/register', data);
-    if (user) {
-      window.location.href = '/';
-    } else {
-      // eslint-disable-next-line no-alert, no-undef
-      alert('Failed to register!');
-    }
+    // const { data: user } = await client.post('auth/register', data);
+    // if (user) {
+    //   window.location.href = '/';
+    // } else {
+    //   // eslint-disable-next-line no-alert, no-undef
+    //   alert('Failed to register!');
+    // }
   };
 
   return (

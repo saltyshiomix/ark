@@ -1,8 +1,10 @@
 /** @format */
 
+// #region Imports NPM
 import { Controller, Get, Req, Res } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { NextService } from '../next/next.service';
+// #endregion
 
 @Controller()
 export class HomeController {
@@ -13,9 +15,9 @@ export class HomeController {
     @Req() req: Request,
     @Res() res: Response,
   ): Promise<void> {
-    if (req.user) {
-      return this.nextService.render(req, res, '/index');
-    }
-    return res.redirect('auth/login');
+    // if (req.user) {
+    return this.nextService.render(req, res, '/index');
+    // }
+    // return res.redirect('auth/login');
   }
 }
