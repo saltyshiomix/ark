@@ -7,11 +7,15 @@ import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano';
 import Document, { Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/styles';
-import 'typeface-roboto';
 // #endregion
 // #region Imports Local
 import theme from '../lib/theme';
 // #endregion
+
+// eslint-disable-next-line no-debugger
+debugger;
+
+require('typeface-roboto');
 
 // You can find a benchmark of the available CSS minifiers under
 // https://github.com/GoalSmashers/css-minification-benchmark

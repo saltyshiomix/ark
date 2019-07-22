@@ -2,7 +2,7 @@
 
 import dotenv from 'dotenv';
 import fs from 'fs';
-import * as Joi from 'joi';
+import * as Joi from '@hapi/joi';
 
 export interface EnvConfig {
   [key: string]: string;

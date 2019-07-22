@@ -1,37 +1,38 @@
 <!-- @format -->
 
-# ARK
+# Portal
 
-An easiest web app template on top of [Nest.js](https://nestjs.com), [PostGraphile](https://www.graphile.org/postgraphile/),
+An easiest web app template on top of [Nest.js](https://nestjs.com), [GraphQL](https://graphql.org/), [PostGraphile](https://www.graphile.org/postgraphile/),
 [Next.js (v9)](https://nextjs.org) and [Material UI (v4)](https://material-ui.com)
 
-![Ark](https://i.imgur.com/Jq9XCVg.png)
+<!-- ![Ark](https://i.imgur.com/Jq9XCVg.png) -->
 
 ## Features
 
 - [x] Cross platform - Mac, Linux and Windows
-- [x] Server Side Rendering - powered by [Next.js](https://nextjs.org)
 - [x] API server - powered by [Nest](https://nestjs.com)
-- [x] [Material UI](https://material-ui.com) design
 - [x] Environment variables using [dotenv](https://github.com/motdotla/dotenv)
-- [ ] Intergrated postgraphile-nest
+- [x] Server Side Rendering - powered by [Next.js](https://nextjs.org)
+- [x] [Material UI](https://material-ui.com) design
+- [ ] Intergrated [postgraphile-nest](https://github.com/alex-ald/postgraphile-nest)
 - [ ] WebSockets
 - [ ] User authentication - powered by [Passport](http://www.passportjs.org)
 - [ ] Admin page
 
 ## Technologies
 
-- Hot reloading for the developer experience :)
+- Hot reloading for the developer experience
   - [nodemon](https://nodemon.io) - Monitor for any changes in your node.js application and automatically restart the server
   - [Next.js](https://nextjs.org) - The React Framework
 - Lang
   - [TypeScript](https://www.typescriptlang.org) - Javascript that scales
-- Linter
-  - ESLint, E2E Tests
-- Unit test
-  - Jest, Enzyme, Supertest
-- Database
-  - [PostgreSQL](https://www.postgresql.org) - The World's Most Advanced Open Source Relational Database
+- Tests
+  - [ESLint](https://eslint.org/) - A fully pluggable tool for identifying and reporting on patterns in JavaScript
+  - [Jest](https://jestjs.io/) - Delightful JavaScript Testing
+  - [Enzyme](https://airbnb.io/enzyme/) - JavaScript Testing utilities for React
+  - [@material-ui/core/test-utils](https://material-ui.com/guides/testing/)
+  - [@nestjs/testing](https://docs.nestjs.com/fundamentals/testing) - unit testing, e2e testing
+  - [Supertest](https://github.com/visionmedia/supertest) - for e2e testing
 - Server
   - [nest](https://nestjs.com) - A progressive Node.js framework for building efficient, reliable and scalable server-side applications
     - internally using [Express](https://expressjs.com) - Fast, unopinionated, minimalist web framework for Node.js
@@ -39,8 +40,12 @@ An easiest web app template on top of [Nest.js](https://nestjs.com), [PostGraphi
 - Environment variables
   - [dotenv](https://github.com/motdotla/dotenv) - Loads environment variables from .env for nodejs projects
   - [dotenv-webpack](https://github.com/mrsteele/dotenv-webpack) - A secure webpack plugin that supports dotenv and other environment variables and only exposes what you choose and use.
+- Database
+  - [PostgreSQL](https://www.postgresql.org) - The World's Most Advanced Open Source Relational Database
+  - [GraphQL](https://github.com/graphql/express-graphql) - Create a GraphQL HTTP server with Express.
 - PostGraphile
-  - [postgraphile-nest](https://github.com/alex-ald/postgraphile-nest) - A module for Nest that allows you to easily integrate PostGraphile into your application.
+  - [PostGraphile](https://www.graphile.org/postgraphile/usage-library/) - Execute one command (or mount one Node.js middleware) and get an instant high-performance GraphQL API for your PostgreSQL database!
+  - [postgraphile-nest](https://github.com/alex-ald/postgraphile-nest) - GraphQL with Postgres with Nest. A module for Nest that allows you to easily integrate PostGraphile into your application.
 - WebSockets
   - subscription
 - User authentication
@@ -186,15 +191,15 @@ module.exports = {
 - [x] Security: environment variables both server and client
 - [x] Security: production ready session store
 - [x] Security: custom auth guards
-- [x] Server: integration between [nest](https://nestjs.com) and [Next.js](https://nextjs.org)
+- [x] Server: integration between [Nest](https://nestjs.com) and [Next.js](https://nextjs.org)
 - [x] UI: integration between [Next.js](https://nextjs.org) and [Material UI](https://material-ui.com)
-- [x] UX: validation
-- [x] Auth: [passport-local](https://github.com/jaredhanson/passport-local) (email & password)
 - [x] Test: unit tests
 - [x] Test: e2e tests
 - [ ] PostGraphile
 - [ ] WebSockets
 - [ ] API: JSON API routes
+- [ ] UX: validation
+- [ ] Auth: [passport-local](https://github.com/jaredhanson/passport-local) (email & password)
 - [ ] Auth: [passport-github2](https://github.com/cfsghost/passport-github) (GitHub login)
 - [ ] Auth: [passport-twitter](https://github.com/jaredhanson/passport-twitter) (Twitter login)
 - [ ] Feature: authentication
