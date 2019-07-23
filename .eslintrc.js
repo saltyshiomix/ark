@@ -13,7 +13,7 @@ module.exports = {
   ],
   settings: {
     react: {
-      version: '16.8',
+      version: 'detect',
     },
     // "import/resolver": {
     //   "node": {
@@ -67,25 +67,6 @@ module.exports = {
       },
     ],
     '@typescript-eslint/indent': 0,
-    'prettier/prettier': [
-      'error',
-      {
-        parser: 'typescript',
-        printWidth: 80,
-        singleQuote: true,
-        useTabs: false,
-        tabWidth: 2,
-        semi: true,
-        bracketSpacing: true,
-        trailingComma: 'all',
-        jsxBracketSameLine: false,
-        arrowParens: 'always',
-        insertPragma: true,
-        quoteProps: 'consistent',
-        jsxSingleQuote: false,
-        htmlWhitespaceSensivity: 'css',
-      },
-    ],
     '@typescript-eslint/no-non-null-assertion': 1,
     '@typescript-eslint/no-explicit-any': 0,
     'no-unused-vars': [
@@ -105,9 +86,9 @@ module.exports = {
     'no-debugger': 1,
     'new-cap': 'off',
     'no-extra-boolean-cast': 0,
-    indent: 0,
+    'indent': 0,
     'react/jsx-one-expression-per-line': 'off',
-    quotes: ['error', 'single'],
+    'quotes': ['error', 'single'],
     'import/no-extraneous-dependencies': [
       'error',
       {
@@ -130,7 +111,7 @@ module.exports = {
     'dot-notation': 0,
     'no-console': 'off',
     'react/jsx-key': 0,
-    semi: ['error', 'always'],
+    'semi': ['error', 'always'],
     'react/sort-comp': 1,
     'no-prototype-builtins': 'off',
     'import/prefer-default-export': 'off',
