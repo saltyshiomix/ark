@@ -9,10 +9,10 @@
   },
   "dependencies": {
     "@material-ui/core": "^4.2.0",
-    "@nestjs/common": "^6.5.2",
-    "@nestjs/core": "^6.5.2",
+    "@nestjs/common": "^6.5.3",
+    "@nestjs/core": "^6.5.3",
     "@nestjs/passport": "^6.1.0",
-    "@nestjs/platform-express": "^6.5.2",
+    "@nestjs/platform-express": "^6.5.3",
     "@nestjs/typeorm": "^6.1.2",
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-sass": "^1.0.1",
