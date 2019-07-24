@@ -12,8 +12,7 @@ export class NextMiddleware implements NestMiddleware {
 
   @Header('content-type', 'text/javascript')
   async use(req: Request, res: Response, _next: Function) {
-    const app = await this.nextService.getApp();
-    const handle = app.getRequestHandler();
+    const handle = await this.nextService.getRequestHandler();
     return handle(req, res);
   }
 }

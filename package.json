@@ -36,22 +36,21 @@
     "typeorm": "^0.2.18"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.4",
     "@types/bcrypt": "^3.0.0",
     "@types/dotenv": "^6.1.1",
     "@types/express-session": "^1.15.13",
     "@types/next": "^8.0.6",
     "@types/next-server": "^8.1.2",
-    "@types/node": "^12.6.2",
+    "@types/node": "^12.6.8",
     "@types/passport": "^1.0.0",
     "@types/passport-local": "^1.0.33",
     "@types/react": "^16.8.23",
-    "@types/react-dom": "^16.8.4",
+    "@types/react-dom": "^16.8.5",
     "cross-env": "^5.2.0",
     "dotenv-webpack": "^1.7.0",
     "nodemon": "^1.19.1",
     "ts-node": "^8.3.0",
     "typescript": "^3.5.3",
-    "webpack": "4.35.3"
+    "webpack": "^4.37.0"
   }
 }
