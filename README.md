@@ -12,7 +12,7 @@ An easiest web app template on top of [Nest.js](https://nestjs.com), [GraphQL](h
 - [x] Environment variables using [dotenv](https://github.com/motdotla/dotenv)
 - [x] Server Side Rendering - powered by [Next.js](https://nextjs.org)
 - [x] [Material UI](https://material-ui.com) design
-- [ ] Intergrated [postgraphile-nest](https://github.com/alex-ald/postgraphile-nest)
+- [x] [GraphQL](https://graphql.org/), [PostGraphile](https://www.graphile.org/postgraphile/), [postgraphile-nest](https://github.com/alex-ald/postgraphile-nest)
 - [ ] WebSockets
 - [ ] User authentication - powered by [Passport](http://www.passportjs.org)
 - [ ] Admin page
@@ -198,7 +198,7 @@ module.exports = {
 - [x] UI: integration between [Next.js](https://nextjs.org) and [Material UI](https://material-ui.com)
 - [x] Test: unit tests
 - [x] Test: e2e tests
-- [ ] PostGraphile
+- [x] PostGraphile
 - [ ] WebSockets
 - [ ] API: JSON API routes
 - [ ] UX: validation
