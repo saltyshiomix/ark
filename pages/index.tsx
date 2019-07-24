@@ -43,7 +43,7 @@ export default function App(): React.ReactElement {
 
   return (
     <div className={classes.root}>
-      <Typography variant="h2">ARK</Typography>
+      <Typography variant="h2">Portal</Typography>
       <div className={classes.container}>
         <Card className={classes.card}>
           <CardContent>

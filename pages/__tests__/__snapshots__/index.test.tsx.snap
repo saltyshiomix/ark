@@ -7,7 +7,7 @@ exports[`App app: render correctly 1`] = `
   <WithStyles(ForwardRef(Typography))
     variant="h2"
   >
-    ARK
+    Portal
   </WithStyles(ForwardRef(Typography))>
   <div
     className="makeStyles-container-2"

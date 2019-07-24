@@ -1,5 +1,3 @@
-<!-- @format -->
-
 # Portal
 
 An easiest web app template on top of [Nest.js](https://nestjs.com), [GraphQL](https://graphql.org/), [PostGraphile](https://www.graphile.org/postgraphile/),
@@ -59,7 +57,7 @@ An easiest web app template on top of [Nest.js](https://nestjs.com), [GraphQL](h
 
 ### Database Setup
 
-Ark uses [PostgreSQL](https://www.postgresql.org).
+Portal uses [PostgreSQL](https://www.postgresql.org).
 
 #### For Mac Users
 
@@ -70,18 +68,20 @@ $ brew install postgresql
 # if you want to start postgresql in startup, try do this
 $ brew services start postgresql
 
-# [MUST] create user "arkuser" with password "arkark"
-$ createuser -P arkuser
+# [MUST] create user "portal"
+$ createuser -P -l portal
+# [MUST] create user "portal_visitor"
+$ createuser -P -l portal_visitor
 
-# [MUST] create database "arkdb" owened by "arkuser"
-$ createdb arkdb -O arkuser
+# [MUST] create database "portal" owened by "portal"
+$ createdb portal -O portal
 ```
 
 #### For Windows Users
 
 ##### Python
 
-Because Ark uses [node.bcrypt.js](https://github.com/kelektiv/node.bcrypt.js), we need a Python:
+Because Portal uses [node.bcrypt.js](https://github.com/kelektiv/node.bcrypt.js), we need a Python:
 
 - Download an installer at <https://www.python.org/downloads/windows>
 - Install with "Add Python 3.X to PATH" checked
@@ -105,15 +105,17 @@ Because Ark uses [node.bcrypt.js](https://github.com/kelektiv/node.bcrypt.js), w
 - Run the pgAdmin and login with a root user
 - Right click `Login/Group Roles` and `Create > Login/Group Role`
   - `General` Panel:
-    - `Name`: `arkuser`
+    - `Name`: `portal`
   - `Definition` Panel:
-    - `Password`: `arkark`
-  - `Priviledges` Panel:
-    - Check all `Yes`
+    - `Password`: `portalpwd`
+  - `General` Panel:
+    - `Name`: `portal_visitor`
+  - `Definition` Panel:
+    - `Password`: `portalpwd`
 - Right click `Databases` and `Create > Database`
   - `General` Tab:
-    - `Database`: `arkdb`
-    - `Owner`: `arkuser`
+    - `Database`: `portaldb`
+    - `Owner`: `portal`
 
 ### Application Setup
 
@@ -136,8 +138,9 @@ The `.env` file is like this:
 
 ```bash
 # DB
-DATABASE_URL=postgres://arkuser:arkark@localhost:5432/arkdb
-DATABASE_SCHEMA=app_public,app_private
+DATABASE_ADMIN=postgres://postgres:postgres@localhost:5432/portaldb
+DATABASE_URL=postgres://portal:portal@localhost:5432/portaldb
+DATABASE_SCHEMA=app_public,app_private,app_jobs
 
 # Redis
 REDIS_HOST=localhost
@@ -160,7 +163,7 @@ With production usages, please use [pm2](https://github.com/Unitech/pm2) for Nod
 # install pm2
 $ npm install --global pm2
 
-# run the app "ARK" with the config `ecosystem.config.js`
+# run the app "Portal" with the config `ecosystem.config.js`
 $ pm2 start
 ```
 
@@ -170,7 +173,7 @@ The example `ecosystem.config.js`:
 module.exports = {
   apps: [
     {
-      name: 'ARK',
+      name: 'Portal',
       script: '.next/production-server/main.js',
       instances: 1,
       autorestart: true,

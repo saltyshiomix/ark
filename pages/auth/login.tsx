@@ -1,5 +1,6 @@
 /** @format */
 
+// #region Imports NPM
 import React, { useState, useRef, useEffect } from 'react';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -9,7 +10,10 @@ import CardContent from '@material-ui/core/CardContent';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
+// #endregion
+// #region Imports Local
 // import HttpClient from '../../lib/http-client';
+// #endregion
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

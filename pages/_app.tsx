@@ -1,11 +1,16 @@
 /** @format */
 
+// #region Imports NPM
 import React from 'react';
 import App, { Container } from 'next/app';
 import Head from 'next/head';
 import { ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import 'typeface-roboto'; // this must be in _app, not _document
+// #endregion
+// #region Imports Local
 import theme from '../lib/theme';
+// #endregion
 
 class MyApp extends App {
   componentDidMount(): void {
@@ -20,7 +25,7 @@ class MyApp extends App {
     return (
       <Container>
         <Head>
-          <title>ARK</title>
+          <title>Portal</title>
         </Head>
         <ThemeProvider theme={theme}>
           <CssBaseline />

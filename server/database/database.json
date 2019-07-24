@@ -1,0 +1,3 @@
+{
+  "development": {"ENV": "DATABASE_ADMIN"}
+}

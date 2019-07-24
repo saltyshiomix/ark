@@ -12,11 +12,6 @@ import { ServerStyleSheets } from '@material-ui/styles';
 import theme from '../lib/theme';
 // #endregion
 
-// eslint-disable-next-line no-debugger
-debugger;
-
-require('typeface-roboto');
-
 // You can find a benchmark of the available CSS minifiers under
 // https://github.com/GoalSmashers/css-minification-benchmark
 // We have found that clean-css is faster than cssnano but the output is larger.

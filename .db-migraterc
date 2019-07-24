@@ -1,0 +1,6 @@
+{
+  "sql-file": true,
+  "migrations-dir": "server/database/migrations",
+  "seeds-dir": "server/database/seeds",
+  "configFile": "server/database/database.json"
+}

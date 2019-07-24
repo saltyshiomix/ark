@@ -31,11 +31,14 @@ export class ConfigService {
       HOST: Joi.string()
         .default('http://localhost')
         .required(),
+      DATABASE_ADMIN: Joi.string()
+        .default('postgres://postgres:postgres@localhost:5432/portaldb')
+        .required(),
       DATABASE_URL: Joi.string()
-        .default('postgres://arkuser:arkark@localhost:5432/arkdb')
+        .default('postgres://portal:portalpwd@localhost:5432/portaldb')
         .required(),
       DATABASE_SCHEMA: Joi.string()
-        .default('app_public,app_private')
+        .default('app_public,app_private,app_jobs')
         .required(),
       REDIS_HOST: Joi.string()
         .default('localhost')
