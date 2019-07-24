@@ -1,7 +1,6 @@
 import {
   Injectable,
   NestMiddleware,
-  Header,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { NextService } from './next.service';
@@ -10,9 +9,13 @@ import { NextService } from './next.service';
 export class NextMiddleware implements NestMiddleware {
   constructor(private readonly nextService: NextService) {}
 
-  @Header('content-type', 'text/javascript')
-  async use(req: Request, res: Response, _next: Function) {
-    const handle = await this.nextService.getRequestHandler();
-    return handle(req, res);
+  public async use(req: Request, res: Response, next: Function) {
+    const app = await this.nextService.getApp();
+
+    res.render = (page: string, data?: any) => {
+      return app.render(req, res, page, data);
+    };
+
+    next();
   }
 }
