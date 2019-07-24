@@ -92,7 +92,7 @@ export default function Register(): React.ReactElement {
 
   return (
     <div className={classes.root}>
-      <Typography variant="h2">ARK</Typography>
+      <Typography variant="h2">Portal</Typography>
       <form
         onSubmit={handleSubmit}
         className={classes.container}

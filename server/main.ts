@@ -30,7 +30,7 @@ async function bootstrap(): Promise<void> {
     cors: {
       credentials: true,
     },
-    logger: new Logger('ARK', true),
+    logger: new Logger('Portal', true),
     // httpsOptions: {},
   };
   const server: INestApplication = await NestFactory.create(

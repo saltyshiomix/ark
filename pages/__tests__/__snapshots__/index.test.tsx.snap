@@ -19,18 +19,8 @@ exports[`App app: render correctly 1`] = `
         <WithStyles(ForwardRef(Typography))
           variant="body1"
         >
-          You are now logged in :)
+          Hello, world !
         </WithStyles(ForwardRef(Typography))>
-        <br />
-        <WithStyles(ForwardRef(Button))
-          color="primary"
-          onClick={[Function]}
-          size="large"
-          type="submit"
-          variant="outlined"
-        >
-          LOGOUT
-        </WithStyles(ForwardRef(Button))>
       </WithStyles(ForwardRef(CardContent))>
     </WithStyles(ForwardRef(Card))>
   </div>

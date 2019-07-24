@@ -47,17 +47,7 @@ export default function App(): React.ReactElement {
       <div className={classes.container}>
         <Card className={classes.card}>
           <CardContent>
-            <Typography variant="body1">You are now logged in :)</Typography>
-            <br />
-            <Button
-              type="submit"
-              variant="outlined"
-              color="primary"
-              size="large"
-              onClick={handleClick}
-            >
-              LOGOUT
-            </Button>
+            <Typography variant="body1">Hello, world !</Typography>
           </CardContent>
         </Card>
       </div>

@@ -1,11 +1,15 @@
 /** @format */
 
+// #region Imports NPM
 // import { compare } from 'bcrypt';
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
+// #endregion
+// #region Imports Local
 // import { AuthService } from '../auth.service';
 import { User } from '../../users/user.entity';
+// #endregion
 
 @Injectable()
 export class LocalLoginStrategy extends PassportStrategy(

@@ -9,6 +9,7 @@ import Document, { Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/styles';
 // #endregion
 // #region Imports Local
+import { MainDocumentProps } from '../lib/types';
 import theme from '../lib/theme';
 // #endregion
 
@@ -20,7 +21,7 @@ import theme from '../lib/theme';
 const prefixer = postcss([autoprefixer]);
 const minifier = postcss([cssnano]);
 
-class MyDocument extends Document {
+class MainDocument extends Document {
   render(): React.ReactElement {
     return (
       <html lang="en" dir="ltr">
@@ -41,9 +42,9 @@ class MyDocument extends Document {
   }
 }
 
-MyDocument.getInitialProps = async (ctx) => {
+MainDocument.getInitialProps = async (ctx: MainDocumentProps) => {
   const sheets = new ServerStyleSheets();
-  const originalRenderPage = ctx.renderPage;
+  const { apolloClient, renderPage: originalRenderPage } = ctx;
 
   ctx.renderPage = () =>
     originalRenderPage({
@@ -63,14 +64,15 @@ MyDocument.getInitialProps = async (ctx) => {
   }
 
   return {
+    apolloClient,
     ...initialProps,
     // Styles fragment is rendered after the app and page rendering finish.
     styles: [
       <React.Fragment key="styles">
         {initialProps.styles}
         <style
-          id="jss-server-side"
-          key="jss-server-side"
+          id="jss"
+          key="jss"
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: minifiedStyles }}
         />
@@ -79,4 +81,4 @@ MyDocument.getInitialProps = async (ctx) => {
   };
 };
 
-export default MyDocument;
+export default MainDocument;

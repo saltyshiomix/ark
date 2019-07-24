@@ -12,7 +12,7 @@ An easiest web app template on top of [Nest.js](https://nestjs.com), [GraphQL](h
 - [x] Environment variables using [dotenv](https://github.com/motdotla/dotenv)
 - [x] Server Side Rendering - powered by [Next.js](https://nextjs.org)
 - [x] [Material UI](https://material-ui.com) design
-- [x] [GraphQL](https://graphql.org/), [PostGraphile](https://www.graphile.org/postgraphile/), [postgraphile-nest](https://github.com/alex-ald/postgraphile-nest)
+- [x] [GraphQL](https://graphql.org/)
 - [ ] WebSockets
 - [ ] User authentication - powered by [Passport](http://www.passportjs.org)
 - [ ] Admin page
@@ -51,6 +51,7 @@ An easiest web app template on top of [Nest.js](https://nestjs.com), [GraphQL](h
 - UI framework
   - [React](https://reactjs.org) - A JavaScript library for building user interfaces
   - [Next.js](https://nextjs.org) - The React Framework
+  - [Apollo GraphQL](https://www.apollographql.com/client/) - A fully-featured, production ready caching GraphQL client for every UI framework and GraphQL server
   - [Material UI](https://material-ui.com) - React components that implement Google's Material Design.
 
 ## Setup

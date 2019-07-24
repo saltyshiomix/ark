@@ -12,20 +12,21 @@ module.exports = {
     'prettier',
   ],
   settings: {
-    react: {
+    'react': {
       version: 'detect',
     },
-    // "import/resolver": {
-    //   "node": {
-    //     "extensions": [".ts", ".tsx", ".js", ".jsx"]
-    //   }
-    // }
+    'import/resolver': {
+      node: {
+        extensions: ['.ts', '.tsx', '.js', '.jsx'],
+      },
+    },
   },
   globals: {
     window: true,
     document: true,
     process: true,
     __DEV__: true,
+    __SERVER__: true,
   },
   extends: [
     'airbnb-typescript',

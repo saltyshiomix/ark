@@ -19,8 +19,8 @@ import { IncomingMessage } from 'http';
 import { AppHttpExceptionFilter } from './exceptions';
 import { ConfigModule } from './config/config.module';
 import { NextModule } from './next/next.module';
-// import { UsersModule } from './users/users.module';
-// import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 import { HomeModule } from './home/home.module';
 import { NextMiddleware } from './next/next.middleware';
 import { ConfigService } from './config/config.service';
@@ -78,8 +78,8 @@ import { NextService } from './next/next.service';
     // #endregion
 
     // #region Authentication
-    // UsersModule,
-    // AuthModule,
+    UsersModule,
+    AuthModule,
     // #endregion
 
     // #region Home page

@@ -3,7 +3,7 @@
 module.exports = {
   apps: [
     {
-      name: 'ARK',
+      name: 'Portal',
       script: '.next/production-server/main.js',
       instances: 1,
       autorestart: true,

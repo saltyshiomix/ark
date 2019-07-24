@@ -22,6 +22,7 @@ function withCustomWebpack(conf = {}) {
       ...(config.plugins || []),
       new Webpack.DefinePlugin({
         __DEV__: JSON.stringify(dev),
+        __SERVER__: JSON.stringify(isServer),
       }),
       new DotenvWebpackPlugin({ path: join(__dirname, '.env') }),
     ];

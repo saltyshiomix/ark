@@ -1,5 +1,6 @@
 /** @format */
 
+// #region Imports NPM
 import {
   Controller,
   Get,
@@ -11,11 +12,14 @@ import {
 } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import { authenticate } from 'passport';
+// #endregion
+// #region Imports Local
 import { NextService } from '../next/next.service';
 import { RegisterUser } from './decorators/register-user.decorator';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { LoginUser } from './decorators/login-user.decorator';
 import { LoginUserDto } from './dto/login-user.dto';
+// #endregion
 
 interface RequestWithSession extends Request {
   session: any;
