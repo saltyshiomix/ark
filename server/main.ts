@@ -1,4 +1,3 @@
-import { join } from 'path';
 import { config } from 'dotenv';
 import { NestFactory } from '@nestjs/core';
 import { INestApplication } from '@nestjs/common';
@@ -8,7 +7,7 @@ import passport from 'passport';
 
 async function bootstrap() {
   // enable environment variables
-  config({ path: join(process.cwd(), '.env') });
+  config();
 
   // create nest server
   const server: INestApplication = await NestFactory.create(AppModule);
