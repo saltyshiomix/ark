@@ -30,6 +30,6 @@ import { NextAssetsMiddleware } from './next/next.assets.middleware';
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(NextAssetsMiddleware).forRoutes({ path: '_next*', method: RequestMethod.GET });
-    consumer.apply(NextMiddleware);
+    consumer.apply(NextMiddleware).forRoutes({ path: '*', method: RequestMethod.ALL });
   }
 }
