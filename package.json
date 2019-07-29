@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "portal",
-  "version": "4.0.2",
+  "version": "4.0.4",
   "scripts": {
     "clean": "rimraf .next node_modules",
     "secrets": "cat /dev/urandom | head -c 512 | openssl sha256 | cut -d ' ' -f 2",
@@ -29,14 +29,13 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged && yarn version --patch --no-git-tag-version --no-commit-hooks"
     }
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "prettier --write",
       "eslint --fix",
-      "yarn version --patch",
       "git add"
     ]
   },
