@@ -4,18 +4,19 @@
 import React from 'react';
 import App, { Container } from 'next/app';
 import Head from 'next/head';
-import { ApolloProvider } from 'react-apollo';
+import { Query, ApolloProvider } from 'react-apollo';
 import { ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import 'typeface-roboto'; // this must be in _app, not _document
 // #endregion
 // #region Imports Local
 import theme from '../lib/theme';
-import { MainAppProps } from '../lib/types';
+import { CURRENT_USER } from '../lib/queries';
+import { UserContext, ApolloAppProps } from '../lib/types';
 import { withApolloClient } from '../lib/with-apollo-client';
 // #endregion
 
-class MainApp extends App<MainAppProps> {
+class MainApp extends App<ApolloAppProps> {
   componentDidMount(): void {
     // Remove the server-sie injectsed CSS
     const jssStyles = document.querySelector('#jss');
@@ -28,7 +29,7 @@ class MainApp extends App<MainAppProps> {
     const { Component, apolloClient, pageProps } = this.props;
 
     // eslint-disable-next-line no-debugger
-    debugger;
+    // debugger;
 
     return (
       <Container>
@@ -39,8 +40,21 @@ class MainApp extends App<MainAppProps> {
           {/* MuiThemeProvider makes the theme available down the React
                 tree thanks to React context. */}
           <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Component {...pageProps} />
+            <Query query={CURRENT_USER}>
+              {({ data }: { data: any }) => {
+                const user = data;
+
+                // eslint-disable-next-line no-debugger
+                // debugger;
+
+                return (
+                  <UserContext.Provider value={user}>
+                    <CssBaseline />
+                    <Component {...pageProps} />
+                  </UserContext.Provider>
+                );
+              }}
+            </Query>
           </ThemeProvider>
         </ApolloProvider>
       </Container>

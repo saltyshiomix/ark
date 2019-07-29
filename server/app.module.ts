@@ -3,6 +3,8 @@
 /// <reference types="../typings/global" />
 
 // #region Imports NPM
+import { IncomingMessage, ServerResponse } from 'http';
+import { APP_FILTER } from '@nestjs/core';
 import {
   Module,
   NestModule,
@@ -10,10 +12,17 @@ import {
   RequestMethod,
   CacheModule,
 } from '@nestjs/common';
-import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
-import redisStore from 'cache-manager-redis';
+
+import pg from 'pg';
 import { PostGraphileModule } from 'postgraphile-nest';
-import { IncomingMessage } from 'http';
+import pgdbi from '@graphile-contrib/pgdbi';
+import PgPubSub from '@graphile/pg-pubsub';
+import PgSimplifyInflectorPlugin from '@graphile-contrib/pg-simplify-inflector';
+import { makePluginHook } from 'postgraphile';
+
+import redisCacheStore from 'cache-manager-redis';
+
+import { PassportModule } from '@nestjs/passport';
 // #endregion
 // #region Imports Local
 import { AppHttpExceptionFilter } from './exceptions';
@@ -25,7 +34,21 @@ import { HomeModule } from './home/home.module';
 import { NextMiddleware } from './next/next.middleware';
 import { ConfigService } from './config/config.service';
 import { NextService } from './next/next.service';
+import { sessionRedis } from '../lib/session-redis';
+import { PassportLoginPlugin } from '../lib/postgraphile/PassportLoginPlugin';
 // #endregion
+
+const pluginHook = makePluginHook([
+  PgPubSub,
+  // TODO: This is UI for PostGraphile
+  process.env.NODE_ENV !== 'production' ? pgdbi : undefined,
+]);
+
+interface IncomingMessageCtx extends IncomingMessage {
+  // TODO: ctx
+  ctx?: any;
+  session?: any;
+}
 
 @Module({
   imports: [
@@ -36,7 +59,7 @@ import { NextService } from './next/next.service';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => ({
-        store: redisStore,
+        store: redisCacheStore,
         ttl: 1, // seconds
         max: 60, // maximum number of items in cache
         host: configService.get('REDIS_HOST'),
@@ -54,20 +77,90 @@ import { NextService } from './next/next.service';
     }),
     // #endregion
 
+    // #region Passport
+    PassportModule,
+    // #endregion
+
     // #region PostGraphile
     PostGraphileModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => {
+        const rootPgPool = new pg.Pool({
+          connectionString: configService.get('DATABASE_URL'),
+        });
+
         return {
-          pgConfig: configService.get('DATABASE_URL'),
+          pgConfig: configService.get('DATABASE_ADMIN'),
+          ownerConnection: configService.get('DATABASE_URL'),
+
+          defaultRole: 'portal_anonym',
           schema: configService.get('DATABASE_SCHEMA')!.split(','),
-          pgSettings: async (_req: IncomingMessage) => ({
-            // role: 'visitor',
-            // 'jwt.claims.user.id': `${req.user_id}`,
-          }),
-          playground: !(process.env.NODE_ENV === 'production'),
+          playground: process.env.NODE_ENV !== 'production',
           playgroundRoute: '/graphiql',
+          subscriptions: true,
+          pgWatch: true,
+
+          pgSettings: async (req: IncomingMessageCtx) => {
+            const settings = {
+              'role': 'portal_anonym',
+              'jwt.claims.user_id':
+                req.ctx &&
+                req.ctx.state &&
+                req.ctx.state.user &&
+                `${req.ctx.state.user.id}`,
+            };
+
+            return settings;
+          },
+
+          // The return value of this is added to `context` - the third argument of
+          // GraphQL resolvers. This is useful for our custom plugins.
+          additionalGraphQLContextFromRequest: async (
+            req: IncomingMessageCtx,
+            // res: ServerResponse,
+          ) => {
+            return {
+              // Let plugins call priviliged methods (e.g. login) if they need to
+              rootPgPool,
+
+              // Use this to tell Passport.js we're logged in
+              login: (user: any) => {
+                return new Promise((resolve, reject) => {
+                  // eslint-disable-next-line no-debugger
+                  debugger;
+
+                  if (req.ctx) {
+                    req.ctx.login(user, (err: Error) =>
+                      err ? reject(err) : resolve(),
+                    );
+                  } else {
+                    resolve();
+                  }
+                });
+              },
+            };
+          },
+
+          websocketMiddlewares: [
+            (
+              req: IncomingMessage,
+              res: ServerResponse,
+              next: (err?: Error) => void,
+            ): void => {
+              // eslint-disable-next-line no-debugger
+              debugger;
+
+              console.warn('req', req, 'res', res);
+              next();
+            },
+            sessionRedis(configService),
+            // passport.initialize(),
+            // passport.session(),
+          ],
+
+          appendPlugins: [PgSimplifyInflectorPlugin, PassportLoginPlugin],
+          pluginHook,
         };
       },
     }),

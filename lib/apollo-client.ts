@@ -3,13 +3,15 @@
 import fetch from 'isomorphic-fetch';
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache, NormalizedCacheObject } from 'apollo-cache-inmemory';
-import { HttpLink } from 'apollo-link-http';
+import { ApolloLink, split } from 'apollo-link';
+import { getMainDefinition } from 'apollo-utilities';
 import { onError } from 'apollo-link-error';
-import { ApolloLink /* , split */ } from 'apollo-link';
+import { HttpLink } from 'apollo-link-http';
 import { WebSocketLink } from 'apollo-link-ws';
 // #endregion
 // #region Imports Local
-// import { apolloStateLink } from './state-link';
+import { NodeIdGetterObj } from './types';
+import { apolloStateLink } from './state-link';
 // #endregion
 
 let apollo: ApolloClient<NormalizedCacheObject>;
@@ -22,7 +24,9 @@ export const apolloClient = (
     return apollo;
   }
 
-  const cache = new InMemoryCache().restore(initialState);
+  const cache = new InMemoryCache({
+    dataIdFromObject: (object: NodeIdGetterObj) => object.nodeId || null,
+  }).restore(initialState);
   let link: ApolloLink;
 
   if (!__SERVER__) {
@@ -32,6 +36,7 @@ export const apolloClient = (
       'ws',
     )}/graphql`; // __WEBSOCKET_URI__
 
+    // Create a WebSocket link:
     const wsLink = new WebSocketLink({
       uri: subscriptionsUri,
       options: {
@@ -49,11 +54,12 @@ export const apolloClient = (
       },
     });
 
-    // const httpLink = new HttpLink({
-    //   uri: `${window.location.origin}/graphql`,
-    //   credentials: 'same-origin',
-    //   fetch,
-    // });
+    // Create an http link:
+    const httpLink = new HttpLink({
+      uri: `${window.location.origin}/graphql`,
+      credentials: 'same-origin',
+      fetch,
+    });
 
     link = ApolloLink.from([
       onError(({ graphQLErrors, networkError }): any => {
@@ -69,12 +75,19 @@ export const apolloClient = (
         }
       }),
 
-      // apolloStateLink(cache),
+      apolloStateLink(cache),
 
-      wsLink,
-
-      // DEBUG: придумать чтобы старые браузеры (<2014 года, IE9, Chrome 7, Firefox 11, iOS Safari 6, Android 4.4) использовали httpLink
-      // split((/* _operation */) => (WebSocket as any) in window, wsLink, httpLink),
+      split(
+        ({ query }) => {
+          const definition = getMainDefinition(query);
+          return (
+            definition.kind === 'OperationDefinition' &&
+            definition.operation === 'subscription'
+          );
+        },
+        wsLink,
+        httpLink,
+      ),
     ]);
   } else {
     global.fetch = fetch;
@@ -93,12 +106,12 @@ export const apolloClient = (
         }
       }),
 
-      // apolloStateLink(cache),
+      apolloStateLink(cache),
     ]);
   }
 
   // eslint-disable-next-line no-debugger
-  debugger;
+  // debugger;
 
   if (!apollo) {
     apollo = new ApolloClient({

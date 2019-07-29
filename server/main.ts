@@ -2,7 +2,6 @@
 
 // #region Imports NPM
 import { join } from 'path';
-import { config } from 'dotenv';
 import { NestFactory } from '@nestjs/core';
 import { INestApplication, Logger } from '@nestjs/common';
 import { NestApplicationOptions } from '@nestjs/common/interfaces/nest-application-options.interface';
@@ -11,20 +10,17 @@ import helmet from 'helmet';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
-import session from 'express-session';
-import redisStore from 'connect-redis';
 import passport from 'passport';
 // #endregion
 // #region Imports Local
 // import { AppLogger } from './logger';
+import { IncomingMessage } from 'http';
+import { sessionRedis } from '../lib/session-redis';
 import { AppModule } from './app.module';
+import { ConfigService } from './config/config.service';
 // #endregion
 
-async function bootstrap(): Promise<void> {
-  // #region enable environment variables
-  config({ path: join(process.cwd(), '.env') });
-  // #endregion
-
+async function bootstrap(configService: ConfigService): Promise<void> {
   // #region create NestJS server
   const nestjsOptions: NestApplicationOptions = {
     cors: {
@@ -37,6 +33,17 @@ async function bootstrap(): Promise<void> {
     AppModule,
     nestjsOptions,
   );
+  // #endregion
+
+  // #region
+  // server.use((req: any, res: any, next: Function) => {
+  //   // req.ctx = ctx;
+
+  //   // eslint-disable-next-line no-debugger
+  //   debugger;
+
+  //   return next();
+  // });
   // #endregion
 
   // #region X-Response-Time
@@ -61,25 +68,7 @@ async function bootstrap(): Promise<void> {
   // #endregion
 
   // #region production ready session store
-  server.use(
-    session({
-      secret: process.env.SESSION_SECRET as string,
-      store: new (redisStore(session))({
-        host: process.env.REDIS_HOST || 'localhost',
-        port: process.env.REDIS_PORT
-          ? parseInt(process.env.REDIS_PORT, 10)
-          : 6379,
-        db: process.env.REDIS_DB ? parseInt(process.env.REDIS_DB, 10) : 0,
-      }),
-      resave: false,
-      saveUninitialized: false,
-      rolling: true,
-      cookie: {
-        httpOnly: false,
-        maxAge: 60 * 60 * 1000, // msec
-      },
-    }),
-  );
+  server.use(sessionRedis(configService));
   // #endregion
 
   // #region enable passport session
@@ -90,8 +79,9 @@ async function bootstrap(): Promise<void> {
   // #endregion
 
   // #region start server
-  await server.listen(process.env.PORT as string, '0.0.0.0');
+  await server.listen(configService.get('PORT'), '0.0.0.0');
   // #endregion
 }
 
-bootstrap();
+const configService = new ConfigService(join(process.cwd(), '.env'));
+bootstrap(configService);

@@ -48,6 +48,7 @@ module.exports = {
     },
   },
   rules: {
+    'no-nested-ternary': 0,
     'no-useless-constructor': 0,
     '@typescript-eslint/no-var-requires': 0,
     'no-param-reassign': 1,

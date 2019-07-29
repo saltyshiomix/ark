@@ -9,7 +9,7 @@ import Document, { Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/styles';
 // #endregion
 // #region Imports Local
-import { MainDocumentProps } from '../lib/types';
+import { ApolloDocumentProps } from '../lib/types';
 import theme from '../lib/theme';
 // #endregion
 
@@ -42,7 +42,7 @@ class MainDocument extends Document {
   }
 }
 
-MainDocument.getInitialProps = async (ctx: MainDocumentProps) => {
+MainDocument.getInitialProps = async (ctx: ApolloDocumentProps) => {
   const sheets = new ServerStyleSheets();
   const { apolloClient, renderPage: originalRenderPage } = ctx;
 

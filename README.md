@@ -13,7 +13,7 @@ An easiest web app template on top of [Nest.js](https://nestjs.com), [GraphQL](h
 - [x] Server Side Rendering - powered by [Next.js](https://nextjs.org)
 - [x] [Material UI](https://material-ui.com) design
 - [x] [GraphQL](https://graphql.org/)
-- [ ] WebSockets
+- [x] [WebSockets](https://www.apollographql.com/docs/link/links/ws/)
 - [ ] User authentication - powered by [Passport](http://www.passportjs.org)
 - [ ] Admin page
 
@@ -200,7 +200,7 @@ module.exports = {
 - [x] Test: unit tests
 - [x] Test: e2e tests
 - [x] PostGraphile
-- [ ] WebSockets
+- [x] WebSockets - [Apollo Link WS](https://www.apollographql.com/docs/link/links/ws/)
 - [ ] API: JSON API routes
 - [ ] UX: validation
 - [ ] Auth: [passport-local](https://github.com/jaredhanson/passport-local) (email & password)

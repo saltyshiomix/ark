@@ -3,14 +3,26 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA public;
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public;
 CREATE EXTENSION IF NOT EXISTS citext;
 
+-- Roles
+create role portal login password 'portalpwd';
+
+create role portal_user;
+grant portal_user to portal;
+
+create role portal_anonym;
+grant portal_anonym to portal;
+
 -- Create schemas
 create schema if not exists app_public;
 create schema if not exists app_private;
+CREATE SCHEMA IF NOT EXISTS app_jobs;
 
-grant usage on schema app_public to portal_visitor;
+grant usage on schema app_public to portal, portal_user, portal_anonym;
+grant usage on schema app_private to portal;
+grant usage on schema app_jobs to portal;
 
 -- This allows inserts without granting permission to the serial primary key column.
-alter default privileges for role portal in schema app_public grant usage, select on sequences to portal_visitor;
+alter default privileges for role portal in schema app_public grant usage, select on sequences to portal_user;
 
 -- BEGIN: JOBS
 --
@@ -24,9 +36,10 @@ alter default privileges for role portal in schema app_public grant usage, selec
 -- URL: https://gist.github.com/benjie/839740697f5a1c46ee8da98a1efac218
 -- Donations: https://www.paypal.me/benjie
 
-CREATE SCHEMA IF NOT EXISTS app_jobs;
+CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA public;
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public;
 
-CREATE TABLE IF NOT EXISTS app_jobs.job_queues (
+CREATE TABLE app_jobs.job_queues (
   queue_name varchar NOT NULL PRIMARY KEY,
   job_count int DEFAULT 0 NOT NULL,
   locked_at timestamp with time zone,
@@ -34,7 +47,7 @@ CREATE TABLE IF NOT EXISTS app_jobs.job_queues (
 );
 ALTER TABLE app_jobs.job_queues ENABLE ROW LEVEL SECURITY;
 
-CREATE TABLE IF NOT EXISTS app_jobs.jobs (
+CREATE TABLE app_jobs.jobs (
   id serial PRIMARY KEY,
   queue_name varchar DEFAULT (public.gen_random_uuid())::varchar NOT NULL,
   task_identifier varchar NOT NULL,
@@ -189,6 +202,9 @@ $$ LANGUAGE plpgsql;
 
 -- END: JOBS
 
+
+-- BEGIN: Utils
+
 create function app_private.tg__add_job_for_row() returns trigger as $$
 begin
   perform app_jobs.add_job(tg_argv[0], json_build_object('id', NEW.id));
@@ -211,11 +227,15 @@ $$ language plpgsql volatile set search_path from current;
 
 comment on function app_private.tg__update_timestamps() is
   E'This trigger should be called on all tables with created_at, updated_at - it ensures that they cannot be manipulated and that updated_at will always be larger than the previous updated_at.';
+-- END: Utils
 
+
+-- BEGIN: Users
 
 create function app_public.current_user_id() returns int as $$
   select nullif(current_setting('jwt.claims.user_id', true), '')::int;
 $$ language sql stable set search_path from current;
+
 comment on function  app_public.current_user_id() is
   E'@omit\nHandy method to get the current user ID for use in RLS policies, etc; in GraphQL, use `currentUser{id}` instead.';
 
@@ -258,9 +278,9 @@ comment on column app_public.users.is_admin is
 create policy select_all on app_public.users for select using (true);
 create policy update_self on app_public.users for update using (id = app_public.current_user_id());
 create policy delete_self on app_public.users for delete using (id = app_public.current_user_id());
-grant select on app_public.users to portal_visitor;
-grant update(name, avatar_url) on app_public.users to portal_visitor;
-grant delete on app_public.users to portal_visitor;
+grant select on app_public.users to portal, portal_anonym, portal_user;
+grant update(name, avatar_url) on app_public.users to portal, portal_user;
+grant delete on app_public.users to portal, portal_user;
 
 create function app_private.tg_users__make_first_user_admin() returns trigger as $$
 begin
@@ -358,9 +378,9 @@ comment on column app_public.user_emails.is_verified is
 create policy select_own on app_public.user_emails for select using (user_id = app_public.current_user_id());
 create policy insert_own on app_public.user_emails for insert with check (user_id = app_public.current_user_id());
 create policy delete_own on app_public.user_emails for delete using (user_id = app_public.current_user_id()); -- TODO check this isn't the last one!
-grant select on app_public.user_emails to portal_visitor;
-grant insert (email) on app_public.user_emails to portal_visitor;
-grant delete on app_public.user_emails to portal_visitor;
+grant select on app_public.user_emails to portal_user, portal_anonym;
+grant insert (email) on app_public.user_emails to portal_user, portal_anonym;
+grant delete on app_public.user_emails to portal_user, portal_anonym;
 
 --------------------------------------------------------------------------------
 
@@ -425,8 +445,8 @@ comment on column app_public.user_authentications.details is
 
 create policy select_own on app_public.user_authentications for select using (user_id = app_public.current_user_id());
 create policy delete_own on app_public.user_authentications for delete using (user_id = app_public.current_user_id()); -- TODO check this isn't the last one, or that they have a verified email address
-grant select on app_public.user_authentications to portal_visitor;
-grant delete on app_public.user_authentications to portal_visitor;
+grant select on app_public.user_authentications to portal_user;
+grant delete on app_public.user_authentications to portal_user;
 
 --------------------------------------------------------------------------------
 
@@ -632,8 +652,14 @@ comment on function app_public.reset_password(user_id int, reset_token text, new
 
 --------------------------------------------------------------------------------
 
-
-create function app_private.really_create_user(username text, email text, email_is_verified bool, name text, avatar_url text, password text default null) returns app_public.users as $$
+create function app_private.really_create_user(
+  username text,
+  email text,
+  email_is_verified bool,
+  name text,
+  avatar_url text,
+  password text default null
+) returns app_public.users as $$
 declare
   v_user app_public.users;
   v_username text = username;
@@ -685,14 +711,21 @@ begin
 
   return v_user;
 end;
-$$ language plpgsql volatile set search_path from current;
+$$ language plpgsql volatile security definer set search_path from current;
 
 comment on function app_private.really_create_user(username text, email text, email_is_verified bool, name text, avatar_url text, password text) is
   E'Creates a user account. All arguments are optional, it trusts the calling method to perform sanitisation.';
 
 --------------------------------------------------------------------------------
 
-create function app_private.register_user(f_service character varying, f_identifier character varying, f_profile json, f_auth_details json, f_email_is_verified boolean default false) returns app_public.users as $$
+create function app_private.register_user(
+  f_service character varying,
+  f_identifier character varying,
+  f_profile json,
+  f_auth_details json,
+  f_email_is_verified boolean default false,
+  f_password text default null
+) returns app_public.users as $$
 declare
   v_user app_public.users;
   v_email citext;
@@ -713,7 +746,8 @@ begin
     email => v_email,
     email_is_verified => f_email_is_verified,
     name => v_name,
-    avatar_url => v_avatar_url
+    avatar_url => v_avatar_url,
+    password => f_password
   );
 
   -- Insert the user’s private account data (e.g. OAuth tokens)
@@ -726,7 +760,7 @@ begin
 end;
 $$ language plpgsql volatile security definer set search_path from current;
 
-comment on function app_private.register_user(f_service character varying, f_identifier character varying, f_profile json, f_auth_details json, f_email_is_verified boolean) is
+comment on function app_private.register_user(f_service character varying, f_identifier character varying, f_profile json, f_auth_details json, f_email_is_verified boolean, f_password text) is
   E'Used to register a user from information gleaned from OAuth. Primarily used by link_or_register_user';
 
 --------------------------------------------------------------------------------
@@ -736,7 +770,8 @@ create function app_private.link_or_register_user(
   f_service character varying,
   f_identifier character varying,
   f_profile json,
-  f_auth_details json
+  f_auth_details json,
+  f_password text default null
 ) returns app_public.users as $$
 declare
   v_matched_user_id int;
@@ -784,7 +819,7 @@ begin
   end if;
   if v_matched_user_id is null and f_user_id is null and v_matched_authentication_id is null then
     -- Create and return a new user account
-    return app_private.register_user(f_service, f_identifier, f_profile, f_auth_details, true);
+    return app_private.register_user(f_service, f_identifier, f_profile, f_auth_details, true, f_password);
   else
     if v_matched_authentication_id is not null then
       update app_public.user_authentications
@@ -812,5 +847,9 @@ begin
 end;
 $$ language plpgsql volatile security definer set search_path from current;
 
-comment on function app_private.link_or_register_user(f_user_id integer, f_service character varying, f_identifier character varying, f_profile json, f_auth_details json) is
+comment on function app_private.link_or_register_user(f_user_id integer, f_service character varying, f_identifier character varying, f_profile json, f_auth_details json, f_password text) is
   E'If you''re logged in, this will link an additional OAuth login to your account if necessary. If you''re logged out it may find if an account already exists (based on OAuth details or email address) and return that, or create a new user account if necessary.';
+
+-- END: Users
+
+

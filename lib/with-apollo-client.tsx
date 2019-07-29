@@ -7,7 +7,8 @@ import React from 'react';
 import { getDataFromTree } from 'react-apollo';
 
 import Head from 'next/head';
-import { AppContext, AppProps } from 'next/app';
+// eslint-disable-next-line import/no-named-default
+import { AppContext, default as NextApp } from 'next/app';
 
 import { ApolloClient } from 'apollo-client';
 import { NormalizedCacheObject } from 'apollo-cache-inmemory';
@@ -15,23 +16,26 @@ import { NormalizedCacheObject } from 'apollo-cache-inmemory';
 // #region Imports Local
 // import { FETCH_CURRENT_USER } from '@monorepo/shared';
 import { apolloClient } from './apollo-client';
-import { MainAppProps } from './types';
+import { ApolloAppProps, WithApolloState, ApolloInitialProps } from './types';
 // #endregion
 
-export const withApolloClient = (MainApp: any): Function => {
-  return class ApolloClass extends React.Component<MainAppProps> {
+export const withApolloClient = (
+  MainApp: any /* typeof NextApp */,
+): Function => {
+  return class ApolloClass extends React.Component<ApolloAppProps> {
     public static displayName = 'withApolloClient(MainApp)';
 
     private apolloClient: ApolloClient<NormalizedCacheObject>;
 
     public static async getInitialProps(
       appCtx: AppContext,
-    ): Promise<MainAppProps> {
+    ): Promise<ApolloInitialProps> {
       // const { Component, router, ctx } = appCtx;
+      const apolloState: WithApolloState = {};
 
       const appProps = MainApp.getInitialProps
         ? await MainApp.getInitialProps(appCtx)
-        : {};
+        : { pageProps: {} };
 
       // Run all GraphQL queries in the component tree
       // and extract the resulting data
@@ -54,12 +58,14 @@ export const withApolloClient = (MainApp: any): Function => {
         Head.rewind();
       }
 
+      apolloState.data = apollo.cache.extract();
+
       // Extract query data from the Apollo store
       // On the client side, initApollo() below will return the SAME Apollo
       // Client object over repeated calls, to preserve state.
       return {
         ...appProps,
-        apolloState: apollo.cache.extract(),
+        apolloState,
       };
     }
 
@@ -68,7 +74,7 @@ export const withApolloClient = (MainApp: any): Function => {
 
       // `getDataFromTree` renders the component first, the client is passed off as a property.
       // After that rendering is done using Next's normal rendering pipeline
-      this.apolloClient = apolloClient(props.apolloState);
+      this.apolloClient = this.apolloClient || apolloClient(props.apolloState);
     }
 
     public render(): React.ReactElement {

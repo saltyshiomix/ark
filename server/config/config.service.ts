@@ -56,7 +56,12 @@ export class ConfigService {
         .allow('')
         .empty(),
       SESSION_SECRET: Joi.string()
-        .default('ark')
+        .default('portal')
+        .required(),
+      JWT_SECRET: Joi.string()
+        .default(
+          '936d72384fc772d2b9d3e6911fde3148bdfb625edd8e888715b57d7067ac2361',
+        )
         .required(),
     });
 
