@@ -6,6 +6,7 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import { APP_FILTER } from '@nestjs/core';
 import {
+  Logger,
   Module,
   NestModule,
   MiddlewareConsumer,
@@ -22,25 +23,29 @@ import { makePluginHook } from 'postgraphile';
 
 import redisCacheStore from 'cache-manager-redis';
 
-import { PassportModule } from '@nestjs/passport';
+// import { PassportModule } from '@nestjs/passport';
 // #endregion
 // #region Imports Local
+import { rejects } from 'assert';
 import { AppHttpExceptionFilter } from './exceptions';
 import { ConfigModule } from './config/config.module';
 import { NextModule } from './next/next.module';
-import { UsersModule } from './users/users.module';
-import { AuthModule } from './auth/auth.module';
+// import { UsersModule } from './users/users.module';
+// import { AuthModule } from './auth/auth.module';
 import { HomeModule } from './home/home.module';
 import { NextMiddleware } from './next/next.middleware';
 import { ConfigService } from './config/config.service';
 import { NextService } from './next/next.service';
 import { sessionRedis } from '../lib/session-redis';
 import { PassportLoginPlugin } from '../lib/postgraphile/PassportLoginPlugin';
+import { AuthModule } from './auth/auth.module';
+import { AuthService } from './auth/auth.service';
+import { JwtPayload } from './auth/jwt-payload.interface';
 // #endregion
 
 const pluginHook = makePluginHook([
   PgPubSub,
-  // TODO: This is UI for PostGraphile
+  // TODO: This is UI-admin for PostGraphile
   process.env.NODE_ENV !== 'production' ? pgdbi : undefined,
 ]);
 
@@ -78,14 +83,18 @@ interface IncomingMessageCtx extends IncomingMessage {
     // #endregion
 
     // #region Passport
-    PassportModule,
+    // PassportModule.register({ defaultStrategy: 'jwt' }),
+    AuthModule,
     // #endregion
 
     // #region PostGraphile
     PostGraphileModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => {
+      imports: [ConfigModule, AuthModule],
+      inject: [ConfigService, AuthService],
+      useFactory: async (
+        configService: ConfigService,
+        authService: AuthService,
+      ) => {
         const rootPgPool = new pg.Pool({
           connectionString: configService.get('DATABASE_URL'),
         });
@@ -100,6 +109,7 @@ interface IncomingMessageCtx extends IncomingMessage {
           playgroundRoute: '/graphiql',
           subscriptions: true,
           pgWatch: true,
+          retryOnInitFail: true,
 
           pgSettings: async (req: IncomingMessageCtx) => {
             const settings = {
@@ -116,31 +126,24 @@ interface IncomingMessageCtx extends IncomingMessage {
 
           // The return value of this is added to `context` - the third argument of
           // GraphQL resolvers. This is useful for our custom plugins.
-          additionalGraphQLContextFromRequest: async (
-            req: IncomingMessageCtx,
+          additionalGraphQLContextFromRequest: async () =>
+            // req: IncomingMessageCtx,
             // res: ServerResponse,
-          ) => {
-            return {
-              // Let plugins call priviliged methods (e.g. login) if they need to
-              rootPgPool,
+            {
+              return {
+                // Let plugins call priviliged methods (e.g. login) if they need to
+                rootPgPool,
 
-              // Use this to tell Passport.js we're logged in
-              login: (user: any) => {
-                return new Promise((resolve, reject) => {
-                  // eslint-disable-next-line no-debugger
-                  debugger;
-
-                  if (req.ctx) {
-                    req.ctx.login(user, (err: Error) =>
-                      err ? reject(err) : resolve(),
-                    );
-                  } else {
-                    resolve();
-                  }
-                });
-              },
-            };
-          },
+                // Use this to tell Passport.js we're logged in
+                login: (user: JwtPayload) =>
+                  new Promise((resolve, reject) =>
+                    authService
+                      .login(user)
+                      .then((token: any) => resolve(token))
+                      .catch((error) => reject(error)),
+                  ),
+              };
+            },
 
           websocketMiddlewares: [
             (
@@ -171,8 +174,8 @@ interface IncomingMessageCtx extends IncomingMessage {
     // #endregion
 
     // #region Authentication
-    UsersModule,
-    AuthModule,
+    // UsersModule,
+    // AuthModule,
     // #endregion
 
     // #region Home page
@@ -181,6 +184,10 @@ interface IncomingMessageCtx extends IncomingMessage {
   ],
 
   providers: [
+    // #region Logger
+    Logger,
+    // #endregion
+
     // #region Errors: ExceptionFilter
     {
       provide: APP_FILTER,

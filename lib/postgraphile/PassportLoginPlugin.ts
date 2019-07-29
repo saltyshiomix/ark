@@ -1,11 +1,20 @@
 /** @format */
 
 // #region Imports NPM
-const { makeExtendSchemaPlugin, gql } = require('graphile-utils');
+import { Pool } from 'pg';
+import { makeExtendSchemaPlugin, gql } from 'graphile-utils';
+import { JwtPayload } from '../../server/auth/jwt-payload.interface';
 // #endregion
+
+interface ContextLogin {
+  rootPgPool: Pool;
+  login: (user: JwtPayload) => {};
+  pgClient: any;
+}
 
 // TODO: passport docs
 export const PassportLoginPlugin = makeExtendSchemaPlugin((build: any) => ({
+  // #region TypeDefs
   typeDefs: gql`
     input RegisterInput {
       username: String!
@@ -17,6 +26,7 @@ export const PassportLoginPlugin = makeExtendSchemaPlugin((build: any) => ({
 
     type RegisterPayload {
       user: User! @pgField
+      token: String
     }
 
     input LoginInput {
@@ -26,6 +36,7 @@ export const PassportLoginPlugin = makeExtendSchemaPlugin((build: any) => ({
 
     type LoginPayload {
       user: User! @pgField
+      token: String
     }
 
     extend type Mutation {
@@ -33,12 +44,23 @@ export const PassportLoginPlugin = makeExtendSchemaPlugin((build: any) => ({
       login(input: LoginInput!): LoginPayload
     }
   `,
+  // #endregion
+
+  // #region Resolvers
   resolvers: {
     Mutation: {
+      // #region Register a user - Call our login function to find out if the username/password combination exists
+      /**
+       * @param mutation -
+       * @param args - Input parameters
+       * @param context - Additional context
+       * @param resolveInfo -
+       * @param param4 -
+       */
       async register(
         mutation: any,
         args: any,
-        context: any,
+        context: ContextLogin,
         resolveInfo: any,
         { selectGraphQLResultFromTable }: any,
       ) {
@@ -49,7 +71,6 @@ export const PassportLoginPlugin = makeExtendSchemaPlugin((build: any) => ({
         debugger;
 
         try {
-          // Call our login function to find out if the username/password combination exists
           const {
             rows: [user],
           } = await rootPgPool.query(
@@ -69,7 +90,7 @@ export const PassportLoginPlugin = makeExtendSchemaPlugin((build: any) => ({
           }
 
           // Tell Passport.js we're logged in
-          await login(user);
+          const token = await login({ id: user.id });
 
           // Tell pg we're logged in
           await pgClient.query('select set_config($1, $2, true);', [
@@ -90,6 +111,7 @@ export const PassportLoginPlugin = makeExtendSchemaPlugin((build: any) => ({
 
           return {
             data: row,
+            ...token,
           };
         } catch (error) {
           console.error(error);
@@ -97,10 +119,10 @@ export const PassportLoginPlugin = makeExtendSchemaPlugin((build: any) => ({
           throw new Error('Login failed: incorrect username/password');
         }
       },
+      // #endregion
 
+      // #region Login - Call our login function to find out if the username/password combination exists
       /**
-       * Mutation: Login
-       *
        * @param mutation -
        * @param args - Input parameters
        * @param context - Additional context
@@ -110,7 +132,7 @@ export const PassportLoginPlugin = makeExtendSchemaPlugin((build: any) => ({
       async login(
         mutation: any,
         args: any,
-        context: any,
+        context: ContextLogin,
         resolveInfo: any,
         { selectGraphQLResultFromTable }: any,
       ) {
@@ -118,7 +140,6 @@ export const PassportLoginPlugin = makeExtendSchemaPlugin((build: any) => ({
         const { rootPgPool, login, pgClient } = context;
 
         try {
-          // Call our login function to find out if the username/password combination exists
           const {
             rows: [user],
           } = await rootPgPool.query(
@@ -131,7 +152,7 @@ export const PassportLoginPlugin = makeExtendSchemaPlugin((build: any) => ({
           }
 
           // Tell Passport.js we're logged in
-          await login(user);
+          const token = await login({ id: user.id });
 
           // eslint-disable-next-line no-debugger
           debugger;
@@ -155,6 +176,7 @@ export const PassportLoginPlugin = makeExtendSchemaPlugin((build: any) => ({
 
           return {
             data: row,
+            ...token,
           };
         } catch (error) {
           console.error(error);
@@ -162,6 +184,8 @@ export const PassportLoginPlugin = makeExtendSchemaPlugin((build: any) => ({
           throw new Error('Login failed: incorrect username/password');
         }
       },
+      // #endregion
     },
   },
+  // #endregion
 }));

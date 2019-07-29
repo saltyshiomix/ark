@@ -1,10 +1,11 @@
 {
   "private": true,
   "name": "portal",
-  "version": "4.0.0",
+  "version": "4.0.2",
   "scripts": {
     "clean": "rimraf .next node_modules",
     "secrets": "cat /dev/urandom | head -c 512 | openssl sha256 | cut -d ' ' -f 2",
+    "jwt:cert": "openssl req -x509 -newkey rsa:4096 -keyout jwt.private.pem -out jwt.public.pem -nodes -days 3650 -subj '/CN=localhost'",
     "db:create": "db-migrate db:create portaldb",
     "db:down": "db-migrate down --verbose",
     "db:init": "db-migrate up --verbose",
@@ -35,6 +36,7 @@
     "*.{js,jsx,ts,tsx}": [
       "prettier --write",
       "eslint --fix",
+      "yarn version --patch",
       "git add"
     ]
   },
@@ -44,7 +46,7 @@
     "@graphile/pg-pubsub": "^4.4.1-alpha.0",
     "@hapi/joi": "^15.1.0",
     "@material-ui/core": "^4.3.0",
-    "@material-ui/styles": "^4.3.0",
+    "@material-ui/styles": "^4.2.0",
     "@nestjs/common": "^6.5.3",
     "@nestjs/core": "^6.5.3",
     "@nestjs/graphql": "^6.4.2",

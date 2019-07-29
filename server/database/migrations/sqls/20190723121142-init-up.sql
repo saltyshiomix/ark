@@ -48,7 +48,7 @@ CREATE TABLE app_jobs.job_queues (
 ALTER TABLE app_jobs.job_queues ENABLE ROW LEVEL SECURITY;
 
 CREATE TABLE app_jobs.jobs (
-  id serial PRIMARY KEY,
+  id uuid PRIMARY KEY default uuid_generate_v4(),
   queue_name varchar DEFAULT (public.gen_random_uuid())::varchar NOT NULL,
   task_identifier varchar NOT NULL,
   payload json DEFAULT '{}'::json NOT NULL,
@@ -123,7 +123,7 @@ CREATE FUNCTION app_jobs.schedule_job(identifier varchar, queue_name varchar, pa
   INSERT INTO app_jobs.jobs(task_identifier, queue_name, payload, run_at) VALUES(identifier, queue_name, payload, run_at) RETURNING *;
 $$ LANGUAGE sql;
 
-CREATE FUNCTION app_jobs.complete_job(worker_id varchar, job_id int) RETURNS app_jobs.jobs AS $$
+CREATE FUNCTION app_jobs.complete_job(worker_id varchar, job_id uuid) RETURNS app_jobs.jobs AS $$
 DECLARE
   v_row app_jobs.jobs;
 BEGIN
@@ -139,7 +139,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE FUNCTION app_jobs.fail_job(worker_id varchar, job_id int, error_message varchar) RETURNS app_jobs.jobs AS $$
+CREATE FUNCTION app_jobs.fail_job(worker_id varchar, job_id uuid, error_message varchar) RETURNS app_jobs.jobs AS $$
 DECLARE
   v_row app_jobs.jobs;
 BEGIN
@@ -160,7 +160,7 @@ $$ LANGUAGE plpgsql;
 
 CREATE FUNCTION app_jobs.get_job(worker_id varchar, identifiers varchar[]) RETURNS app_jobs.jobs AS $$
 DECLARE
-  v_job_id int;
+  v_job_id uuid;
   v_queue_name varchar;
   v_default_job_expiry text = (4 * 60 * 60)::text;
   v_default_job_maximum_attempts text = '25';
@@ -232,8 +232,8 @@ comment on function app_private.tg__update_timestamps() is
 
 -- BEGIN: Users
 
-create function app_public.current_user_id() returns int as $$
-  select nullif(current_setting('jwt.claims.user_id', true), '')::int;
+create function app_public.current_user_id() returns uuid as $$
+  select nullif(current_setting('jwt.claims.user_id', true), '')::uuid;
 $$ language sql stable set search_path from current;
 
 comment on function  app_public.current_user_id() is
@@ -242,7 +242,7 @@ comment on function  app_public.current_user_id() is
 --------------------------------------------------------------------------------
 
 create table app_public.users (
-  id serial primary key,
+  id uuid primary key default uuid_generate_v4(),
   username citext not null unique check(username ~ '^[a-zA-Z]([a-zA-Z0-9][_]?)+$'),
   name text,
   avatar_url text check(avatar_url ~ '^https?://[^/]+'),
@@ -315,7 +315,7 @@ $$ language sql stable set search_path from current;
 --------------------------------------------------------------------------------
 
 create table app_private.user_secrets (
-  user_id int not null primary key references app_public.users,
+  user_id uuid not null primary key references app_public.users,
   password_hash text,
   password_attempts int not null default 0,
   first_failed_password_attempt timestamptz,
@@ -345,8 +345,8 @@ comment on function app_private.tg_user_secrets__insert_with_user() is
 --------------------------------------------------------------------------------
 
 create table app_public.user_emails (
-  id serial primary key,
-  user_id int not null default app_public.current_user_id() references app_public.users on delete cascade,
+  id uuid primary key default uuid_generate_v4(),
+  user_id uuid not null default app_public.current_user_id() references app_public.users on delete cascade,
   email citext not null check (email ~ '[^@]+@[^@]+\.[^@]+'),
   is_verified boolean not null default false,
   created_at timestamptz not null default now(),
@@ -385,7 +385,7 @@ grant delete on app_public.user_emails to portal_user, portal_anonym;
 --------------------------------------------------------------------------------
 
 create table app_private.user_email_secrets (
-  user_email_id int primary key references app_public.user_emails on delete cascade,
+  user_email_id uuid primary key references app_public.user_emails on delete cascade,
   verification_token text,
   password_reset_email_sent_at timestamptz
 );
@@ -417,8 +417,8 @@ comment on function app_private.tg_user_email_secrets__insert_with_user_email() 
 --------------------------------------------------------------------------------
 
 create table app_public.user_authentications (
-  id serial primary key,
-  user_id int not null references app_public.users on delete cascade,
+  id uuid primary key default uuid_generate_v4(),
+  user_id uuid not null references app_public.users on delete cascade,
   service text not null,
   identifier text not null,
   details jsonb not null default '{}'::jsonb,
@@ -451,7 +451,7 @@ grant delete on app_public.user_authentications to portal_user;
 --------------------------------------------------------------------------------
 
 create table app_private.user_authentication_secrets (
-  user_authentication_id int not null primary key references app_public.user_authentications on delete cascade,
+  user_authentication_id uuid not null primary key references app_public.user_authentications on delete cascade,
   details jsonb not null default '{}'::jsonb
 );
 alter table app_private.user_authentication_secrets enable row level security;
@@ -591,7 +591,7 @@ comment on function app_private.login(username text, password text) is
 
 --------------------------------------------------------------------------------
 
-create function app_public.reset_password(user_id int, reset_token text, new_password text) returns app_public.users as $$
+create function app_public.reset_password(user_id uuid, reset_token text, new_password text) returns app_public.users as $$
 declare
   v_user app_public.users;
   v_user_secret app_private.user_secrets;
@@ -647,7 +647,7 @@ begin
 end;
 $$ language plpgsql strict volatile security definer set search_path from current;
 
-comment on function app_public.reset_password(user_id int, reset_token text, new_password text) is
+comment on function app_public.reset_password(user_id uuid, reset_token text, new_password text) is
   E'After triggering forgotPassword, you''ll be sent a reset token. Combine this with your user ID and a new password to reset your password.';
 
 --------------------------------------------------------------------------------
@@ -732,7 +732,7 @@ declare
   v_name text;
   v_username text;
   v_avatar_url text;
-  v_user_authentication_id int;
+  v_user_authentication_id uuid;
 begin
   -- Extract data from the user’s OAuth profile data.
   v_email := f_profile ->> 'email';
@@ -766,7 +766,7 @@ comment on function app_private.register_user(f_service character varying, f_ide
 --------------------------------------------------------------------------------
 
 create function app_private.link_or_register_user(
-  f_user_id integer,
+  f_user_id uuid,
   f_service character varying,
   f_identifier character varying,
   f_profile json,
@@ -774,8 +774,8 @@ create function app_private.link_or_register_user(
   f_password text default null
 ) returns app_public.users as $$
 declare
-  v_matched_user_id int;
-  v_matched_authentication_id int;
+  v_matched_user_id uuid;
+  v_matched_authentication_id uuid;
   v_email citext;
   v_name text;
   v_avatar_url text;
@@ -847,7 +847,7 @@ begin
 end;
 $$ language plpgsql volatile security definer set search_path from current;
 
-comment on function app_private.link_or_register_user(f_user_id integer, f_service character varying, f_identifier character varying, f_profile json, f_auth_details json, f_password text) is
+comment on function app_private.link_or_register_user(f_user_id uuid, f_service character varying, f_identifier character varying, f_profile json, f_auth_details json, f_password text) is
   E'If you''re logged in, this will link an additional OAuth login to your account if necessary. If you''re logged out it may find if an account already exists (based on OAuth details or email address) and return that, or create a new user account if necessary.';
 
 -- END: Users

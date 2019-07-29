@@ -9,20 +9,30 @@ import { PassportModule } from '@nestjs/passport';
 import { NextModule } from '../next/next.module';
 import { UsersModule } from '../users/users.module';
 import { AuthService } from './auth.service';
+import { ConfigModule } from '../config/config.module';
+import { ConfigService } from '../config/config.service';
+import { JwtStrategy } from './strategies/jwt.strategy';
+import { jwtPrivateKey, jwtPublicKey } from './jwt.rsa-options';
 // #endregion
 
 @Module({
   imports: [
     NextModule,
     UsersModule,
+    ConfigModule,
     PassportModule,
-    JwtModule.register({
-      secret: 'qwer',
-      signOptions: { expiresIn: '60s' },
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        publicKey: jwtPublicKey,
+        privateKey: jwtPrivateKey,
+        signOptions: { expiresIn: '60s' },
+      }),
     }),
   ],
   // controllers: [AuthController],
-  providers: [AuthService],
+  providers: [AuthService, JwtStrategy],
   exports: [AuthService],
 })
 export class AuthModule {}
