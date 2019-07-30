@@ -29,7 +29,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && yarn version --patch --no-git-tag-version --no-commit-hooks"
+      "pre-commit": "yarn version --patch --no-git-tag-version && lint-staged"
     }
   },
   "lint-staged": {
