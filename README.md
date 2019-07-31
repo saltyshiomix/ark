@@ -68,8 +68,6 @@ $ brew services start postgresql
 
 # [MUST] create user "portal"
 $ createuser -P -l portal
-# [MUST] create user "portal_visitor"
-$ createuser -P -l portal_visitor
 
 # [MUST] create database "portal" owened by "portal"
 $ createdb portal -O portal
