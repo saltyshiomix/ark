@@ -1,7 +1,6 @@
 # Portal
 
-An easiest web app template on top of [Nest.js](https://nestjs.com), [GraphQL](https://graphql.org/), [PostGraphile](https://www.graphile.org/postgraphile/),
-[Next.js (v9)](https://nextjs.org) and [Material UI (v4)](https://material-ui.com)
+An easiest web app template on top of [Nest.js](https://nestjs.com), [TypeORM](https://typeorm.io), [GraphQL](https://graphql.org/), [Next.js (v9)](https://nextjs.org) and [Material UI (v4)](https://material-ui.com)
 
 <!-- ![Ark](https://i.imgur.com/Jq9XCVg.png) -->
 
@@ -12,8 +11,9 @@ An easiest web app template on top of [Nest.js](https://nestjs.com), [GraphQL](h
 - [x] Environment variables using [dotenv](https://github.com/motdotla/dotenv)
 - [x] Server Side Rendering - powered by [Next.js](https://nextjs.org)
 - [x] [Material UI](https://material-ui.com) design
+- [x] [TypeORM](https://typeorm.io)
 - [x] [GraphQL](https://graphql.org/)
-- [x] [WebSockets](https://www.apollographql.com/docs/link/links/ws/)
+- [ ] [WebSockets](https://www.apollographql.com/docs/link/links/ws/)
 - [ ] User authentication - powered by [Passport](http://www.passportjs.org)
 - [ ] Admin page
 
@@ -41,9 +41,6 @@ An easiest web app template on top of [Nest.js](https://nestjs.com), [GraphQL](h
 - Database
   - [PostgreSQL](https://www.postgresql.org) - The World's Most Advanced Open Source Relational Database
   - [GraphQL](https://github.com/graphql/express-graphql) - Create a GraphQL HTTP server with Express.
-- PostGraphile
-  - [PostGraphile](https://www.graphile.org/postgraphile/usage-library/) - Execute one command (or mount one Node.js middleware) and get an instant high-performance GraphQL API for your PostgreSQL database!
-  - [postgraphile-nest](https://github.com/alex-ald/postgraphile-nest) - GraphQL with Postgres with Nest. A module for Nest that allows you to easily integrate PostGraphile into your application.
 - WebSockets
   - subscription
 - User authentication
@@ -139,9 +136,12 @@ The `.env` file is like this:
 
 ```bash
 # DB
-DATABASE_ADMIN=postgres://postgres:postgres@localhost:5432/portaldb
-DATABASE_URL=postgres://portal:portal@localhost:5432/portaldb
-DATABASE_SCHEMA=app_public,app_private,app_jobs
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
+DATABASE_USERNAME=portal
+DATABASE_PASSWORD=portalpwd
+DATABASE_NAME=portaldb
+DATABASE_SCHEMA=app_public
 
 # Redis
 REDIS_HOST=localhost
@@ -154,6 +154,13 @@ REDIS_PREFIX=
 HOST=http://localhost
 PORT=4000
 SESSION_SECRET=portal
+
+# LDAP
+LDAP_URL=ldap://activedirectory:389
+LDAP_BIND_DN=CN=Administrator,DC=example,DC=local
+LDAP_BIND_PW=PaSsWoRd123
+LDAP_SEARCH_BASE=DC=example,DC=local
+LDAP_SEARCH_FILTER=(&(&(|(&(objectClass=user)(objectCategory=person))(&(objectClass=contact)(objectCategory=person)))))
 ```
 
 ## Production Deployment
@@ -199,8 +206,7 @@ module.exports = {
 - [x] UI: integration between [Next.js](https://nextjs.org) and [Material UI](https://material-ui.com)
 - [x] Test: unit tests
 - [x] Test: e2e tests
-- [x] PostGraphile
-- [x] WebSockets - [Apollo Link WS](https://www.apollographql.com/docs/link/links/ws/)
+- [ ] WebSockets - [Apollo Link WS](https://www.apollographql.com/docs/link/links/ws/)
 - [ ] API: JSON API routes
 - [ ] UX: validation
 - [ ] Auth: [passport-local](https://github.com/jaredhanson/passport-local) (email & password)
