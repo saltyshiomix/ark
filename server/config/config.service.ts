@@ -1,7 +1,7 @@
 /** @format */
 
 import dotenv from 'dotenv';
-import fs from 'fs';
+import { readFileSync } from 'fs';
 import * as Joi from '@hapi/joi';
 
 export interface EnvConfig {
@@ -12,9 +12,27 @@ export class ConfigService {
   private readonly envConfig: EnvConfig;
 
   constructor(filePath: string) {
-    const config = dotenv.parse(fs.readFileSync(filePath));
+    const config = dotenv.parse(readFileSync(filePath));
     this.envConfig = this.validateInput(config);
   }
+
+  /**
+   * Reads JWT public and secret key
+   */
+  public jwtConfig = {
+    expiresIn: '12h',
+    algorithm: 'RS256',
+  };
+
+  public jwtPrivateKey = readFileSync(
+    `${__dirname}/../../jwt.private.pem`,
+    'utf8',
+  );
+
+  public jwtPublicKey = readFileSync(
+    `${__dirname}/../../jwt.public.pem`,
+    'utf8',
+  );
 
   /**
    * Ensures all needed variables are set, and returns the validated JavaScript object
@@ -31,14 +49,32 @@ export class ConfigService {
       HOST: Joi.string()
         .default('http://localhost')
         .required(),
-      DATABASE_ADMIN: Joi.string()
-        .default('postgres://postgres:postgres@localhost:5432/portaldb')
+      // DATABASE_ADMIN: Joi.string()
+      //   .default('postgres://postgres:postgres@localhost:5432/portaldb')
+      //   .required(),
+      // DATABASE_URL: Joi.string()
+      //   .default('postgres://portal:portalpwd@localhost:5432/portaldb')
+      //   .required(),
+      // DATABASE_SCHEMA: Joi.string()
+      //   .default('app_public,app_private,app_jobs')
+      //   .required(),
+      DATABASE_HOST: Joi.string()
+        .default('localhost')
         .required(),
-      DATABASE_URL: Joi.string()
-        .default('postgres://portal:portalpwd@localhost:5432/portaldb')
+      DATABASE_PORT: Joi.number()
+        .default(5432)
+        .required(),
+      DATABASE_USERNAME: Joi.string()
+        .default('portal')
+        .required(),
+      DATABASE_PASSWORD: Joi.string()
+        .default('portalpwd')
+        .required(),
+      DATABASE_NAME: Joi.string()
+        .default('portaldb')
         .required(),
       DATABASE_SCHEMA: Joi.string()
-        .default('app_public,app_private,app_jobs')
+        .default('public')
         .required(),
       REDIS_HOST: Joi.string()
         .default('localhost')
@@ -61,6 +97,23 @@ export class ConfigService {
       JWT_SECRET: Joi.string()
         .default(
           '936d72384fc772d2b9d3e6911fde3148bdfb625edd8e888715b57d7067ac2361',
+        )
+        .required(),
+      LDAP_URL: Joi.string()
+        .default('ldap://activedirectory:389')
+        .required(),
+      LDAP_BIND_DN: Joi.string()
+        .default('CN=Administrator,DC=example,DC=local')
+        .required(),
+      LDAP_BIND_PW: Joi.string()
+        .default('PaSsWoRd123')
+        .required(),
+      LDAP_SEARCH_BASE: Joi.string()
+        .default('DC=example,DC=local')
+        .required(),
+      LDAP_SEARCH_FILTER: Joi.string()
+        .default(
+          '(&(&(|(&(objectClass=user)(objectCategory=person))(&(objectClass=contact)(objectCategory=person)))))',
         )
         .required(),
     });

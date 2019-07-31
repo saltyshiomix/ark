@@ -3,6 +3,8 @@
 // #region Imports NPM
 import { Injectable, NestMiddleware, Header } from '@nestjs/common';
 import { Request, Response } from 'express';
+// #endregion
+// #region Imports Local
 import { NextService } from './next.service';
 // #endregion
 

@@ -1,0 +1,34 @@
+type User {
+  id: ID!
+  username: String!
+  firstName: String!
+  lastName: String!
+  middleName: String!
+  birthday: String!
+  addressPersonal: String!
+  createdAt: Date!
+  updatedAt: Date!
+}
+
+type Auth {
+  username: String!
+  token: String!
+}
+
+type Query {
+  me: User
+}
+
+type Mutation {
+  login(username: String!, password: String!): Auth
+
+  register(
+    username: String!,
+    password: String!,
+    firstName: String,
+    lastName: String,
+    middleName: String,
+    birthday: Date,
+    addressPersonal: String
+  ): Auth
+}

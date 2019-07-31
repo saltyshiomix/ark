@@ -1,6 +1,7 @@
 /** @format */
 
 // #region Imports NPM
+// import { IncomingMessage } from 'http';
 import { join } from 'path';
 import { NestFactory } from '@nestjs/core';
 import { INestApplication, Logger } from '@nestjs/common';
@@ -13,8 +14,6 @@ import bodyParser from 'body-parser';
 import passport from 'passport';
 // #endregion
 // #region Imports Local
-// import { AppLogger } from './logger';
-import { IncomingMessage } from 'http';
 import { sessionRedis } from '../lib/session-redis';
 import { AppModule } from './app.module';
 import { ConfigService } from './config/config.service';
@@ -33,17 +32,6 @@ async function bootstrap(configService: ConfigService): Promise<void> {
     AppModule,
     nestjsOptions,
   );
-  // #endregion
-
-  // #region
-  // server.use((req: any, res: any, next: Function) => {
-  //   // req.ctx = ctx;
-
-  //   // eslint-disable-next-line no-debugger
-  //   debugger;
-
-  //   return next();
-  // });
   // #endregion
 
   // #region X-Response-Time
@@ -80,6 +68,12 @@ async function bootstrap(configService: ConfigService): Promise<void> {
 
   // #region start server
   await server.listen(configService.get('PORT'), '0.0.0.0');
+  Logger.log(
+    `Server running on ${configService.get('HTTP')}://${configService.get(
+      'HOST',
+    )}:${configService.get('PORT')}`,
+    'Bootstrap',
+  );
   // #endregion
 }
 

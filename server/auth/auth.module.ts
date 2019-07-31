@@ -7,32 +7,34 @@ import { PassportModule } from '@nestjs/passport';
 // #endregion
 // #region Imports Local
 import { NextModule } from '../next/next.module';
-import { UsersModule } from '../users/users.module';
+import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { ConfigModule } from '../config/config.module';
 import { ConfigService } from '../config/config.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
-import { jwtPrivateKey, jwtPublicKey } from './jwt.rsa-options';
+import { LdapStrategy } from './strategies/ldap.strategy';
 // #endregion
+
+// eslint-disable-next-line no-debugger
+debugger;
 
 @Module({
   imports: [
     NextModule,
-    UsersModule,
     ConfigModule,
-    PassportModule,
+    PassportModule.register({ defaultStrategy: 'ldapauth', session: true }),
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => ({
-        publicKey: jwtPublicKey,
-        privateKey: jwtPrivateKey,
+        publicKey: configService.jwtPublicKey,
+        privateKey: configService.jwtPrivateKey,
         signOptions: { expiresIn: '60s' },
       }),
     }),
   ],
-  // controllers: [AuthController],
-  providers: [AuthService, JwtStrategy],
+  controllers: [AuthController],
+  providers: [AuthService, LdapStrategy, JwtStrategy],
   exports: [AuthService],
 })
 export class AuthModule {}

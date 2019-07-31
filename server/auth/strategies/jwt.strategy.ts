@@ -7,7 +7,6 @@ import { Injectable } from '@nestjs/common';
 // #endregion
 // #region Imports Local
 import { ConfigService } from '../../config/config.service';
-import { jwtPrivateKey, jwtPublicKey } from '../jwt.rsa-options';
 // #endregion
 
 @Injectable()
@@ -16,8 +15,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: jwtPrivateKey,
-      publicKey: jwtPublicKey,
+      secretOrKey: configService.jwtPrivateKey,
+      publicKey: configService.jwtPublicKey,
     });
   }
 
