@@ -1,6 +1,6 @@
 # Portal
 
-An easiest web app template on top of [Nest.js](https://nestjs.com), [TypeORM](https://typeorm.io), [GraphQL](https://graphql.org/), [Next.js (v9)](https://nextjs.org) and [Material UI (v4)](https://material-ui.com)
+[Nest.js](https://nestjs.com), [TypeORM](https://typeorm.io), [GraphQL](https://graphql.org/), [Next.js (v9)](https://nextjs.org), [Material UI (v4)](https://material-ui.com), [React.js](https://reactjs.org/)
 
 <!-- ![Ark](https://i.imgur.com/Jq9XCVg.png) -->
 
@@ -13,6 +13,7 @@ An easiest web app template on top of [Nest.js](https://nestjs.com), [TypeORM](h
 - [x] [Material UI](https://material-ui.com) design
 - [x] [TypeORM](https://typeorm.io)
 - [x] [GraphQL](https://graphql.org/)
+- [x] [React.js](https://reactjs.org/)
 - [ ] [WebSockets](https://www.apollographql.com/docs/link/links/ws/)
 - [ ] User authentication - powered by [Passport](http://www.passportjs.org)
 - [ ] Admin page

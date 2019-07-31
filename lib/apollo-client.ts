@@ -30,29 +30,28 @@ export const apolloClient = (
   let link: ApolloLink;
 
   if (!__SERVER__) {
-    // TODO: сделать чтобы __WEBSOCKET_URI__ брал из файла .env
-    const subscriptionsUri = `${window.location.origin.replace(
-      'http',
-      'ws',
-    )}/graphql`; // __WEBSOCKET_URI__
+    // const subscriptionsUri = `${window.location.origin.replace(
+    //   'http',
+    //   'ws',
+    // )}/graphql`; // __WEBSOCKET_URI__
 
     // Create a WebSocket link:
-    const wsLink = new WebSocketLink({
-      uri: subscriptionsUri,
-      options: {
-        reconnect: true,
+    // const wsLink = new WebSocketLink({
+    //   uri: subscriptionsUri,
+    //   options: {
+    //     reconnect: true,
 
-        // connectionParams: async () => {
-        //   return { token: localStorage.getItem('token') };
-        // },
+    //     // connectionParams: async () => {
+    //     //   return { token: localStorage.getItem('token') };
+    //     // },
 
-        connectionCallback: (errors: Error[], _result: any): any => {
-          if (errors) {
-            console.error('[Error in webSocket]:', errors);
-          }
-        },
-      },
-    });
+    //     connectionCallback: (errors: Error[], _result: any): any => {
+    //       if (errors) {
+    //         console.error('[Error in webSocket]:', errors);
+    //       }
+    //     },
+    //   },
+    // });
 
     // Create an http link:
     const httpLink = new HttpLink({
@@ -77,17 +76,17 @@ export const apolloClient = (
 
       apolloStateLink(cache),
 
-      split(
-        ({ query }) => {
-          const definition = getMainDefinition(query);
-          return (
-            definition.kind === 'OperationDefinition' &&
-            definition.operation === 'subscription'
-          );
-        },
-        wsLink,
-        httpLink,
-      ),
+      // split(
+      //   ({ query }) => {
+      //     const definition = getMainDefinition(query);
+      //     return (
+      //       definition.kind === 'OperationDefinition' &&
+      //       definition.operation === 'subscription'
+      //     );
+      //   },
+      //   wsLink,
+      httpLink,
+      // ),
     ]);
   } else {
     global.fetch = fetch;
@@ -109,9 +108,6 @@ export const apolloClient = (
       apolloStateLink(cache),
     ]);
   }
-
-  // eslint-disable-next-line no-debugger
-  // debugger;
 
   if (!apollo) {
     apollo = new ApolloClient({
