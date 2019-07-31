@@ -1,18 +1,14 @@
 type User {
   id: ID!
-  username: String!
-  firstName: String!
-  lastName: String!
-  middleName: String!
-  birthday: String!
-  addressPersonal: String!
-  createdAt: Date!
-  updatedAt: Date!
-}
-
-type Auth {
-  username: String!
   token: String!
+  username: String!
+  firstName: String
+  lastName: String
+  middleName: String
+  birthday: String
+  addressPersonal: String
+  createdAt: Date
+  updatedAt: Date
 }
 
 type Query {
@@ -20,7 +16,7 @@ type Query {
 }
 
 type Mutation {
-  login(username: String!, password: String!): Auth
+  login(username: String!, password: String!): User
 
   register(
     username: String!,
@@ -30,5 +26,5 @@ type Mutation {
     middleName: String,
     birthday: Date,
     addressPersonal: String
-  ): Auth
+  ): User
 }

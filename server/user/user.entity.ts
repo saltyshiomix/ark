@@ -68,7 +68,7 @@ export class UserEntity {
     type: 'date',
     nullable: true,
   })
-  birthday: string;
+  birthday: Date;
 
   @Column({
     type: 'json',

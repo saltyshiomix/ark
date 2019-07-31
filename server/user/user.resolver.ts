@@ -47,8 +47,7 @@ export class UserResolver {
     @Args('username') username: string,
     @Args('password') password: string,
   ): Promise<any> {
-    const user: UserDTO = { username, password };
-    return this.userService.login(user);
+    return this.userService.login({ username, password });
   }
 
   @Mutation()
@@ -58,7 +57,7 @@ export class UserResolver {
     @Args('firstName') firstName: string,
     @Args('lastName') lastName: string,
     @Args('middleName') middleName: string,
-    @Args('birthday') birthday: string,
+    @Args('birthday') birthday: Date,
     @Args('addressPersonal') addressPersonal: string,
   ): Promise<any> {
     const user: UserRO = {

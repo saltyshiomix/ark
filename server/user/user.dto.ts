@@ -19,19 +19,17 @@ export class UserDTO {
 export class UserRO extends UserDTO {
   id?: string;
 
-  // username: string;
+  firstName?: string;
 
-  firstName: string;
+  lastName?: string;
 
-  lastName: string;
+  middleName?: string;
 
-  middleName: string;
+  birthday?: Date;
 
-  birthday: string;
+  addressPersonal?: string;
 
-  addressPersonal: string;
-
-  isAdmin: boolean;
+  isAdmin?: boolean;
 
   createdAt?: Date;
 
