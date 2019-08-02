@@ -6,11 +6,9 @@ import gql from 'graphql-tag';
 
 export const CURRENT_USER = gql`
   query {
-    currentUser {
-      nodeId
+    me {
       id
       username
-      name
     }
   }
 `;

@@ -1,40 +1,49 @@
 /** @format */
 
 // #region Imports NPM
-import { Module } from '@nestjs/common';
-import { JwtModule } from '@nestjs/jwt';
+import { Module, forwardRef } from '@nestjs/common';
+import { JwtModule, JwtModuleOptions } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 // #endregion
 // #region Imports Local
-import { NextModule } from '../next/next.module';
-import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
+// import { NextModule } from '../next/next.module';
 import { ConfigModule } from '../config/config.module';
 import { ConfigService } from '../config/config.service';
+import { AuthController } from './auth.controller';
+import { AuthService } from './auth.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
-import { LdapStrategy } from './strategies/ldap.strategy';
+// eslint-disable-next-line import/no-cycle
+import { UserModule } from '../user/user.module';
 // #endregion
-
-// eslint-disable-next-line no-debugger
-debugger;
 
 @Module({
   imports: [
-    NextModule,
+    // #region Config module, Next module
     ConfigModule,
-    PassportModule.register({ defaultStrategy: 'ldapauth', session: true }),
+    // #endregion
+
+    // #region Passport module
+    PassportModule.register({ defaultStrategy: 'jwt', session: true }),
+    // #endregion
+
+    // #region Jwt module
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => ({
-        publicKey: configService.jwtPublicKey,
-        privateKey: configService.jwtPrivateKey,
-        signOptions: { expiresIn: '60s' },
-      }),
+      useFactory: async (configService: ConfigService) => {
+        return {
+          ...configService.jwtModuleOptions,
+        } as JwtModuleOptions;
+      },
     }),
+    // #endregion
+
+    // #region Users module
+    forwardRef(() => UserModule),
+    // #endregion
   ],
   controllers: [AuthController],
-  providers: [AuthService, LdapStrategy, JwtStrategy],
-  exports: [AuthService],
+  providers: [AuthService, JwtStrategy],
+  exports: [PassportModule, AuthService],
 })
 export class AuthModule {}

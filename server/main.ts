@@ -11,23 +11,27 @@ import helmet from 'helmet';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
-import passport from 'passport';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+// import passport from 'passport';
 // #endregion
 // #region Imports Local
-import { sessionRedis } from '../lib/session-redis';
+import { sessionRedis } from './shared/session-redis';
 import { AppModule } from './app.module';
 import { ConfigService } from './config/config.service';
 // #endregion
 
+// #region NestJS options
+const nestjsOptions: NestApplicationOptions = {
+  cors: {
+    credentials: true,
+  },
+  logger: new Logger('Portal', true),
+  // httpsOptions: {},
+};
+// #endregion
+
 async function bootstrap(configService: ConfigService): Promise<void> {
   // #region create NestJS server
-  const nestjsOptions: NestApplicationOptions = {
-    cors: {
-      credentials: true,
-    },
-    logger: new Logger('Portal', true),
-    // httpsOptions: {},
-  };
   const server: INestApplication = await NestFactory.create(
     AppModule,
     nestjsOptions,
@@ -59,11 +63,18 @@ async function bootstrap(configService: ConfigService): Promise<void> {
   server.use(sessionRedis(configService));
   // #endregion
 
-  // #region enable passport session
-  server.use(passport.initialize());
-  server.use(passport.session());
-  passport.serializeUser((user, cb) => cb(null, user));
-  passport.deserializeUser((obj, cb) => cb(null, obj));
+  // #region Swagger module - for development
+  if (process.env.NODE_ENV !== 'production') {
+    const options = new DocumentBuilder()
+      .setTitle('Authentication')
+      .setDescription('The authentication API')
+      .setVersion('1.0')
+      .addTag('auth')
+      .addBearerAuth()
+      .build();
+    const document = SwaggerModule.createDocument(server, options);
+    SwaggerModule.setup('api/auth', server, document);
+  }
   // #endregion
 
   // #region start server

@@ -21,7 +21,6 @@ import redisCacheStore from 'cache-manager-redis';
 import { ConfigModule } from './config/config.module';
 import { NextModule } from './next/next.module';
 // import { UsersModule } from './users/users.module';
-// import { AuthModule } from './auth/auth.module';
 import { HomeModule } from './home/home.module';
 import { NextMiddleware } from './next/next.middleware';
 import { ConfigService } from './config/config.service';
@@ -30,6 +29,7 @@ import { ConfigService } from './config/config.service';
 // import { PassportLoginPlugin } from '../lib/postgraphile/PassportLoginPlugin';
 import { ApiModule } from './api.module';
 import { DateScalar } from './shared/date.scalar';
+import { AuthModule } from './auth/auth.module';
 // #endregion
 
 // #region Postgraphile Plugin hook
@@ -78,12 +78,16 @@ const pluginHook = makePluginHook([
       debug: process.env.NODE_ENV !== 'production',
       playground: process.env.NODE_ENV !== 'production',
       typePaths: ['./**/*.graphql'],
-      context: ({ req }) => ({ req, headers: req.headers }),
+      context: ({ req }) => ({ req, user: req.user }),
     }),
     // #endregion
 
     // #region Next
     NextModule,
+    // #endregion
+
+    // #region Authentication
+    AuthModule,
     // #endregion
 
     // #region API module

@@ -10,10 +10,23 @@ import { HttpErrorFilter } from './shared/http-error.filter';
 import { LoggingInterceptor } from './shared/logging.interceptor';
 import { UserModule } from './user/user.module';
 import { NextModule } from './next/next.module';
+import { AuthModule } from './auth/auth.module';
 // #endregion
 
 @Module({
-  imports: [UserModule, NextModule],
+  imports: [
+    // #region Authentication
+    AuthModule,
+    // #endregion
+
+    // #region Users
+    UserModule,
+    // #endregion
+
+    // #region NextModule
+    NextModule,
+    // #endregion
+  ],
   providers: [
     // #region Errors: ExceptionFilter
     {

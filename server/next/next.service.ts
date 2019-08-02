@@ -32,7 +32,13 @@ export class NextService {
         ? exception.toString()
         : 'Internal server error';
 
-    return this.app.renderError(new Error(message), req, res, req.url);
+    return this.app.renderError(
+      new Error(message),
+      req,
+      res,
+      req.url,
+      req.query,
+    );
   }
 
   public async render(

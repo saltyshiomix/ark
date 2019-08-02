@@ -1,46 +1,55 @@
 /** @format */
 
 // #region Imports NPM
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import {
+  Inject,
+  forwardRef,
+  Injectable,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 // #endregion
 // #region Imports Local
 import { UserEntity } from './user.entity';
-import { UserDTO } from './user.dto';
+import {
+  UserLoginDTO,
+  UserResponseDTO,
+  UserRegisterDTO,
+} from './models/user.dto';
 import { ConfigService } from '../config/config.service';
+// eslint-disable-next-line import/no-cycle
+import { AuthService } from '../auth/auth.service';
 // #endregion
 
 @Injectable()
 export class UserService {
   constructor(
     private readonly configService: ConfigService,
+    @Inject(forwardRef(() => AuthService))
+    private readonly authService: AuthService,
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
   ) {}
 
-  async showAll(page: number = 1): Promise<any> {
-    const users = await this.userRepository.find({
-      relations: ['ideas', 'bookmarks'],
-      take: 25,
-      skip: 25 * (page - 1),
-    });
-
-    return users.map((user) =>
-      user.toResponseObject(false, this.configService),
-    );
-  }
-
-  async read(id: number): Promise<any> {
+  async read(id: string): Promise<UserResponseDTO | null> {
     const user = (await this.userRepository.findOne({
       where: { id },
     })) as UserEntity;
 
-    return user.toResponseObject(false, this.configService);
+    if (!user) {
+      return null;
+    }
+
+    const token = this.authService.token({ id: user.id });
+    return user.toResponseObject(this.configService, token);
   }
 
-  async login(data: UserDTO): Promise<any> {
-    const { username, password } = data;
+  async login({
+    username,
+    password,
+  }: UserLoginDTO): Promise<UserResponseDTO | null> {
     const user = await this.userRepository.findOne({ where: { username } });
     if (!user || !(await user.comparePassword(password))) {
       throw new HttpException(
@@ -49,10 +58,11 @@ export class UserService {
       );
     }
 
-    return user.toResponseObject(true, this.configService);
+    const token = this.authService.token({ id: user.id });
+    return user.toResponseObject(this.configService, token);
   }
 
-  async register(data: UserDTO): Promise<any> {
+  async register(data: UserRegisterDTO): Promise<UserResponseDTO | null> {
     const { username } = data;
     let user = await this.userRepository.findOne({ where: { username } });
     if (user) {
@@ -61,6 +71,7 @@ export class UserService {
     user = await this.userRepository.create(data);
     await this.userRepository.save(user);
 
-    return user.toResponseObject(true, this.configService);
+    const token = this.authService.token({ id: user.id });
+    return user.toResponseObject(this.configService, token);
   }
 }

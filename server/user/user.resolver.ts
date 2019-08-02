@@ -5,17 +5,17 @@ import {
   Resolver,
   Query,
   Args,
-  ResolveProperty,
-  Parent,
+  // ResolveProperty,
+  // Parent,
   Mutation,
   Context,
 } from '@nestjs/graphql';
-import { UseGuards } from '@nestjs/common';
+import { Request, UseGuards } from '@nestjs/common';
 // #endregion
 // #region Imports Local
-import { AuthGuard } from '../shared/auth.guard';
 import { UserService } from './user.service';
-import { UserRO, UserDTO } from './user.dto';
+import { UserResponseDTO, UserRegisterDTO } from './models/user.dto';
+import { AuthenticationGuard } from '../guards/auth-guard.guard';
 // #endregion
 
 @Resolver()
@@ -33,20 +33,16 @@ export class UserResolver {
   // }
 
   @Query()
-  @UseGuards(new AuthGuard())
-  async me(@Context('user') user: any): Promise<any> {
-    // eslint-disable-next-line no-debugger
-    debugger;
-
-    const { id } = user;
-    return this.userService.read(id);
+  @UseGuards(AuthenticationGuard)
+  async me(@Context('req') req: any): Promise<UserResponseDTO | null> {
+    return req.user;
   }
 
   @Mutation()
   async login(
     @Args('username') username: string,
     @Args('password') password: string,
-  ): Promise<any> {
+  ): Promise<UserResponseDTO | null> {
     return this.userService.login({ username, password });
   }
 
@@ -59,8 +55,8 @@ export class UserResolver {
     @Args('middleName') middleName: string,
     @Args('birthday') birthday: Date,
     @Args('addressPersonal') addressPersonal: string,
-  ): Promise<any> {
-    const user: UserRO = {
+  ): Promise<UserResponseDTO | null> {
+    const user: UserRegisterDTO = {
       username,
       password,
       firstName,

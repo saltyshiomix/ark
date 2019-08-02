@@ -1,8 +1,13 @@
 /** @format */
 
+// #region Imports NPM
 import dotenv from 'dotenv';
 import { readFileSync } from 'fs';
 import * as Joi from '@hapi/joi';
+import * as jwt from 'jsonwebtoken';
+import { ExtractJwt, StrategyOptions } from 'passport-jwt';
+import { JwtModuleOptions } from '@nestjs/jwt';
+// #endregion
 
 export interface EnvConfig {
   [key: string]: string;
@@ -14,25 +19,56 @@ export class ConfigService {
   constructor(filePath: string) {
     const config = dotenv.parse(readFileSync(filePath));
     this.envConfig = this.validateInput(config);
+
+    this.jwtPrivateKey = readFileSync(
+      `${__dirname}/../../jwt.private.pem`,
+      'utf8',
+    );
+
+    this.jwtPublicKey = readFileSync(
+      `${__dirname}/../../jwt.public.pem`,
+      'utf8',
+    );
+
+    this.jwtStrategyOptions = {
+      ...this.jwtStrategyOptions,
+      secretOrKey: this.jwtPublicKey,
+    };
+
+    this.jwtModuleOptions = {
+      ...this.jwtModuleOptions,
+      privateKey: this.jwtPrivateKey,
+      publicKey: this.jwtPublicKey,
+    };
   }
 
   /**
    * Reads JWT public and secret key
    */
-  public jwtConfig = {
-    expiresIn: '12h',
+  public jwtSignOptions: jwt.SignOptions = {
+    expiresIn: '1h',
     algorithm: 'RS256',
   };
 
-  public jwtPrivateKey = readFileSync(
-    `${__dirname}/../../jwt.private.pem`,
-    'utf8',
-  );
+  public jwtVerifyOptions: any | jwt.VerifyOptions = {
+    algorithms: ['RS256'],
+    ignoreExpiration: false,
+  };
 
-  public jwtPublicKey = readFileSync(
-    `${__dirname}/../../jwt.public.pem`,
-    'utf8',
-  );
+  public jwtStrategyOptions: StrategyOptions = {
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: undefined, // Public Key
+    ...this.jwtVerifyOptions,
+  };
+
+  public jwtModuleOptions: JwtModuleOptions = {
+    signOptions: { ...this.jwtSignOptions },
+    verifyOptions: { ...this.jwtVerifyOptions },
+  };
+
+  public jwtPrivateKey: string;
+
+  public jwtPublicKey: string;
 
   /**
    * Ensures all needed variables are set, and returns the validated JavaScript object

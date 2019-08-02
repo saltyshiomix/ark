@@ -8,23 +8,30 @@ import {
   Logger,
   HttpException,
   HttpStatus,
+  ExecutionContext,
 } from '@nestjs/common';
+import { GqlExecutionContext, GraphQLExecutionContext } from '@nestjs/graphql';
 import { Request, Response } from 'express';
+import { TokenExpiredError, JsonWebTokenError } from 'jsonwebtoken';
 // #endregion
 // #region Imports Local
 import { NextService } from '../next/next.service';
+import { AppGraphQLExecutionContext } from './logging.interceptor';
 // #endregion
 
 @Catch()
 export class HttpErrorFilter implements ExceptionFilter {
   constructor(private readonly nextService: NextService) {}
 
-  catch(exception: HttpException, host: ArgumentsHost): void {
+  catch(exception: HttpException, host: ExecutionContext): void {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
     const status =
-      exception instanceof HttpException
+      exception instanceof JsonWebTokenError ||
+      exception instanceof TokenExpiredError
+        ? HttpStatus.UNAUTHORIZED
+        : exception instanceof HttpException
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
 
@@ -32,9 +39,10 @@ export class HttpErrorFilter implements ExceptionFilter {
     debugger;
 
     if (response.status && request.method && request.url) {
+      // #region HTTP query
       const errorResponse = {
         code: status,
-        timestamp: new Date().toLocaleDateString(),
+        timestamp: new Date().toLocaleString('ru'),
         path: request.url,
         method: request.method,
         message:
@@ -58,9 +66,30 @@ export class HttpErrorFilter implements ExceptionFilter {
       }
 
       response.status(status);
-      this.nextService.error(request, response, status, exception);
+
+      if (request.url.startsWith('/api/')) {
+        response.json(errorResponse);
+      } else {
+        this.nextService.error(request, response, status, exception);
+      }
+      // #endregion
     } else {
-      Logger.error(`${request}`, exception.stack, 'ExceptionFilter');
+      // #region GraphQL query
+      const context: AppGraphQLExecutionContext = GqlExecutionContext.create(
+        host,
+      );
+      const resolverName = context.constructorRef
+        ? context.constructorRef.name
+        : '';
+      const info = context.getInfo();
+
+      Logger.error(
+        `${info.parentType} "${info.fieldName}" ${resolverName}`,
+        exception.stack,
+        'ExceptionFilter',
+        true,
+      );
+      // #endregion
     }
   }
 }

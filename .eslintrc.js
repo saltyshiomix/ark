@@ -48,6 +48,7 @@ module.exports = {
     },
   },
   rules: {
+    '@typescript-eslint/no-object-literal-type-assertion': 0,
     'no-nested-ternary': 0,
     'no-useless-constructor': 0,
     '@typescript-eslint/no-var-requires': 0,

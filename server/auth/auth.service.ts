@@ -1,36 +1,26 @@
 /** @format */
 
 // #region Imports NPM
-import { Injectable } from '@nestjs/common';
+import { Inject, forwardRef, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 // #endregion
 // #region Imports Local
-import { JwtPayload } from './jwt-payload.interface';
-// import { UsersService } from '../users/users.service';
+import { JwtPayload } from './models/jwt-payload.interface';
+import { UserResponseDTO, UserRegisterDTO } from '../user/models/user.dto';
+// eslint-disable-next-line import/no-cycle
+import { UserService } from '../user/user.service';
 // #endregion
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly jwtService: JwtService) {}
+  constructor(
+    @Inject(forwardRef(() => UserService))
+    private readonly userService: UserService,
+    private readonly jwtService: JwtService,
+  ) {}
 
-  public async validateUser(
-    _username: string,
-    _password: string,
-  ): Promise<any> {
-    // put some validation logic here
-    // for example query user by id/email/username
-    // eslint-disable-next-line no-debugger
-    debugger;
+  public token = (payload: JwtPayload): string => this.jwtService.sign(payload);
 
-    return null;
-  }
-
-  public async login(userid: JwtPayload): Promise<{}> {
-    // eslint-disable-next-line no-debugger
-    debugger;
-
-    return {
-      token: this.jwtService.sign({ ...userid }),
-    };
-  }
+  public validate = (payload: JwtPayload): Promise<UserResponseDTO | null> =>
+    this.userService.read(payload.id);
 }

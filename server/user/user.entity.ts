@@ -8,19 +8,17 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   BeforeInsert,
-  OneToMany,
-  ManyToMany,
-  JoinTable,
+  // OneToMany,
+  // ManyToMany,
+  // JoinTable,
 } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
-import * as jwt from 'jsonwebtoken';
+// import * as jwt from 'jsonwebtoken';
 // #endregion
 // #region Imports Local
 import { ConfigService } from '../config/config.service';
-// eslint-disable-next-line import/no-cycle
-// import { IdeaEntity } from '../idea/idea.entity';
-// eslint-disable-next-line import/no-cycle
-import { UserRO } from './user.dto';
+import { UserResponseDTO } from './models/user.dto';
+// import { JwtPayload } from '../auth/models/jwt-payload.interface';
 // #endregion
 
 @Entity('user')
@@ -95,10 +93,10 @@ export class UserEntity {
   }
 
   toResponseObject(
-    showToken: boolean = true,
-    configService?: ConfigService,
-  ): UserRO {
-    if (configService && !this.configService) {
+    configService: ConfigService,
+    token: string,
+  ): UserResponseDTO {
+    if (!this.configService) {
       this.configService = configService;
     }
 
@@ -113,9 +111,9 @@ export class UserEntity {
       birthday,
       addressPersonal,
       isAdmin,
-      token,
     } = this;
-    const responseObject: UserRO = {
+
+    return {
       id,
       createdAt,
       updatedAt,
@@ -126,24 +124,7 @@ export class UserEntity {
       birthday,
       addressPersonal,
       isAdmin,
+      token,
     };
-
-    if (showToken) {
-      responseObject.token = token;
-    }
-
-    return responseObject;
-  }
-
-  private get token(): string {
-    const { id } = this;
-
-    return jwt.sign(
-      {
-        id,
-      },
-      this.configService.jwtPrivateKey,
-      this.configService.jwtConfig,
-    );
   }
 }

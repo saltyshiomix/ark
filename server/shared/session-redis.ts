@@ -3,7 +3,7 @@
 // #region Imports NPM
 import session from 'express-session';
 import redisSessionStore from 'connect-redis';
-import { ConfigService } from '../server/config/config.service';
+import { ConfigService } from '../config/config.service';
 // #endregion
 
 export const sessionRedis = (configService: ConfigService): any =>
