@@ -33,6 +33,11 @@ export class UserService {
     private readonly userRepository: Repository<UserEntity>,
   ) {}
 
+  /**
+   * This is a call from authService.validate
+   *
+   * @param id - User ID
+   */
   async read(id: string): Promise<UserResponseDTO | null> {
     const user = (await this.userRepository.findOne({
       where: { id },
@@ -42,8 +47,10 @@ export class UserService {
       return null;
     }
 
-    const token = this.authService.token({ id: user.id });
-    return user.toResponseObject(this.configService, token);
+    return user.toResponseObject(
+      this.configService,
+      this.authService.token({ id: user.id }),
+    );
   }
 
   async login({
@@ -51,27 +58,37 @@ export class UserService {
     password,
   }: UserLoginDTO): Promise<UserResponseDTO | null> {
     const user = await this.userRepository.findOne({ where: { username } });
-    if (!user || !(await user.comparePassword(password))) {
-      throw new HttpException(
-        'Invalid username/password',
-        HttpStatus.BAD_REQUEST,
-      );
+    if (!user) {
+      throw new HttpException('Invalid username', HttpStatus.FORBIDDEN);
     }
 
-    const token = this.authService.token({ id: user.id });
-    return user.toResponseObject(this.configService, token);
+    if (!(await user.comparePassword(password))) {
+      throw new HttpException('Invalid password', HttpStatus.FORBIDDEN);
+    }
+
+    return user.toResponseObject(
+      this.configService,
+      this.authService.token({ id: user.id }),
+    );
   }
 
   async register(data: UserRegisterDTO): Promise<UserResponseDTO | null> {
+    // #region Check if a user exists
     const { username } = data;
     let user = await this.userRepository.findOne({ where: { username } });
     if (user) {
       throw new HttpException('User already exists', HttpStatus.BAD_REQUEST);
     }
+    // #endregion
+
+    // #region Create user
     user = await this.userRepository.create(data);
     await this.userRepository.save(user);
+    // #endregion
 
-    const token = this.authService.token({ id: user.id });
-    return user.toResponseObject(this.configService, token);
+    return user.toResponseObject(
+      this.configService,
+      this.authService.token({ id: user.id }),
+    );
   }
 }

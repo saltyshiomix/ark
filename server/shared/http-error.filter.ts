@@ -35,9 +35,6 @@ export class HttpErrorFilter implements ExceptionFilter {
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
 
-    // eslint-disable-next-line no-debugger
-    debugger;
-
     if (response.status && request.method && request.url) {
       // #region HTTP query
       const errorResponse = {

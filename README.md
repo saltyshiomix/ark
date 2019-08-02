@@ -2,8 +2,6 @@
 
 [Nest.js](https://nestjs.com), [TypeORM](https://typeorm.io), [GraphQL](https://graphql.org/), [Next.js (v9)](https://nextjs.org), [Material UI (v4)](https://material-ui.com), [React.js](https://reactjs.org/)
 
-<!-- ![Ark](https://i.imgur.com/Jq9XCVg.png) -->
-
 ## Features
 
 - [x] Cross platform - Mac, Linux and Windows
@@ -14,8 +12,8 @@
 - [x] [TypeORM](https://typeorm.io)
 - [x] [GraphQL](https://graphql.org/)
 - [x] [React.js](https://reactjs.org/)
+- [x] User authentication - powered by [Passport](http://www.passportjs.org)
 - [ ] [WebSockets](https://www.apollographql.com/docs/link/links/ws/)
-- [ ] User authentication - powered by [Passport](http://www.passportjs.org)
 - [ ] Admin page
 
 ## Technologies
@@ -201,13 +199,10 @@ module.exports = {
 - [x] UI: integration between [Next.js](https://nextjs.org) and [Material UI](https://material-ui.com)
 - [x] Test: unit tests
 - [x] Test: e2e tests
+- [x] Feature: authentication with Passport-JWT
 - [ ] WebSockets - [Apollo Link WS](https://www.apollographql.com/docs/link/links/ws/)
 - [ ] API: JSON API routes
 - [ ] UX: validation
-- [ ] Auth: [passport-local](https://github.com/jaredhanson/passport-local) (email & password)
-- [ ] Auth: [passport-github2](https://github.com/cfsghost/passport-github) (GitHub login)
-- [ ] Auth: [passport-twitter](https://github.com/jaredhanson/passport-twitter) (Twitter login)
-- [ ] Feature: authentication
 - [ ] Feature: blogging
 
 ## Trouble Shootings

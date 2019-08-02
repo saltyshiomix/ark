@@ -3,7 +3,7 @@
 module.exports = {
   client: {
     service: {
-      name: 'postgraphile',
+      name: 'graphql',
       url: 'http://localhost:4000/graphql',
     },
   },

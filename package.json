@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "portal",
-  "version": "4.0.11",
+  "version": "4.0.12",
   "scripts": {
     "clean": "rimraf .next node_modules",
     "secrets": "cat /dev/urandom | head -c 512 | openssl sha256 | cut -d ' ' -f 2",
@@ -64,7 +64,6 @@
     "apollo-server-express": "^2.8.1",
     "apollo-utilities": "^1.3.2",
     "autoprefixer": "^9.6.1",
-    "bcrypt": "^3.0.6",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cache-manager": "^2.10.0",
@@ -75,8 +74,6 @@
     "connect-redis": "^3.4.2",
     "cookie-parser": "^1.4.4",
     "cssnano": "^4.1.10",
-    "db-migrate": "^0.11.6",
-    "db-migrate-pg": "^1.0.0",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "express-jwt": "^5.3.1",
@@ -90,6 +87,7 @@
     "helmet": "^3.20.0",
     "isomorphic-fetch": "^2.2.1",
     "jsonwebtoken": "^8.5.1",
+    "ldapauth-fork": "^4.2.0",
     "lodash": "^4.17.15",
     "next": "^9.0.3",
     "next-compose-plugins": "^2.2.0",
@@ -98,8 +96,6 @@
     "node-sass": "^4.12.0",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
-    "passport-ldapauth": "^2.1.3",
-    "passport-local": "^1.0.0",
     "pg": "^7.12.0",
     "postcss": "^7.0.17",
     "react": "^16.8.6",
@@ -115,7 +111,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
-    "@types/connect-redis": "^0.0.10",
     "@nestjs/swagger": "^3.1.0",
     "@nestjs/testing": "^6.5.3",
     "@storybook/react": "^5.1.10",
@@ -124,6 +119,7 @@
     "@types/bcryptjs": "^2.4.2",
     "@types/compression": "^0.0.36",
     "@types/connect-pg-simple": "^4.2.0",
+    "@types/connect-redis": "^0.0.10",
     "@types/cookie-parser": "^1.4.1",
     "@types/cssnano": "^4.0.0",
     "@types/dotenv": "^6.1.1",
@@ -181,6 +177,6 @@
     "ts-jest": "^24.0.2",
     "ts-node": "^8.3.0",
     "typescript": "^3.5.3",
-    "webpack": "4.39.0"
+    "webpack": "4.39.1"
   }
 }

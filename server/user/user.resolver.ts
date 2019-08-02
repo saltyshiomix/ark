@@ -10,7 +10,8 @@ import {
   Mutation,
   Context,
 } from '@nestjs/graphql';
-import { Request, UseGuards } from '@nestjs/common';
+import { UseGuards } from '@nestjs/common';
+import { Request } from 'express';
 // #endregion
 // #region Imports Local
 import { UserService } from './user.service';
@@ -34,7 +35,7 @@ export class UserResolver {
 
   @Query()
   @UseGuards(AuthenticationGuard)
-  async me(@Context('req') req: any): Promise<UserResponseDTO | null> {
+  async me(@Context('req') req: Request): Promise<UserResponseDTO | null> {
     return req.user;
   }
 

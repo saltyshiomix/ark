@@ -20,9 +20,6 @@ export class AuthenticationGuard extends AuthGuard('jwt')
   }
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    // eslint-disable-next-line no-debugger
-    debugger;
-
     const gqlContext: GraphQLExecutionContext = GqlExecutionContext.create(
       context,
     );
