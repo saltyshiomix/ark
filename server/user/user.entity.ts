@@ -12,13 +12,15 @@ import {
   // ManyToMany,
   // JoinTable,
 } from 'typeorm';
-import * as bcrypt from 'bcryptjs';
-// import * as jwt from 'jsonwebtoken';
+import * as bcrypt from 'bcrypt';
 // #endregion
 // #region Imports Local
 import { ConfigService } from '../config/config.service';
-import { UserResponseDTO } from './models/user.dto';
-// import { JwtPayload } from '../auth/models/jwt-payload.interface';
+import {
+  UserResponseDTO,
+  LoginService,
+  LoginIdentificator,
+} from './models/user.dto';
 // #endregion
 
 @Entity('user')
@@ -83,14 +85,25 @@ export class UserEntity {
   @Column('text')
   password: string;
 
+  @Column({
+    type: 'varchar',
+    nullable: true,
+  })
+  loginService: LoginService;
+
+  @Column({
+    type: 'varchar',
+    nullable: true,
+  })
+  loginIdentificator: LoginIdentificator;
+
   @BeforeInsert()
   async hashPassword(): Promise<void> {
     this.password = await bcrypt.hash(this.password, 10);
   }
 
-  async comparePassword(attempt: string | undefined): Promise<boolean> {
-    return bcrypt.compare(attempt || '', this.password);
-  }
+  comparePassword = async (attempt: string | undefined): Promise<boolean> =>
+    bcrypt.compare(attempt || '', this.password);
 
   toResponseObject(
     configService: ConfigService,
@@ -111,6 +124,8 @@ export class UserEntity {
       birthday,
       addressPersonal,
       isAdmin,
+      loginService,
+      loginIdentificator,
     } = this;
 
     return {
@@ -125,6 +140,8 @@ export class UserEntity {
       addressPersonal,
       isAdmin,
       token,
+      loginService,
+      loginIdentificator,
     };
   }
 }

@@ -17,20 +17,36 @@ import {
   UserLoginDTO,
   UserResponseDTO,
   UserRegisterDTO,
+  LoginService,
+  LoginIdentificator,
 } from './models/user.dto';
 import { ConfigService } from '../config/config.service';
 // eslint-disable-next-line import/no-cycle
 import { AuthService } from '../auth/auth.service';
+import { LdapService } from '../ldap/ldap.service';
+import { AppLogger } from '../logger/logger.service';
+import { LdapResponeUser } from '../ldap/interfaces/ldap.interface';
+
 // #endregion
 
 @Injectable()
 export class UserService {
+  public ldapOnUserBeforeCreate: Function;
+
+  public ldapOnUserAfterCreate: Function;
+
+  public ldapOnUserBeforeUpdate: Function;
+
+  public ldapOnUserAfterUpdate: Function;
+
   constructor(
     private readonly configService: ConfigService,
     @Inject(forwardRef(() => AuthService))
     private readonly authService: AuthService,
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
+    private readonly ldapService: LdapService,
+    private readonly logger: AppLogger,
   ) {}
 
   /**
@@ -53,17 +69,120 @@ export class UserService {
     );
   }
 
+  /**
+   * User LDAP login
+   *
+   * @param {string, string, UserEntity} - User register data transfer object
+   * @returns {UserEntity} User response DTO
+   */
+  async userLdapLogin({
+    username,
+    password,
+    user,
+  }: {
+    username: string;
+    password: string;
+    user?: UserEntity;
+  }): Promise<UserEntity | undefined> {
+    try {
+      // #region to LDAP database
+      const ldapUser: LdapResponeUser = await this.ldapService.authenticate(
+        username,
+        password,
+      );
+      // #endregion
+
+      let comment;
+      try {
+        comment = JSON.parse(ldapUser.comment);
+        // eslint-disable-next-line no-empty
+      } catch (error) {
+        comment = {};
+      }
+      const {
+        companyeng,
+        nameeng,
+        departmenteng,
+        otdeleng,
+        positioneng,
+        birthday,
+        gender,
+      } = comment;
+
+      // #region User create/update
+      if (!user) {
+        const data = {
+          username: ldapUser.sAMAccountName,
+          password,
+          firstName: ldapUser.givenName,
+          lastName: ldapUser.sn,
+          middleName: ldapUser.middleName,
+          birthday,
+          gender,
+          addressPersonal: JSON.stringify({
+            postalCode: ldapUser.postalCode,
+            region: ldapUser.st,
+            street: ldapUser.streetAddress,
+          }),
+          isAdmin: false,
+          loginService: LoginService.LDAP,
+          LoginIdentificator: LoginIdentificator.GUID,
+        };
+
+        const userLogin = await this.userRepository.create(data);
+        await this.userRepository.save(userLogin);
+        return userLogin;
+      }
+
+      const data = {
+        id: user.id,
+        username: ldapUser.sAMAccountName,
+        password,
+        firstName: ldapUser.givenName,
+        lastName: ldapUser.sn,
+        middleName: ldapUser.middleName,
+        birthday,
+        gender,
+        addressPersonal: JSON.stringify({
+          postalCode: ldapUser.postalCode,
+          region: ldapUser.st,
+          street: ldapUser.streetAddress,
+        }),
+        loginService: LoginService.LDAP,
+        LoginIdentificator: LoginIdentificator.GUID,
+      };
+      await this.userRepository.save(data);
+      // #endregion
+
+      return user;
+    } catch (error) {
+      // #region If in LDAP is not found, then we compare password
+      return user && (await user.comparePassword(password)) ? user : undefined;
+      // #endregion
+    }
+  }
+
+  /**
+   * Login a user
+   *
+   * @param {UserLoginDTO} data User login data transfer object
+   * @returns {UserResponseDTO} User response DTO
+   */
   async login({
     username,
     password,
   }: UserLoginDTO): Promise<UserResponseDTO | null> {
-    const user = await this.userRepository.findOne({ where: { username } });
-    if (!user) {
-      throw new HttpException('Invalid username', HttpStatus.FORBIDDEN);
-    }
+    // eslint-disable-next-line no-debugger
+    debugger;
 
-    if (!(await user.comparePassword(password))) {
-      throw new HttpException('Invalid password', HttpStatus.FORBIDDEN);
+    let user = await this.userRepository.findOne({ where: { username } });
+    user = await this.userLdapLogin({ username, password, user });
+
+    if (!user) {
+      throw new HttpException(
+        'Invalid username/password',
+        HttpStatus.FORBIDDEN,
+      );
     }
 
     return user.toResponseObject(
@@ -72,7 +191,16 @@ export class UserService {
     );
   }
 
+  /**
+   * Register a user
+   *
+   * @param {UserRegisterDTO} data User register data transfer object
+   * @returns {UserResponseDTO} User response DTO
+   */
   async register(data: UserRegisterDTO): Promise<UserResponseDTO | null> {
+    // eslint-disable-next-line no-debugger
+    debugger;
+
     // #region Check if a user exists
     const { username } = data;
     let user = await this.userRepository.findOne({ where: { username } });

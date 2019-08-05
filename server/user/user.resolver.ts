@@ -15,7 +15,12 @@ import { Request } from 'express';
 // #endregion
 // #region Imports Local
 import { UserService } from './user.service';
-import { UserResponseDTO, UserRegisterDTO } from './models/user.dto';
+import {
+  UserResponseDTO,
+  UserRegisterDTO,
+  LoginService,
+  LoginIdentificator,
+} from './models/user.dto';
 import { AuthenticationGuard } from '../guards/auth-guard.guard';
 // #endregion
 
@@ -47,26 +52,28 @@ export class UserResolver {
     return this.userService.login({ username, password });
   }
 
-  @Mutation()
-  async register(
-    @Args('username') username: string,
-    @Args('password') password: string,
-    @Args('firstName') firstName: string,
-    @Args('lastName') lastName: string,
-    @Args('middleName') middleName: string,
-    @Args('birthday') birthday: Date,
-    @Args('addressPersonal') addressPersonal: string,
-  ): Promise<UserResponseDTO | null> {
-    const user: UserRegisterDTO = {
-      username,
-      password,
-      firstName,
-      lastName,
-      middleName,
-      birthday,
-      addressPersonal,
-      isAdmin: false,
-    };
-    return this.userService.register(user);
-  }
+  // @Mutation()
+  // async register(
+  //   @Args('username') username: string,
+  //   @Args('password') password: string,
+  //   @Args('firstName') firstName: string,
+  //   @Args('lastName') lastName: string,
+  //   @Args('middleName') middleName: string,
+  //   @Args('birthday') birthday: Date,
+  //   @Args('addressPersonal') addressPersonal: string,
+  // ): Promise<UserResponseDTO | null> {
+  //   const user: UserRegisterDTO = {
+  //     username,
+  //     password,
+  //     firstName,
+  //     lastName,
+  //     middleName,
+  //     birthday,
+  //     addressPersonal,
+  //     isAdmin: false,
+  //     loginService: LoginService.LOCAL,
+  //     loginIdentificator: LoginIdentificator.NULL,
+  //   };
+  //   return this.userService.register(user);
+  // }
 }

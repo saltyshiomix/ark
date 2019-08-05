@@ -4,7 +4,6 @@
 
 // #region Imports NPM
 import {
-  Logger,
   Module,
   NestModule,
   MiddlewareConsumer,
@@ -26,20 +25,9 @@ import { NextMiddleware } from './next/next.middleware';
 import { ConfigService } from './config/config.service';
 // import { NextService } from './next/next.service';
 // import { sessionRedis } from '../lib/session-redis';
-// import { PassportLoginPlugin } from '../lib/postgraphile/PassportLoginPlugin';
 import { ApiModule } from './api.module';
 import { DateScalar } from './shared/date.scalar';
 import { AuthModule } from './auth/auth.module';
-// #endregion
-
-// #region Postgraphile Plugin hook
-/*
-const pluginHook = makePluginHook([
-  PgPubSub,
-  // TODO: This is UI-admin for PostGraphile
-  process.env.NODE_ENV !== 'production' ? pgdbi : undefined,
-]);
-*/
 // #endregion
 
 @Module({

@@ -6,9 +6,23 @@ import { IsNotEmpty } from 'class-validator';
 // #region Imports Local
 // #endregion
 
+export enum LoginService {
+  LOCAL = 'local',
+  LDAP = 'ldap',
+}
+
+export enum LoginIdentificator {
+  NULL = '',
+  GUID = 'GUID',
+}
+
 // #region User
 export class UserDTO {
   id: string;
+
+  loginService: LoginService;
+
+  loginIdentificator: LoginIdentificator;
 
   username: string;
 
@@ -42,7 +56,7 @@ export class UserLoginDTO {
   username: string;
 
   @IsNotEmpty()
-  password?: string;
+  password: string;
 }
 // #endregion
 
@@ -63,5 +77,9 @@ export class UserRegisterDTO {
   addressPersonal: string;
 
   isAdmin: boolean;
+
+  loginService: LoginService;
+
+  loginIdentificator: LoginIdentificator;
 }
 // #endregion

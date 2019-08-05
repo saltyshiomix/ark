@@ -12,13 +12,13 @@ import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import LdapAuth from 'ldapauth-fork';
 // import passport from 'passport';
 // #endregion
 // #region Imports Local
 import { sessionRedis } from './shared/session-redis';
 import { AppModule } from './app.module';
 import { ConfigService } from './config/config.service';
+import { AppLogger } from './logger/logger.service';
 // #endregion
 
 // #region NestJS options
@@ -37,19 +37,7 @@ async function bootstrap(configService: ConfigService): Promise<void> {
     AppModule,
     nestjsOptions,
   );
-  // #endregion
-
-  // #region LDAP authentication
-  const ldapOptions = {
-    url: configService.get('LDAP_URL'),
-    bindDN: configService.get('LDAP_BIND_DN'),
-    bindCredentials: configService.get('LDAP_BIND_PW'),
-    searchBase: configService.get('LDAP_SEARCH_BASE'),
-    searchFilter: configService.get('LDAP_SEARCH_FILTER'),
-    reconnect: true,
-  };
-  const ldapAuth = new LdapAuth(ldapOptions);
-  Logger.log('The LDAP successfully initialized', 'LDAP');
+  server.useLogger(server.get(AppLogger));
   // #endregion
 
   // #region X-Response-Time

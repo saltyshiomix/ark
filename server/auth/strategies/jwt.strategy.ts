@@ -23,6 +23,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     } as StrategyOptions);
   }
 
-  validate = (payload: JwtPayload): Promise<UserResponseDTO | null> =>
+  validate = async (payload: JwtPayload): Promise<UserResponseDTO | null> =>
     this.authService.validate(payload);
 }
