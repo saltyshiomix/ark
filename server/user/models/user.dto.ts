@@ -11,18 +11,21 @@ export enum LoginService {
   LDAP = 'ldap',
 }
 
-export enum LoginIdentificator {
-  NULL = '',
-  GUID = 'GUID',
+export enum Gender {
+  MAN,
+  WOMAN,
+  UNKNOWN,
 }
 
 // #region User
 export class UserDTO {
-  id: string;
+  id?: string;
+
+  password?: string;
 
   loginService: LoginService;
 
-  loginIdentificator: LoginIdentificator;
+  loginIdentificator: string;
 
   username: string;
 
@@ -34,13 +37,21 @@ export class UserDTO {
 
   birthday: Date;
 
+  gender: Gender;
+
   addressPersonal: string;
 
   isAdmin: boolean;
 
-  createdAt: Date;
+  company: string;
 
-  updatedAt: Date;
+  title: string;
+
+  thumbnailPhoto?: Buffer;
+
+  createdAt?: Date;
+
+  updatedAt?: Date;
 }
 // #endregion
 
@@ -74,12 +85,16 @@ export class UserRegisterDTO {
 
   birthday: Date;
 
+  gender: Gender;
+
   addressPersonal: string;
 
   isAdmin: boolean;
 
-  loginService: LoginService;
+  company: string;
 
-  loginIdentificator: LoginIdentificator;
+  title: string;
+
+  thumbnailPhoto: Buffer;
 }
 // #endregion

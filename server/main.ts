@@ -33,10 +33,9 @@ const nestjsOptions: NestApplicationOptions = {
 
 async function bootstrap(configService: ConfigService): Promise<void> {
   // #region create NestJS server
-  const server: INestApplication = await NestFactory.create(
-    AppModule,
-    nestjsOptions,
-  );
+  const server: INestApplication = await NestFactory.create<
+    NestExpressApplication
+  >(AppModule, nestjsOptions);
   server.useLogger(server.get(AppLogger));
   // #endregion
 
@@ -77,6 +76,10 @@ async function bootstrap(configService: ConfigService): Promise<void> {
     const document = SwaggerModule.createDocument(server, options);
     SwaggerModule.setup('api/auth', server, document);
   }
+  // #endregion
+
+  // #region Static files
+  server.useStaticAssets(join(__dirname, 'static'));
   // #endregion
 
   // #region start server

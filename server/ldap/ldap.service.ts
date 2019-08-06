@@ -111,6 +111,22 @@ export class LdapService extends EventEmitter {
   }
 
   /**
+   * Format a GUID
+   *
+   * @public
+   * @param {string} objectGUID - GUID in AD
+   * @returns {string} - string GUID
+   */
+  public GUIDtoString(objectGUID: string): string {
+    const buf = Buffer.from(objectGUID, 'binary').toString('hex');
+    const rep = buf.replace(
+      /^(..)(..)(..)(..)(..)(..)(..)(..)(..)(..)(..)(..)(..)(..)(..)$/,
+      '$4$3$2$1-$6$5-$8$7-$10$9-$15$14$13$12$11',
+    );
+    return rep.toUpperCase();
+  }
+
+  /**
    * Mark admin client unbound so reconnect works as expected and re-emit the error
    *
    * @private
@@ -180,7 +196,7 @@ export class LdapService extends EventEmitter {
    * @param {(string[]|undefined)} options.attributes - Attributes to fetch
    * @returns {undefined}
    */
-  public async search(
+  private async search(
     searchBase: string,
     options: Ldap.SearchOptions,
   ): Promise<any> {
@@ -200,7 +216,13 @@ export class LdapService extends EventEmitter {
 
               const items: Ldap.SearchEntryObject[] = [];
               searchResult.on('searchEntry', (entry: Ldap.SearchEntry) => {
-                items.push(entry.object);
+                const { object } = entry;
+                if (object.hasOwnProperty('objectGUID')) {
+                  object.objectGUID = this.GUIDtoString(
+                    object.objectGUID as string,
+                  );
+                }
+                items.push(object);
                 if (this.opts.includeRaw === true) {
                   items[
                     items.length - 1

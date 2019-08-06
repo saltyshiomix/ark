@@ -5,34 +5,72 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Checkbox from '@material-ui/core/Checkbox';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import FormControl from '@material-ui/core/FormControl';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import InputLabel from '@material-ui/core/InputLabel';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import ReactSVG from 'react-svg';
+
+import { Mutation } from 'react-apollo';
 // #endregion
 // #region Imports Local
-// import HttpClient from '../../lib/http-client';
+import { LOGIN } from '../../lib/queries';
 // #endregion
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      textAlign: 'center',
-      paddingTop: theme.spacing(8),
+    '@global': {
+      'html': {
+        height: '100%',
+        width: '100%',
+      },
+      'body': {
+        height: '100%',
+        width: '100%',
+      },
+      'body > div': {
+        height: '100%',
+        width: '100%',
+      },
     },
-    container: {
+    'root': {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      textAlign: 'center',
+      height: '100%',
+      width: '100%',
+    },
+    'container': {
       width: 480,
       margin: `${theme.spacing(2)}px auto`,
     },
-    card: {
+    'card': {
       padding: theme.spacing(4),
     },
-    formControl: {
+    'typoAuthorization': {
+      color: '#2c4373',
+      textAlign: 'left',
+    },
+    'labelForFormControl': {
+      // borderColor: 'rgba(44, 67, 115, 0.4)',
+    },
+    'errors': {
+      color: 'red',
+    },
+    'progress': {
+      margin: theme.spacing(2),
+      color: 'red',
+    },
+    'formControl': {
       minWidth: 320,
       margin: `${theme.spacing(1)}px 0`,
     },
-    submitButton: {
+    'submitButton': {
       margin: `${theme.spacing(4)}px 0`,
     },
   }),
@@ -43,101 +81,145 @@ export default function Login(): React.ReactElement {
 
   const classes = useStyles({});
 
-  const [email, setEmail] = useState('');
-  const [emailLabelWidth, setEmailLabelWidth] = useState(0);
+  const [username, setUsername] = useState('');
+  const [usernameLabelWidth, setUsernameLabelWidth] = useState(0);
   const [password, setPassword] = useState('');
   const [passwordLabelWidth, setPasswordLabelWidth] = useState(0);
+  const [saveChecked, setSave] = useState(false);
 
-  const emailLabelRef = useRef<HTMLLabelElement | any>({});
+  const usernameLabelRef = useRef<HTMLLabelElement | any>({});
   const passwordLabelRef = useRef<HTMLLabelElement | any>({});
-  useEffect(() => setEmailLabelWidth(emailLabelRef.current.offsetWidth), []);
+  useEffect(
+    () => setUsernameLabelWidth(usernameLabelRef.current.offsetWidth),
+    [],
+  );
   useEffect(
     () => setPasswordLabelWidth(passwordLabelRef.current.offsetWidth),
     [],
   );
 
-  const handleEmail = (e: React.ChangeEvent<HTMLInputElement>): void =>
-    setEmail(e.target.value);
+  const handleUsername = (e: React.ChangeEvent<HTMLInputElement>): void =>
+    setUsername(e.target.value);
   const handlePassword = (e: React.ChangeEvent<HTMLInputElement>): void =>
     setPassword(e.target.value);
-
-  const handleClick = (e: React.MouseEvent): void => {
-    e.preventDefault();
-    window.location.href = '/auth/register';
-  };
-
-  const handleSubmit = async (e: any): Promise<void> => {
-    e.preventDefault();
-
-    // const data = {
-    //   email: e.target.email.value,
-    //   password: e.target.password.value,
-    // };
-
-    // const { data: user } = await client.post('auth/login', data);
-    // if (user) {
-    //   window.location.href = '/';
-    // } else {
-    // eslint-disable-next-line no-alert, no-undef
-    // alert('Failed to login!');
-    // }
-  };
+  const handleSaveChecked = (e: React.ChangeEvent<HTMLInputElement>): void =>
+    setSave(e.target.checked);
 
   return (
-    <div className={classes.root}>
-      <Typography variant="h2">Portal</Typography>
-      <form
-        onSubmit={handleSubmit}
-        className={classes.container}
-        autoComplete="off"
-        noValidate
-      >
-        <Card className={classes.card}>
-          <CardContent>
-            <FormControl className={classes.formControl} variant="outlined">
-              <InputLabel htmlFor="email" ref={emailLabelRef}>
-                EMAIL
-              </InputLabel>
-              <OutlinedInput
-                id="email"
-                name="email"
-                type="email"
-                value={email}
-                onChange={handleEmail}
-                labelWidth={emailLabelWidth}
-              />
-            </FormControl>
-            <br />
-            <FormControl className={classes.formControl} variant="outlined">
-              <InputLabel htmlFor="password" ref={passwordLabelRef}>
-                PASSWORD
-              </InputLabel>
-              <OutlinedInput
-                id="password"
-                name="password"
-                type="password"
-                value={password}
-                onChange={handlePassword}
-                labelWidth={passwordLabelWidth}
-              />
-            </FormControl>
-            <br />
-            <Button
-              className={classes.submitButton}
-              type="submit"
-              variant="outlined"
-              color="primary"
-              size="large"
+    <Mutation mutation={LOGIN}>
+      {(login: Function, { loading, error, data }: any) => {
+        if (data) {
+          // window.location.href = '/';
+          return <Typography>{JSON.stringify(data)}</Typography>;
+        }
+
+        return (
+          <div className={classes.root}>
+            <ReactSVG src="/static/kngk-inpz.svg" />
+            <form
+              onSubmit={async (e: any): Promise<void> => {
+                e.preventDefault();
+                login({
+                  variables: {
+                    username: e.target.username.value,
+                    password: e.target.password.value,
+                  },
+                });
+              }}
+              className={classes.container}
+              autoComplete="off"
+              noValidate
             >
-              LOGIN
-            </Button>
-            <br />
-            <Button size="small" onClick={handleClick}>
-              Or create an account
-            </Button>
-          </CardContent>
-        </Card>
-      </form>
-    </div>
+              <Card className={classes.card}>
+                <CardContent>
+                  <Typography
+                    className={classes.typoAuthorization}
+                    variant="h4"
+                  >
+                    Авторизация
+                  </Typography>
+                  <br />
+                  <FormControl
+                    className={classes.formControl}
+                    fullWidth
+                    variant="outlined"
+                  >
+                    <InputLabel
+                      htmlFor="username"
+                      className={classes.labelForFormControl}
+                      ref={usernameLabelRef}
+                    >
+                      Пользователь
+                    </InputLabel>
+                    <OutlinedInput
+                      id="username"
+                      name="username"
+                      type="username"
+                      value={username}
+                      onChange={handleUsername}
+                      labelWidth={usernameLabelWidth}
+                    />
+                  </FormControl>
+                  <br />
+                  <FormControl
+                    className={classes.formControl}
+                    fullWidth
+                    variant="outlined"
+                  >
+                    <InputLabel
+                      htmlFor="password"
+                      className={classes.labelForFormControl}
+                      ref={passwordLabelRef}
+                    >
+                      Пароль
+                    </InputLabel>
+                    <OutlinedInput
+                      id="password"
+                      name="password"
+                      type="password"
+                      value={password}
+                      onChange={handlePassword}
+                      labelWidth={passwordLabelWidth}
+                    />
+                  </FormControl>
+                  <br />
+                  <FormControlLabel
+                    className={classes.labelForFormControl}
+                    control={
+                      <Checkbox
+                        checked={saveChecked}
+                        onChange={handleSaveChecked}
+                        value="save"
+                        color="primary"
+                      />
+                    }
+                    label="Запомнить меня на этом компьютере"
+                  />
+                  {loading && <CircularProgress className={classes.progress} />}
+                  {error && (
+                    <div>
+                      <br />
+                      <Typography className={classes.errors} variant="h6">
+                        Ошибка: {error}
+                      </Typography>
+                    </div>
+                  )}
+                  <br />
+                  <Button
+                    className={classes.submitButton}
+                    type="submit"
+                    variant="outlined"
+                    color="primary"
+                    size="large"
+                  >
+                    Вход
+                  </Button>
+                </CardContent>
+              </Card>
+            </form>
+          </div>
+        );
+      }}
+    </Mutation>
   );
 }

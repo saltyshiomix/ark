@@ -39,6 +39,7 @@ class MainApp extends App<ApolloAppProps> {
           </Head>
           {/* MuiThemeProvider makes the theme available down the React
                 tree thanks to React context. */}
+          <CssBaseline />
           <ThemeProvider theme={theme}>
             <Query query={CURRENT_USER}>
               {({ data }: { data: any }) => {
@@ -49,7 +50,6 @@ class MainApp extends App<ApolloAppProps> {
 
                 return (
                   <UserContext.Provider value={user}>
-                    <CssBaseline />
                     <Component {...pageProps} />
                   </UserContext.Provider>
                 );

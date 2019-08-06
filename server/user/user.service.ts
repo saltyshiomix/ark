@@ -18,7 +18,8 @@ import {
   UserResponseDTO,
   UserRegisterDTO,
   LoginService,
-  LoginIdentificator,
+  Gender,
+  UserDTO,
 } from './models/user.dto';
 import { ConfigService } from '../config/config.service';
 // eslint-disable-next-line import/no-cycle
@@ -95,7 +96,6 @@ export class UserService {
       let comment;
       try {
         comment = JSON.parse(ldapUser.comment);
-        // eslint-disable-next-line no-empty
       } catch (error) {
         comment = {};
       }
@@ -109,48 +109,40 @@ export class UserService {
         gender,
       } = comment;
 
-      // #region User create/update
-      if (!user) {
-        const data = {
-          username: ldapUser.sAMAccountName,
-          password,
-          firstName: ldapUser.givenName,
-          lastName: ldapUser.sn,
-          middleName: ldapUser.middleName,
-          birthday,
-          gender,
-          addressPersonal: JSON.stringify({
-            postalCode: ldapUser.postalCode,
-            region: ldapUser.st,
-            street: ldapUser.streetAddress,
-          }),
-          isAdmin: false,
-          loginService: LoginService.LDAP,
-          LoginIdentificator: LoginIdentificator.GUID,
-        };
-
-        const userLogin = await this.userRepository.create(data);
-        await this.userRepository.save(userLogin);
-        return userLogin;
-      }
-
-      const data = {
-        id: user.id,
+      const data: UserDTO = {
         username: ldapUser.sAMAccountName,
         password,
         firstName: ldapUser.givenName,
         lastName: ldapUser.sn,
         middleName: ldapUser.middleName,
         birthday,
-        gender,
+        gender:
+          gender === 'M'
+            ? Gender.MAN
+            : gender === 'W'
+            ? Gender.WOMAN
+            : Gender.UNKNOWN,
         addressPersonal: JSON.stringify({
           postalCode: ldapUser.postalCode,
           region: ldapUser.st,
           street: ldapUser.streetAddress,
         }),
+        isAdmin: false,
+        company: ldapUser.company,
+        title: ldapUser.title,
         loginService: LoginService.LDAP,
-        LoginIdentificator: LoginIdentificator.GUID,
+        loginIdentificator: ldapUser.objectGUID.toString(),
+        // thumbnailPhoto: ldapUser.thumbnailPhoto,
       };
+
+      // #region User create/update
+      if (!user) {
+        const userLogin = await this.userRepository.create(data);
+        await this.userRepository.save(userLogin);
+        return userLogin;
+      }
+
+      data['id'] = user.id;
       await this.userRepository.save(data);
       // #endregion
 

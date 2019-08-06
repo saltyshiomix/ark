@@ -17,6 +17,14 @@ const theme = createMuiTheme({
     background: {
       default: '#fff',
     },
+    action: {
+      active: 'rgba(44, 67, 115, 0.54)',
+      hover: 'rgba(44, 67, 115, 0.54)',
+      hoverOpacity: 0.54,
+      selected: 'rgba(44, 67, 115, 0.54)',
+      disabled: 'rgba(0, 0, 0, 0.26)',
+      disabledBackground: 'rgba(0, 0, 0, 0.12)',
+    },
   },
 });
 

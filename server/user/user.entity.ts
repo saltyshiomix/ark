@@ -8,6 +8,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   BeforeInsert,
+  DatabaseType,
   // OneToMany,
   // ManyToMany,
   // JoinTable,
@@ -16,11 +17,7 @@ import * as bcrypt from 'bcrypt';
 // #endregion
 // #region Imports Local
 import { ConfigService } from '../config/config.service';
-import {
-  UserResponseDTO,
-  LoginService,
-  LoginIdentificator,
-} from './models/user.dto';
+import { UserResponseDTO, LoginService, Gender } from './models/user.dto';
 // #endregion
 
 @Entity('user')
@@ -35,6 +32,18 @@ export class UserEntity {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @Column({
+    type: 'varchar',
+    nullable: true,
+  })
+  loginService: LoginService;
+
+  @Column({
+    type: 'varchar',
+    nullable: true,
+  })
+  loginIdentificator: string;
 
   @Column({
     type: 'varchar',
@@ -71,6 +80,11 @@ export class UserEntity {
   birthday: Date;
 
   @Column({
+    type: 'int',
+  })
+  gender: Gender;
+
+  @Column({
     type: 'json',
     nullable: true,
   })
@@ -82,20 +96,29 @@ export class UserEntity {
   })
   isAdmin: boolean;
 
+  @Column({
+    type: 'varchar',
+    nullable: true,
+  })
+  company: string;
+
+  @Column({
+    type: 'varchar',
+    nullable: true,
+  })
+  title: string;
+
   @Column('text')
   password: string;
 
   @Column({
-    type: 'varchar',
+    type: 'bytea',
     nullable: true,
+    update: true,
+    insert: true,
+    select: true,
   })
-  loginService: LoginService;
-
-  @Column({
-    type: 'varchar',
-    nullable: true,
-  })
-  loginIdentificator: LoginIdentificator;
+  thumbnailPhoto: Buffer;
 
   @BeforeInsert()
   async hashPassword(): Promise<void> {
@@ -113,35 +136,9 @@ export class UserEntity {
       this.configService = configService;
     }
 
-    const {
-      id,
-      createdAt,
-      updatedAt,
-      username,
-      firstName,
-      lastName,
-      middleName,
-      birthday,
-      addressPersonal,
-      isAdmin,
-      loginService,
-      loginIdentificator,
-    } = this;
+    // eslint-disable-next-line no-debugger
+    debugger;
 
-    return {
-      id,
-      createdAt,
-      updatedAt,
-      username,
-      firstName,
-      lastName,
-      middleName,
-      birthday,
-      addressPersonal,
-      isAdmin,
-      token,
-      loginService,
-      loginIdentificator,
-    };
+    return { token, ...this };
   }
 }

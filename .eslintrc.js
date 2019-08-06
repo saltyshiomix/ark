@@ -60,6 +60,12 @@ module.exports = {
     'import/no-unresolved': 0,
     'import/extensions': 0,
     'global-require': 1,
+    'no-plusplus': [
+      2,
+      {
+        allowForLoopAfterthoughts: true,
+      },
+    ],
     '@typescript-eslint/indent': [
       1,
       2,
