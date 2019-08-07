@@ -25,6 +25,21 @@ module.exports = function(api) {
           alias: {},
         },
       ],
+      [
+        'inline-react-svg',
+        // {
+        //   svgo: {
+        //     plugins: [
+        //       {
+        //         removeAttrs: { attrs: '(data-name)' },
+        //       },
+        //       {
+        //         cleanupIDs: true,
+        //       },
+        //     ],
+        //   },
+        // },
+      ],
       // [
       //   'styled-components',
       //   { ssr: true, displayName: true, preprocess: false },

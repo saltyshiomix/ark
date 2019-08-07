@@ -22,12 +22,14 @@ import { NextModule } from './next/next.module';
 // import { UsersModule } from './users/users.module';
 import { HomeModule } from './home/home.module';
 import { NextMiddleware } from './next/next.middleware';
+import { NextAssetsMiddleware } from './next/next.assets.middleware';
 import { ConfigService } from './config/config.service';
 // import { NextService } from './next/next.service';
 // import { sessionRedis } from '../lib/session-redis';
 import { ApiModule } from './api.module';
 import { DateScalar } from './shared/date.scalar';
 import { AuthModule } from './auth/auth.module';
+import { AppController } from './app.controller';
 // #endregion
 
 @Module({
@@ -92,11 +94,20 @@ import { AuthModule } from './auth/auth.module';
     DateScalar,
     // #endregion
   ],
+
+  controllers: [
+    // #region Assets
+    AppController,
+    // #endregion
+  ],
 })
 export class AppModule implements NestModule {
   public configure(consumer: MiddlewareConsumer): void {
     consumer
-      .apply(NextMiddleware)
+      .apply(NextAssetsMiddleware)
       .forRoutes({ path: '_next*', method: RequestMethod.GET });
+    consumer
+      .apply(NextMiddleware)
+      .forRoutes({ path: '*', method: RequestMethod.ALL });
   }
 }

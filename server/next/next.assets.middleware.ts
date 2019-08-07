@@ -9,16 +9,11 @@ import { NextService } from './next.service';
 // #endregion
 
 @Injectable()
-export class NextMiddleware implements NestMiddleware {
+export class NextAssetsMiddleware implements NestMiddleware {
   constructor(private readonly nextService: NextService) {}
 
-  public async use(req: Request, res: Response, next: Function): Promise<void> {
-    const app = await this.nextService.getApp();
-
-    res.render = (page: string, data?: any) => {
-      return app.render(req, res, page, data);
-    };
-
-    next();
+  @Header('content-type', 'text/javascript')
+  public async use(req: Request, res: Response): Promise<void> {
+    return (await this.nextService.getRequestHandler())(req, res);
   }
 }

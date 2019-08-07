@@ -10,11 +10,25 @@ import Server from 'next-server/dist/server/next-server';
 const dev = process.env.NODE_ENV !== 'production';
 
 export class NextService {
-  public app!: Server;
+  private app!: Server;
 
-  constructor() {
-    this.app = next({ dev, quiet: !dev });
-    this.app.prepare();
+  private handler: any;
+
+  public async getApp(): Promise<Server> {
+    if (!this.app) {
+      this.app = next({ dev, quiet: !dev });
+      this.handler = this.app.getRequestHandler();
+
+      await this.app.prepare();
+    }
+    return this.app;
+  }
+
+  public async getRequestHandler(): Promise<any> {
+    if (!this.app) {
+      this.handler = (await this.getApp()).getRequestHandler();
+    }
+    return this.handler;
   }
 
   public async error(
@@ -24,7 +38,7 @@ export class NextService {
     exception: HttpException | unknown,
   ): Promise<void> {
     if (status === 404) {
-      return this.app.render404(req, res);
+      return (await this.getApp()).render404(req, res);
     }
 
     const message =
@@ -32,7 +46,7 @@ export class NextService {
         ? exception.toString()
         : 'Internal server error';
 
-    return this.app.renderError(
+    return (await this.getApp()).renderError(
       new Error(message),
       req,
       res,
@@ -46,6 +60,6 @@ export class NextService {
     @Res() res: Response,
     page: string,
   ): Promise<void> {
-    return this.app.render(req, res, page, req.query);
+    return (await this.getApp()).render(req, res, page, req.query);
   }
 }

@@ -1,13 +1,14 @@
 /** @format */
 /* eslint no-param-reassign: 0 */
 
-const { join } = require('path');
+const { join, resolve } = require('path');
 const DotenvWebpackPlugin = require('dotenv-webpack');
 
 const withSass = require('@zeit/next-sass');
 // const withBundleAnalyzer = require('@zeit/next-bundle-analyzer');
 const withCSS = require('@zeit/next-css');
 const withFonts = require('next-fonts');
+// const withReactSvg = require('next-react-svg');
 const withPlugins = require('next-compose-plugins');
 const Webpack = require('webpack');
 

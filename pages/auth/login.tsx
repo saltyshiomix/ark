@@ -13,12 +13,12 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import InputLabel from '@material-ui/core/InputLabel';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import ReactSVG from 'react-svg';
 
 import { Mutation } from 'react-apollo';
 // #endregion
 // #region Imports Local
 import { LOGIN } from '../../lib/queries';
+import * as KngkInpzLogo from './kngk-inpz.svg';
 // #endregion
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -115,7 +115,7 @@ export default function Login(): React.ReactElement {
 
         return (
           <div className={classes.root}>
-            <ReactSVG src="/static/kngk-inpz.svg" />
+            <KngkInpzLogo />
             <form
               onSubmit={async (e: any): Promise<void> => {
                 e.preventDefault();

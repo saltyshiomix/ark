@@ -14,11 +14,13 @@ import { AuthService } from './auth.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
 // eslint-disable-next-line import/no-cycle
 import { UserModule } from '../user/user.module';
+import { NextModule } from '../next/next.module';
 // #endregion
 
 @Module({
   imports: [
     // #region Config module, Next module
+    NextModule,
     ConfigModule,
     // #endregion
 

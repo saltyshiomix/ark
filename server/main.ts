@@ -5,6 +5,7 @@
 import { join } from 'path';
 import { NestFactory } from '@nestjs/core';
 import { INestApplication, Logger } from '@nestjs/common';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import { NestApplicationOptions } from '@nestjs/common/interfaces/nest-application-options.interface';
 import responseTime from 'response-time';
 import helmet from 'helmet';
@@ -33,35 +34,36 @@ const nestjsOptions: NestApplicationOptions = {
 
 async function bootstrap(configService: ConfigService): Promise<void> {
   // #region create NestJS server
-  const server: INestApplication = await NestFactory.create<
+  // eslint-disable-next-line prettier/prettier
+  const app: NestExpressApplication = await NestFactory.create<
     NestExpressApplication
   >(AppModule, nestjsOptions);
-  server.useLogger(server.get(AppLogger));
+  app.useLogger(app.get(AppLogger));
   // #endregion
 
   // #region X-Response-Time
-  server.use(responseTime());
+  app.use(responseTime());
   // #endregion
 
   // #region improve security
-  server.use(helmet());
+  app.use(helmet());
   // #endregion
 
   // #region improve performance
-  server.use(compression());
+  app.use(compression());
   // #endregion
 
   // #region enable cookie
-  server.use(cookieParser());
+  app.use(cookieParser());
   // #endregion
 
   // #region enable json response
-  server.use(bodyParser.urlencoded({ extended: true }));
-  server.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.json());
   // #endregion
 
   // #region production ready session store
-  server.use(sessionRedis(configService));
+  app.use(sessionRedis(configService));
   // #endregion
 
   // #region Swagger module - for development
@@ -73,21 +75,21 @@ async function bootstrap(configService: ConfigService): Promise<void> {
       .addTag('auth')
       .addBearerAuth()
       .build();
-    const document = SwaggerModule.createDocument(server, options);
-    SwaggerModule.setup('api/auth', server, document);
+    const document = SwaggerModule.createDocument(app, options);
+    SwaggerModule.setup('api/auth', app, document);
   }
   // #endregion
 
   // #region Static files
-  server.useStaticAssets(join(__dirname, 'static'));
+  app.useStaticAssets(join(__dirname, '..', 'static'));
   // #endregion
 
   // #region start server
-  await server.listen(configService.get('PORT'), '0.0.0.0');
+  await app.listen(configService.get('PORT'), '0.0.0.0');
   Logger.log(
-    `Server running on ${configService.get('HOST')}:${configService.get(
-      'PORT',
-    )}`,
+    'Server running on ' +
+      `${configService.get('HOST')}:` +
+      `${configService.get('PORT')}`,
     'Bootstrap',
   );
   // #endregion
