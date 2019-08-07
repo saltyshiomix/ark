@@ -27,18 +27,36 @@ module.exports = function(api) {
       ],
       [
         'inline-react-svg',
-        // {
-        //   svgo: {
-        //     plugins: [
-        //       {
-        //         removeAttrs: { attrs: '(data-name)' },
-        //       },
-        //       {
-        //         cleanupIDs: true,
-        //       },
-        //     ],
-        //   },
-        // },
+        {
+          svgo: {
+            plugins: [
+              {
+                removeAttrs: { attrs: '(data-name)' },
+              },
+              {
+                cleanupIDs: true,
+              },
+              {
+                removeXMLNS: true,
+              },
+              {
+                removeEmptyAttrs: true,
+              },
+              {
+                removeComments: true,
+              },
+              {
+                removeTitle: true,
+              },
+              {
+                removeEditorsNSData: true,
+              },
+              {
+                minifyStyles: true,
+              },
+            ],
+          },
+        },
       ],
       // [
       //   'styled-components',

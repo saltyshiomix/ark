@@ -17,9 +17,10 @@ module.exports = {
     },
     'import/resolver': {
       node: {
-        extensions: ['.ts', '.tsx', '.js', '.jsx'],
+        extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
       },
     },
+    'import/ignore': ['.coffee$', '.(scss|less|css)$', '.svg$'],
   },
   globals: {
     window: true,

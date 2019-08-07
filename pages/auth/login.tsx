@@ -18,7 +18,7 @@ import { Mutation } from 'react-apollo';
 // #endregion
 // #region Imports Local
 import { LOGIN } from '../../lib/queries';
-import * as KngkInpzLogo from './kngk-inpz.svg';
+import KngkInpzLogo from '../../static/assets/svg/kngk-inpz.svg';
 // #endregion
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -31,6 +31,11 @@ const useStyles = makeStyles((theme: Theme) =>
       'body': {
         height: '100%',
         width: '100%',
+        backgroundImage: 'url("/assets/svg/background.svg")',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'fixed',
+        backgroundPosition: 'bottom left',
       },
       'body > div': {
         height: '100%',
@@ -38,26 +43,49 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     'root': {
+      height: '100%',
+      margin: 'auto',
+      display: 'flex',
+      flexDirection: 'row',
+    },
+    'logoContainer': {
+      height: '11%',
+      textAlign: 'center',
+    },
+    'logo': {
+      marginTop: '10px',
+      height: '100%',
+    },
+    'loginContainer': {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
       textAlign: 'center',
-      height: '100%',
+      height: '89%',
       width: '100%',
     },
     'container': {
-      width: 480,
+      width: 600,
       margin: `${theme.spacing(2)}px auto`,
     },
     'card': {
       padding: theme.spacing(4),
+      backgroundColor: 'rgba(255,255,255,0.5)',
+      color: '#2c4373',
+      border: 'solid 3px #2c4373',
+      borderRadius: 16,
+      paddingLeft: 24,
     },
     'typoAuthorization': {
       color: '#2c4373',
       textAlign: 'left',
     },
     'labelForFormControl': {
-      // borderColor: 'rgba(44, 67, 115, 0.4)',
+      borderColor: 'rgba(44, 67, 115, 0.4)',
+    },
+    'labelForCheckbox': {
+      borderColor: 'rgba(44, 67, 115, 0.4)',
+      width: '100%',
     },
     'errors': {
       color: 'red',
@@ -70,8 +98,15 @@ const useStyles = makeStyles((theme: Theme) =>
       minWidth: 320,
       margin: `${theme.spacing(1)}px 0`,
     },
+    'submitButtonContainer': {
+      textAlign: 'left',
+    },
     'submitButton': {
-      margin: `${theme.spacing(4)}px 0`,
+      borderRadius: 24,
+      marginTop: `${theme.spacing(1)}px`,
+    },
+    'submitButton:hover': {
+      color: '#2c4373',
     },
   }),
 );
@@ -115,108 +150,116 @@ export default function Login(): React.ReactElement {
 
         return (
           <div className={classes.root}>
-            <KngkInpzLogo />
-            <form
-              onSubmit={async (e: any): Promise<void> => {
-                e.preventDefault();
-                login({
-                  variables: {
-                    username: e.target.username.value,
-                    password: e.target.password.value,
-                  },
-                });
-              }}
-              className={classes.container}
-              autoComplete="off"
-              noValidate
-            >
-              <Card className={classes.card}>
-                <CardContent>
-                  <Typography
-                    className={classes.typoAuthorization}
-                    variant="h4"
-                  >
-                    Авторизация
-                  </Typography>
-                  <br />
-                  <FormControl
-                    className={classes.formControl}
-                    fullWidth
-                    variant="outlined"
-                  >
-                    <InputLabel
-                      htmlFor="username"
-                      className={classes.labelForFormControl}
-                      ref={usernameLabelRef}
+            <div className={classes.logoContainer}>
+              <KngkInpzLogo className={classes.logo} />
+            </div>
+            <div className={classes.loginContainer}>
+              <form
+                onSubmit={async (e: any): Promise<void> => {
+                  e.preventDefault();
+                  login({
+                    variables: {
+                      username: e.target.username.value,
+                      password: e.target.password.value,
+                    },
+                  });
+                }}
+                className={classes.container}
+                autoComplete="off"
+                noValidate
+              >
+                <Card className={classes.card}>
+                  <CardContent>
+                    <Typography
+                      className={classes.typoAuthorization}
+                      variant="h4"
                     >
-                      Пользователь
-                    </InputLabel>
-                    <OutlinedInput
-                      id="username"
-                      name="username"
-                      type="username"
-                      value={username}
-                      onChange={handleUsername}
-                      labelWidth={usernameLabelWidth}
-                    />
-                  </FormControl>
-                  <br />
-                  <FormControl
-                    className={classes.formControl}
-                    fullWidth
-                    variant="outlined"
-                  >
-                    <InputLabel
-                      htmlFor="password"
-                      className={classes.labelForFormControl}
-                      ref={passwordLabelRef}
+                      Авторизация
+                    </Typography>
+                    <br />
+                    <FormControl
+                      className={classes.formControl}
+                      fullWidth
+                      variant="outlined"
                     >
-                      Пароль
-                    </InputLabel>
-                    <OutlinedInput
-                      id="password"
-                      name="password"
-                      type="password"
-                      value={password}
-                      onChange={handlePassword}
-                      labelWidth={passwordLabelWidth}
-                    />
-                  </FormControl>
-                  <br />
-                  <FormControlLabel
-                    className={classes.labelForFormControl}
-                    control={
-                      <Checkbox
-                        checked={saveChecked}
-                        onChange={handleSaveChecked}
-                        value="save"
-                        color="primary"
+                      <InputLabel
+                        htmlFor="username"
+                        className={classes.labelForFormControl}
+                        ref={usernameLabelRef}
+                      >
+                        Пользователь
+                      </InputLabel>
+                      <OutlinedInput
+                        id="username"
+                        name="username"
+                        type="username"
+                        value={username}
+                        onChange={handleUsername}
+                        labelWidth={usernameLabelWidth}
                       />
-                    }
-                    label="Запомнить меня на этом компьютере"
-                  />
-                  {loading && <CircularProgress className={classes.progress} />}
-                  {error && (
-                    <div>
-                      <br />
-                      <Typography className={classes.errors} variant="h6">
-                        Ошибка: {error}
-                      </Typography>
+                    </FormControl>
+                    <br />
+                    <FormControl
+                      className={classes.formControl}
+                      fullWidth
+                      variant="outlined"
+                    >
+                      <InputLabel
+                        htmlFor="password"
+                        className={classes.labelForFormControl}
+                        ref={passwordLabelRef}
+                      >
+                        Пароль
+                      </InputLabel>
+                      <OutlinedInput
+                        id="password"
+                        name="password"
+                        type="password"
+                        value={password}
+                        onChange={handlePassword}
+                        labelWidth={passwordLabelWidth}
+                      />
+                    </FormControl>
+                    <br />
+                    <FormControlLabel
+                      className={classes.labelForCheckbox}
+                      control={
+                        <Checkbox
+                          checked={saveChecked}
+                          onChange={handleSaveChecked}
+                          value="save"
+                          color="primary"
+                        />
+                      }
+                      label="Запомнить меня на этом компьютере"
+                    />
+                    {loading && (
+                      <CircularProgress className={classes.progress} />
+                    )}
+                    {error && (
+                      <div>
+                        <br />
+                        <Typography className={classes.errors} variant="h6">
+                          Ошибка: {error}
+                        </Typography>
+                      </div>
+                    )}
+                    <br />
+                    <div className={classes.submitButtonContainer}>
+                      <Button
+                        className={classes.submitButton}
+                        type="submit"
+                        variant="outlined"
+                        color="primary"
+                        size="large"
+                      >
+                        Вход
+                      </Button>
                     </div>
-                  )}
-                  <br />
-                  <Button
-                    className={classes.submitButton}
-                    type="submit"
-                    variant="outlined"
-                    color="primary"
-                    size="large"
-                  >
-                    Вход
-                  </Button>
-                </CardContent>
-              </Card>
-            </form>
+                  </CardContent>
+                </Card>
+              </form>
+            </div>
           </div>
         );
       }}

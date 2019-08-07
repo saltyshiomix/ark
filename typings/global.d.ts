@@ -11,3 +11,8 @@ declare namespace NodeJS {
     fetch: any; // GlobalFetch;
   }
 }
+
+declare module '*.svg' {
+  const content: any;
+  export default content;
+}

@@ -8,9 +8,28 @@ const withSass = require('@zeit/next-sass');
 // const withBundleAnalyzer = require('@zeit/next-bundle-analyzer');
 const withCSS = require('@zeit/next-css');
 const withFonts = require('next-fonts');
-// const withReactSvg = require('next-react-svg');
 const withPlugins = require('next-compose-plugins');
 const Webpack = require('webpack');
+
+const svgoLoader = {
+  loader: 'svgo-loader',
+  options: {
+    plugins: [
+      {
+        removeAttrs: {
+          attrs: '(data-name)',
+        },
+      },
+      { cleanupIDs: true },
+      { removeXMLNS: true },
+      { removeEmptyAttrs: true },
+      { removeComments: true },
+      { removeTitle: true },
+      { removeEditorsNSData: true },
+      { minifyStyles: true },
+    ],
+  },
+};
 
 function withCustomWebpack(conf = {}) {
   const { webpack } = conf;
@@ -27,6 +46,59 @@ function withCustomWebpack(conf = {}) {
       }),
       new DotenvWebpackPlugin({ path: join(__dirname, '.env') }),
     ];
+
+    config.module.rules = [
+      ...(config.module.rules || []),
+      ...[
+        {
+          test: /\.(svg)$/,
+          use: [
+            {
+              loader: 'react-svg-loader',
+              options: {
+                svgo: {
+                  ...svgoLoader.options,
+                },
+              },
+            },
+          ],
+        },
+        {
+          test: /\.(gif|png|jpe?g|svg)$/i,
+          use: [
+            'file-loader',
+            {
+              loader: 'image-webpack-loader',
+              options: {
+                mozjpeg: {
+                  progressive: true,
+                  quality: 65,
+                },
+                optipng: {
+                  enabled: false,
+                },
+                pngquant: {
+                  quality: '65-90',
+                  speed: 4,
+                },
+                gifsicle: {
+                  interlaced: false,
+                },
+                webp: {
+                  quality: 75,
+                },
+                svgo: {
+                  ...svgoLoader.options,
+                },
+              },
+            },
+          ],
+        },
+      ],
+    ];
+
+    // eslint-disable-next-line no-debugger
+    // debugger;
 
     return webpack(config, { isServer, ...rest });
   };

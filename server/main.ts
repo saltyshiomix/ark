@@ -67,17 +67,17 @@ async function bootstrap(configService: ConfigService): Promise<void> {
   // #endregion
 
   // #region Swagger module - for development
-  if (process.env.NODE_ENV !== 'production') {
-    const options = new DocumentBuilder()
-      .setTitle('Authentication')
-      .setDescription('The authentication API')
-      .setVersion('1.0')
-      .addTag('auth')
-      .addBearerAuth()
-      .build();
-    const document = SwaggerModule.createDocument(app, options);
-    SwaggerModule.setup('api/auth', app, document);
-  }
+  // if (process.env.NODE_ENV !== 'production') {
+  //   const options = new DocumentBuilder()
+  //     .setTitle('Authentication')
+  //     .setDescription('The authentication API')
+  //     .setVersion('1.0')
+  //     .addTag('auth')
+  //     .addBearerAuth()
+  //     .build();
+  //   const document = SwaggerModule.createDocument(app, options);
+  //   SwaggerModule.setup('api/auth', app, document);
+  // }
   // #endregion
 
   // #region Static files
@@ -85,7 +85,7 @@ async function bootstrap(configService: ConfigService): Promise<void> {
   // #endregion
 
   // #region start server
-  await app.listen(configService.get('PORT'), '0.0.0.0');
+  await app.listen(configService.get('PORT'), configService.get('HOST'));
   Logger.log(
     'Server running on ' +
       `${configService.get('HOST')}:` +
