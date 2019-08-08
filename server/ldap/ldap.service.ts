@@ -7,10 +7,7 @@ import { EventEmitter } from 'events';
 import * as bcrypt from 'bcrypt';
 // #endregion
 // #region Imports Local
-import {
-  LdapModuleOptions,
-  LdapResponeUser,
-} from './interfaces/ldap.interface';
+import { LdapModuleOptions, LdapResponeUser } from './interfaces/ldap.interface';
 import { LDAP_MODULE_OPTIONS } from './ldap.constants';
 // #endregion
 
@@ -42,9 +39,7 @@ export class LdapService extends EventEmitter {
    * @param {Object} opts - Config options
    * @constructor
    */
-  constructor(
-    @Inject(LDAP_MODULE_OPTIONS) private readonly opts: LdapModuleOptions,
-  ) {
+  constructor(@Inject(LDAP_MODULE_OPTIONS) private readonly opts: LdapModuleOptions) {
     super();
 
     // if (opts.cache) {
@@ -94,10 +89,7 @@ export class LdapService extends EventEmitter {
         // eslint-disable-next-line no-param-reassign
         opts.groupSearchFilter = (user: any): string => {
           return groupSearchFilter
-            .replace(
-              /{{dn}}/g,
-              opts.groupDnProperty && user[opts.groupDnProperty],
-            )
+            .replace(/{{dn}}/g, opts.groupDnProperty && user[opts.groupDnProperty])
             .replace(/{{username}}/g, user.uid);
         };
       }
@@ -154,24 +146,20 @@ export class LdapService extends EventEmitter {
     this.logger.log(`bind: ${this.bindDN}`);
 
     return new Promise((resolve, reject) =>
-      this.adminClient.bind(
-        this.bindDN,
-        this.bindCredentials,
-        (error: Ldap.Error) => {
-          if (error) {
-            this.logger.error(`bind error: ${error}`);
-            this.adminBound = false;
-            return reject(error);
-          }
+      this.adminClient.bind(this.bindDN, this.bindCredentials, (error: Ldap.Error) => {
+        if (error) {
+          this.logger.error(`bind error: ${error}`);
+          this.adminBound = false;
+          return reject(error);
+        }
 
-          this.logger.log('ldap: bind ok');
-          this.adminBound = true;
-          if (this.opts.reconnect) {
-            this.emit('installReconnectListener');
-          }
-          return resolve(true);
-        },
-      ),
+        this.logger.log('ldap: bind ok');
+        this.adminBound = true;
+        if (this.opts.reconnect) {
+          this.emit('installReconnectListener');
+        }
+        return resolve(true);
+      }),
     );
   }
 
@@ -181,8 +169,8 @@ export class LdapService extends EventEmitter {
    * @private
    * @returns {boolean | Error}
    */
-  private adminBind = async (): Promise<boolean | Error> =>
-    this.adminBound ? true : this.onConnectAdmin();
+  // eslint-disable-next-line no-confusing-arrow
+  private adminBind = async (): Promise<boolean | Error> => (this.adminBound ? true : this.onConnectAdmin());
 
   /**
    * Conduct a search using the admin client. Used for fetching both
@@ -196,20 +184,14 @@ export class LdapService extends EventEmitter {
    * @param {(string[]|undefined)} options.attributes - Attributes to fetch
    * @returns {undefined}
    */
-  private async search(
-    searchBase: string,
-    options: Ldap.SearchOptions,
-  ): Promise<any> {
+  private async search(searchBase: string, options: Ldap.SearchOptions): Promise<any> {
     return this.adminBind()
       .then(() => {
         return new Promise((resolve, reject) =>
           this.adminClient.search(
             searchBase,
             options,
-            (
-              searchErr: Ldap.Error | null,
-              searchResult: Ldap.SearchCallbackResponse,
-            ) => {
+            (searchErr: Ldap.Error | null, searchResult: Ldap.SearchCallbackResponse) => {
               if (searchErr) {
                 return reject(searchErr);
               }
@@ -218,15 +200,11 @@ export class LdapService extends EventEmitter {
               searchResult.on('searchEntry', (entry: Ldap.SearchEntry) => {
                 const { object } = entry;
                 if (object.hasOwnProperty('objectGUID')) {
-                  object.objectGUID = this.GUIDtoString(
-                    object.objectGUID as string,
-                  );
+                  object.objectGUID = this.GUIDtoString(object.objectGUID as string);
                 }
                 items.push(object);
                 if (this.opts.includeRaw === true) {
-                  items[
-                    items.length - 1
-                  ].raw = (entry.raw as unknown) as string;
+                  items[items.length - 1].raw = (entry.raw as unknown) as string;
                 }
               });
 
@@ -234,11 +212,7 @@ export class LdapService extends EventEmitter {
 
               searchResult.on('end', (result: Ldap.LDAPResult) => {
                 if (result.status !== 0) {
-                  return reject(
-                    new Error(
-                      `non-zero status from LDAP search: ${result.status}`,
-                    ),
-                  );
+                  return reject(new Error(`non-zero status from LDAP search: ${result.status}`));
                 }
 
                 return resolve(items);
@@ -250,9 +224,7 @@ export class LdapService extends EventEmitter {
         );
       })
       .catch((error) => {
-        this.logger.error(
-          `search error: ${error.code} ${error.name} ${error.message}`,
-        );
+        this.logger.error(`search error: ${error.code} ${error.name} ${error.message}`);
         throw error;
       });
   }
@@ -288,10 +260,7 @@ export class LdapService extends EventEmitter {
       throw new Error('empty username');
     }
 
-    const searchFilter = this.opts.searchFilter.replace(
-      /{{username}}/g,
-      this.sanitizeInput(username),
-    );
+    const searchFilter = this.opts.searchFilter.replace(/{{username}}/g, this.sanitizeInput(username));
     const opts = {
       filter: searchFilter,
       scope: this.opts.searchScope,
@@ -311,18 +280,12 @@ export class LdapService extends EventEmitter {
               case 1:
                 return resolve(result[0]);
               default:
-                return reject(
-                  new Error(
-                    `unexpected number of matches (${result.length}) for "${username}" username`,
-                  ),
-                );
+                return reject(new Error(`unexpected number of matches (${result.length}) for "${username}" username`));
             }
           }),
       )
       .catch((error) => {
-        this.logger.error(
-          `findUser: ${error.code} ${error.name} ${error.message}`,
-        );
+        this.logger.error(`findUser: ${error.code} ${error.name} ${error.message}`);
         throw new Error(error);
       });
   }
@@ -340,9 +303,7 @@ export class LdapService extends EventEmitter {
     }
 
     const searchFilter =
-      typeof this.opts.groupSearchFilter === 'function'
-        ? this.opts.groupSearchFilter(user)
-        : undefined;
+      typeof this.opts.groupSearchFilter === 'function' ? this.opts.groupSearchFilter(user) : undefined;
 
     const opts = {
       filter: searchFilter,
@@ -359,9 +320,7 @@ export class LdapService extends EventEmitter {
         return user;
       })
       .catch((error) => {
-        this.logger.error(
-          `group search error: ${error.code} ${error.name} ${error.message}`,
-        );
+        this.logger.error(`group search error: ${error.code} ${error.name} ${error.message}`);
         throw error;
       });
   }
@@ -373,15 +332,8 @@ export class LdapService extends EventEmitter {
    * @param {string} password - The password to verify
    * @returns {object} - User in LDAP
    */
-  public async authenticate(
-    username: string,
-    password: string,
-  ): Promise<any | LdapResponeUser> {
-    if (
-      typeof password === 'undefined' ||
-      password === null ||
-      password === ''
-    ) {
+  public async authenticate(username: string, password: string): Promise<any | LdapResponeUser> {
+    if (typeof password === 'undefined' || password === null || password === '') {
       this.logger.error('no password given');
       throw new Error('no password given');
     }
