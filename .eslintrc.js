@@ -2,15 +2,7 @@
 
 module.exports = {
   parser: '@typescript-eslint/parser',
-  plugins: [
-    '@typescript-eslint',
-    'eslint-comments',
-    'react-hooks',
-    'jest',
-    'promise',
-    'unicorn',
-    'prettier',
-  ],
+  plugins: ['react', 'react-hooks', '@typescript-eslint', 'eslint-comments', 'jest', 'promise', 'unicorn', 'prettier'],
   settings: {
     'react': {
       version: 'detect',
@@ -30,6 +22,7 @@ module.exports = {
     __SERVER__: true,
   },
   extends: [
+    'eslint:recommended',
     'airbnb-typescript',
     'plugin:@typescript-eslint/recommended',
     'plugin:eslint-comments/recommended',
@@ -39,16 +32,46 @@ module.exports = {
     'plugin:promise/recommended',
     'plugin:unicorn/recommended',
     'prettier',
-    'prettier/react',
     'prettier/@typescript-eslint',
+    'prettier/babel',
+    'prettier/react',
   ],
   parserOptions: {
     sourceType: 'module',
+    jsx: true,
+    useJSXTextNode: true,
     ecmaFeatures: {
       jsx: true,
     },
   },
+  env: {
+    es6: true,
+    browser: true,
+    node: true,
+  },
   rules: {
+    'prettier/prettier': [
+      'error',
+      {
+        parser: 'typescript',
+        printWidth: 120,
+        singleQuote: true,
+        useTabs: false,
+        tabWidth: 2,
+        semi: true,
+        bracketSpacing: true,
+        trailingComma: 'all',
+        arrowParens: 'always',
+        insertPragma: true,
+        quoteProps: 'consistent',
+        jsxSingleQuote: false,
+        jsxBracketSameLine: false,
+        htmlWhitespaceSensivity: 'css',
+        proseWrap: 'never',
+      },
+    ],
+    'no-confusing-arrow': ['error', { allowParens: false }],
+    'max-len': ['error', { code: 120, ignoreUrls: true }],
     '@typescript-eslint/no-object-literal-type-assertion': 0,
     'no-nested-ternary': 0,
     'no-useless-constructor': 0,
@@ -68,15 +91,26 @@ module.exports = {
       },
     ],
     '@typescript-eslint/indent': [
-      1,
+      'error',
       2,
       {
         flatTernaryExpressions: false,
-        ignoreComments: true,
-        VariableDeclarator: 2,
+        ignoreComments: false,
+        SwitchCase: 1,
+        VariableDeclarator: {
+          var: 2,
+          let: 2,
+          const: 3,
+        },
+        MemberExpression: 1,
+        FunctionDeclaration: { parameters: 'first' },
+        FunctionExpression: { parameters: 'first' },
+        CallExpression: { arguments: 'first' },
+        ArrayExpression: 1,
+        ObjectExpression: 1,
+        ImportDeclaration: 'first',
       },
     ],
-    '@typescript-eslint/indent': 0,
     '@typescript-eslint/no-non-null-assertion': 1,
     '@typescript-eslint/no-explicit-any': 0,
     'no-unused-vars': [
@@ -96,9 +130,9 @@ module.exports = {
     'no-debugger': 1,
     'new-cap': 'off',
     'no-extra-boolean-cast': 0,
-    'indent': 0,
+    'indent': ['error'],
     'react/jsx-one-expression-per-line': 'off',
-    'quotes': ['error', 'single'],
+    'quotes': ['error', 'single', { avoidEscape: true, allowTemplateLiterals: true }],
     'import/no-extraneous-dependencies': [
       'error',
       {

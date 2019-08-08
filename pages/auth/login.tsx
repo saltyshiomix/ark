@@ -88,7 +88,7 @@ const useStyles = makeStyles((theme: Theme) =>
     'errors': {
       color: 'red',
     },
-    'progress': {
+    'loading': {
       margin: theme.spacing(2),
       color: 'red',
     },
@@ -100,6 +100,11 @@ const useStyles = makeStyles((theme: Theme) =>
       textAlign: 'left',
     },
     'submitButton': {
+      borderRadius: 24,
+      marginTop: `${theme.spacing(1)}px`,
+    },
+    'submitButton:disabled': {
+      color: '#2c4373',
       borderRadius: 24,
       marginTop: `${theme.spacing(1)}px`,
     },
@@ -122,21 +127,12 @@ export default function Login(): React.ReactElement {
 
   const usernameLabelRef = useRef<HTMLLabelElement | any>({});
   const passwordLabelRef = useRef<HTMLLabelElement | any>({});
-  useEffect(
-    () => setUsernameLabelWidth(usernameLabelRef.current.offsetWidth),
-    [],
-  );
-  useEffect(
-    () => setPasswordLabelWidth(passwordLabelRef.current.offsetWidth),
-    [],
-  );
+  useEffect(() => setUsernameLabelWidth(usernameLabelRef.current.offsetWidth), []);
+  useEffect(() => setPasswordLabelWidth(passwordLabelRef.current.offsetWidth), []);
 
-  const handleUsername = (e: React.ChangeEvent<HTMLInputElement>): void =>
-    setUsername(e.target.value);
-  const handlePassword = (e: React.ChangeEvent<HTMLInputElement>): void =>
-    setPassword(e.target.value);
-  const handleSaveChecked = (e: React.ChangeEvent<HTMLInputElement>): void =>
-    setSave(e.target.checked);
+  const handleUsername = (e: React.ChangeEvent<HTMLInputElement>): void => setUsername(e.target.value);
+  const handlePassword = (e: React.ChangeEvent<HTMLInputElement>): void => setPassword(e.target.value);
+  const handleSaveChecked = (e: React.ChangeEvent<HTMLInputElement>): void => setSave(e.target.checked);
 
   return (
     <Mutation mutation={LOGIN}>
@@ -168,18 +164,11 @@ export default function Login(): React.ReactElement {
               >
                 <Card className={classes.card}>
                   <CardContent>
-                    <Typography
-                      className={classes.typoAuthorization}
-                      variant="h4"
-                    >
+                    <Typography className={classes.typoAuthorization} variant="h4">
                       Авторизация
                     </Typography>
                     <br />
-                    <FormControl
-                      className={classes.formControl}
-                      fullWidth
-                      variant="outlined"
-                    >
+                    <FormControl className={classes.formControl} fullWidth variant="outlined">
                       <InputLabel
                         htmlFor="username"
                         className={classes.labelForFormControl}
@@ -199,11 +188,7 @@ export default function Login(): React.ReactElement {
                       />
                     </FormControl>
                     <br />
-                    <FormControl
-                      className={classes.formControl}
-                      fullWidth
-                      variant="outlined"
-                    >
+                    <FormControl className={classes.formControl} fullWidth variant="outlined">
                       <InputLabel
                         htmlFor="password"
                         className={classes.labelForFormControl}
@@ -236,12 +221,10 @@ export default function Login(): React.ReactElement {
                       }
                       label="Запомнить меня на этом компьютере"
                     />
-                    {loading && (
-                      <CircularProgress className={classes.progress} />
-                    )}
-                    {error && (
+                    {loading && <CircularProgress className={classes.loading} />}
+                    {!!error && (
                       <Typography className={classes.errors} variant="h6">
-                        Ошибка: {error}
+                        Ошибка: {error.message}
                       </Typography>
                     )}
                     <br />
