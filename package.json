@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "portal",
-  "version": "4.0.16",
+  "version": "4.0.17",
   "scripts": {
     "clean": "rimraf .next node_modules",
     "secrets": "cat /dev/urandom | head -c 512 | openssl sha256 | cut -d ' ' -f 2",
@@ -139,7 +139,7 @@
     "@types/lodash": "^4.14.136",
     "@types/next": "^8.0.6",
     "@types/next-server": "^8.1.2",
-    "@types/node": "^12.6.9",
+    "@types/node": "^12.7.0",
     "@types/passport": "^1.0.0",
     "@types/passport-jwt": "^3.0.1",
     "@types/passport-local": "^1.0.33",

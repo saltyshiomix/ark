@@ -20,13 +20,37 @@ const svgoLoader = {
           attrs: '(data-name)',
         },
       },
-      { cleanupIDs: true },
-      { removeXMLNS: true },
-      { removeEmptyAttrs: true },
-      { removeComments: true },
-      { removeTitle: true },
-      { removeEditorsNSData: true },
-      { minifyStyles: true },
+      // {
+      //   cleanupIDs: true,
+      // },
+      // {
+      //   removeXMLNS: true,
+      // },
+      // {
+      //   removeEmptyAttrs: true,
+      // },
+      // {
+      //   removeComments: true,
+      // },
+      // {
+      //   removeTitle: true,
+      // },
+      // {
+      //   removeEditorsNSData: true,
+      // },
+      // {
+      //   minifyStyles: {
+      //     ids: true,
+      //     classes: true,
+      //     tags: true,
+      //   },
+      // },
+      // {
+      //   removeViewBox: true,
+      // },
+      // {
+      //   convertColors: true,
+      // },
     ],
   },
 };
@@ -50,50 +74,50 @@ function withCustomWebpack(conf = {}) {
     config.module.rules = [
       ...(config.module.rules || []),
       ...[
-        {
-          test: /\.(svg)$/,
-          use: [
-            {
-              loader: 'react-svg-loader',
-              options: {
-                svgo: {
-                  ...svgoLoader.options,
-                },
-              },
-            },
-          ],
-        },
-        {
-          test: /\.(gif|png|jpe?g|svg)$/i,
-          use: [
-            'file-loader',
-            {
-              loader: 'image-webpack-loader',
-              options: {
-                mozjpeg: {
-                  progressive: true,
-                  quality: 65,
-                },
-                optipng: {
-                  enabled: false,
-                },
-                pngquant: {
-                  quality: '65-90',
-                  speed: 4,
-                },
-                gifsicle: {
-                  interlaced: false,
-                },
-                webp: {
-                  quality: 75,
-                },
-                svgo: {
-                  ...svgoLoader.options,
-                },
-              },
-            },
-          ],
-        },
+        // {
+        //   test: /\.(svg)$/,
+        //   use: [
+        //     {
+        //       loader: 'react-svg-loader',
+        //       options: {
+        //         svgo: {
+        //           ...svgoLoader.options,
+        //         },
+        //       },
+        //     },
+        //   ],
+        // },
+        // {
+        //   test: /\.(gif|png|jpe?g|svg)$/i,
+        //   use: [
+        //     'file-loader',
+        //     {
+        //       loader: 'image-webpack-loader',
+        //       options: {
+        //         mozjpeg: {
+        //           progressive: true,
+        //           quality: 65,
+        //         },
+        //         optipng: {
+        //           enabled: false,
+        //         },
+        //         pngquant: {
+        //           quality: '65-90',
+        //           speed: 4,
+        //         },
+        //         gifsicle: {
+        //           interlaced: false,
+        //         },
+        //         webp: {
+        //           quality: 75,
+        //         },
+        //         // svgo: {
+        //         //   ...svgoLoader.options,
+        //         // },
+        //       },
+        //     },
+        //   ],
+        // },
       ],
     ];
 

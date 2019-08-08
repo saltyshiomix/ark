@@ -29,30 +29,59 @@ module.exports = function(api) {
         'inline-react-svg',
         {
           svgo: {
+            js2svg: {
+              commentStart: '',
+              commentEnd: '',
+              pretty: true,
+            },
             plugins: [
               {
-                removeAttrs: { attrs: '(data-name)' },
-              },
-              {
-                cleanupIDs: true,
-              },
-              {
-                removeXMLNS: true,
-              },
-              {
-                removeEmptyAttrs: true,
-              },
-              {
-                removeComments: true,
+                removeAttrs: { attrs: ['(data-name)', 'g:(id)'] },
               },
               {
                 removeTitle: true,
               },
               {
+                removeEmptyAttrs: true,
+              },
+              {
+                removeEmptyText: true,
+              },
+              {
+                removeViewBox: true,
+              },
+              {
+                removeDesc: true,
+              },
+              {
+                removeXMLNS: true,
+              },
+              {
                 removeEditorsNSData: true,
+                // {
+                // additionalNamespaces: ['http://www.w3.org/1999/xlink'],
+                // },
+              },
+              {
+                removeComments: true,
+              },
+              {
+                removeUnusedNS: true,
+              },
+              {
+                cleanupIDs: true,
+              },
+              {
+                convertColors: true,
+              },
+              {
+                sortDefsChildren: true,
               },
               {
                 minifyStyles: true,
+              },
+              {
+                collapseGroups: true,
               },
             ],
           },

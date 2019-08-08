@@ -45,8 +45,6 @@ const useStyles = makeStyles((theme: Theme) =>
     'root': {
       height: '100%',
       margin: 'auto',
-      display: 'flex',
-      flexDirection: 'row',
     },
     'logoContainer': {
       height: '11%',
@@ -186,6 +184,7 @@ export default function Login(): React.ReactElement {
                         htmlFor="username"
                         className={classes.labelForFormControl}
                         ref={usernameLabelRef}
+                        disabled={loading}
                       >
                         Пользователь
                       </InputLabel>
@@ -196,6 +195,7 @@ export default function Login(): React.ReactElement {
                         value={username}
                         onChange={handleUsername}
                         labelWidth={usernameLabelWidth}
+                        disabled={loading}
                       />
                     </FormControl>
                     <br />
@@ -208,6 +208,7 @@ export default function Login(): React.ReactElement {
                         htmlFor="password"
                         className={classes.labelForFormControl}
                         ref={passwordLabelRef}
+                        disabled={loading}
                       >
                         Пароль
                       </InputLabel>
@@ -218,6 +219,7 @@ export default function Login(): React.ReactElement {
                         value={password}
                         onChange={handlePassword}
                         labelWidth={passwordLabelWidth}
+                        disabled={loading}
                       />
                     </FormControl>
                     <br />
@@ -229,6 +231,7 @@ export default function Login(): React.ReactElement {
                           onChange={handleSaveChecked}
                           value="save"
                           color="primary"
+                          disabled={loading}
                         />
                       }
                       label="Запомнить меня на этом компьютере"
@@ -237,12 +240,9 @@ export default function Login(): React.ReactElement {
                       <CircularProgress className={classes.progress} />
                     )}
                     {error && (
-                      <div>
-                        <br />
-                        <Typography className={classes.errors} variant="h6">
-                          Ошибка: {error}
-                        </Typography>
-                      </div>
+                      <Typography className={classes.errors} variant="h6">
+                        Ошибка: {error}
+                      </Typography>
                     )}
                     <br />
                     <div className={classes.submitButtonContainer}>
@@ -252,6 +252,7 @@ export default function Login(): React.ReactElement {
                         variant="outlined"
                         color="primary"
                         size="large"
+                        disabled={loading}
                       >
                         Вход
                       </Button>
