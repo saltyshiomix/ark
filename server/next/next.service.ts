@@ -19,7 +19,11 @@ export class NextService {
       this.app = next({ dev, quiet: !dev });
       this.handler = this.app.getRequestHandler();
 
-      await this.app.prepare();
+      try {
+        await this.app.prepare();
+      } catch (error) {
+        console.error('Next service error:', error);
+      }
     }
     return this.app;
   }
@@ -31,35 +35,17 @@ export class NextService {
     return this.handler;
   }
 
-  public async error(
-    req: Request,
-    res: Response,
-    status: number,
-    exception: HttpException | unknown,
-  ): Promise<void> {
+  public async error(req: Request, res: Response, status: number, exception: HttpException | unknown): Promise<void> {
     if (status === 404) {
       return (await this.getApp()).render404(req, res);
     }
 
-    const message =
-      exception instanceof HttpException
-        ? exception.toString()
-        : 'Internal server error';
+    const message = exception instanceof HttpException ? exception.toString() : 'Internal server error';
 
-    return (await this.getApp()).renderError(
-      new Error(message),
-      req,
-      res,
-      req.url,
-      req.query,
-    );
+    return (await this.getApp()).renderError(new Error(message), req, res, req.url, req.query);
   }
 
-  public async render(
-    @Req() req: Request,
-    @Res() res: Response,
-    page: string,
-  ): Promise<void> {
+  public async render(@Req() req: Request, @Res() res: Response, page: string): Promise<void> {
     return (await this.getApp()).render(req, res, page, req.query);
   }
 }

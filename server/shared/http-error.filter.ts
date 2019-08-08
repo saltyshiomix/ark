@@ -27,13 +27,14 @@ export class HttpErrorFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
+    /* eslint-disable prettier/prettier */
     const status =
-      exception instanceof JsonWebTokenError ||
-      exception instanceof TokenExpiredError
+      exception instanceof JsonWebTokenError || exception instanceof TokenExpiredError
         ? HttpStatus.UNAUTHORIZED
         : exception instanceof HttpException
-        ? exception.getStatus()
-        : HttpStatus.INTERNAL_SERVER_ERROR;
+          ? exception.getStatus()
+          : HttpStatus.INTERNAL_SERVER_ERROR;
+    /* eslint-enable prettier/prettier */
 
     if (response.status && request.method && request.url) {
       // #region HTTP query
@@ -49,17 +50,9 @@ export class HttpErrorFilter implements ExceptionFilter {
       };
 
       if (status === HttpStatus.INTERNAL_SERVER_ERROR) {
-        Logger.error(
-          `${request.method} ${request.url}`,
-          exception.stack,
-          'ExceptionFilter',
-        );
+        Logger.error(`${request.method} ${request.url}`, exception.stack, 'ExceptionFilter');
       } else {
-        Logger.error(
-          `${request.method} ${request.url}`,
-          JSON.stringify(errorResponse),
-          'ExceptionFilter',
-        );
+        Logger.error(`${request.method} ${request.url}`, JSON.stringify(errorResponse), 'ExceptionFilter');
       }
 
       response.status(status);
@@ -72,16 +65,11 @@ export class HttpErrorFilter implements ExceptionFilter {
       // #endregion
     } else {
       // #region GraphQL query
-      const context: AppGraphQLExecutionContext = GqlExecutionContext.create(
-        host,
-      );
-      const resolverName = context.constructorRef
-        ? context.constructorRef.name
-        : '';
+      const context: AppGraphQLExecutionContext = GqlExecutionContext.create(host);
       const info = context.getInfo();
 
       Logger.error(
-        `${info.parentType} "${info.fieldName}" ${resolverName}`,
+        `${info.parentType.name} "${info.fieldName}": ${exception.message}`,
         exception.stack,
         'ExceptionFilter',
         true,

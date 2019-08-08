@@ -21,7 +21,5 @@ export class AuthService {
 
   public token = (payload: JwtPayload): string => this.jwtService.sign(payload);
 
-  public validate = async (
-    payload: JwtPayload,
-  ): Promise<UserResponseDTO | null> => this.userService.read(payload.id);
+  public validate = async (payload: JwtPayload): Promise<UserResponseDTO | null> => this.userService.read(payload.id);
 }

@@ -10,11 +10,7 @@ import { Request, Response } from 'express';
 @Controller()
 export class AppController {
   @Get()
-  public async showHome(
-    @Req() req: Request,
-    @Res() res: Response,
-    next: Function,
-  ): Promise<void> {
+  public async showHome(@Req() req: Request, @Res() res: Response, next: Function): Promise<void> {
     // eslint-disable-next-line no-debugger
     debugger;
 

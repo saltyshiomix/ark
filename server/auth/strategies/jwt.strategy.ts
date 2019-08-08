@@ -14,15 +14,11 @@ import { UserResponseDTO } from '../../user/models/user.dto';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor(
-    private readonly configService: ConfigService,
-    private readonly authService: AuthService,
-  ) {
+  constructor(private readonly configService: ConfigService, private readonly authService: AuthService) {
     super({
       ...configService.jwtStrategyOptions,
     } as StrategyOptions);
   }
 
-  validate = async (payload: JwtPayload): Promise<UserResponseDTO | null> =>
-    this.authService.validate(payload);
+  validate = async (payload: JwtPayload): Promise<UserResponseDTO | null> => this.authService.validate(payload);
 }

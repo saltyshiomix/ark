@@ -1,26 +1,13 @@
 /** @format */
 
 // #region Imports NPM
-import {
-  Inject,
-  forwardRef,
-  Injectable,
-  HttpException,
-  HttpStatus,
-} from '@nestjs/common';
+import { Inject, forwardRef, Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 // #endregion
 // #region Imports Local
 import { UserEntity } from './user.entity';
-import {
-  UserLoginDTO,
-  UserResponseDTO,
-  UserRegisterDTO,
-  LoginService,
-  Gender,
-  UserDTO,
-} from './models/user.dto';
+import { UserLoginDTO, UserResponseDTO, UserRegisterDTO, LoginService, Gender, UserDTO } from './models/user.dto';
 import { ConfigService } from '../config/config.service';
 // eslint-disable-next-line import/no-cycle
 import { AuthService } from '../auth/auth.service';
@@ -64,10 +51,7 @@ export class UserService {
       return null;
     }
 
-    return user.toResponseObject(
-      this.configService,
-      this.authService.token({ id: user.id }),
-    );
+    return user.toResponseObject(this.authService.token({ id: user.id }));
   }
 
   /**
@@ -87,10 +71,7 @@ export class UserService {
   }): Promise<UserEntity | undefined> {
     try {
       // #region to LDAP database
-      const ldapUser: LdapResponeUser = await this.ldapService.authenticate(
-        username,
-        password,
-      );
+      const ldapUser: LdapResponeUser = await this.ldapService.authenticate(username, password);
       // #endregion
 
       let comment;
@@ -99,15 +80,7 @@ export class UserService {
       } catch (error) {
         comment = {};
       }
-      const {
-        companyeng,
-        nameeng,
-        departmenteng,
-        otdeleng,
-        positioneng,
-        birthday,
-        gender,
-      } = comment;
+      const { companyeng, nameeng, departmenteng, otdeleng, positioneng, birthday, gender } = comment;
 
       const data: UserDTO = {
         username: ldapUser.sAMAccountName,
@@ -116,12 +89,7 @@ export class UserService {
         lastName: ldapUser.sn,
         middleName: ldapUser.middleName,
         birthday,
-        gender:
-          gender === 'M'
-            ? Gender.MAN
-            : gender === 'W'
-            ? Gender.WOMAN
-            : Gender.UNKNOWN,
+        gender: gender === 'M' ? Gender.MAN : gender === 'W' ? Gender.WOMAN : Gender.UNKNOWN,
         addressPersonal: JSON.stringify({
           postalCode: ldapUser.postalCode,
           region: ldapUser.st,
@@ -160,10 +128,7 @@ export class UserService {
    * @param {UserLoginDTO} data User login data transfer object
    * @returns {UserResponseDTO} User response DTO
    */
-  async login({
-    username,
-    password,
-  }: UserLoginDTO): Promise<UserResponseDTO | null> {
+  async login({ username, password }: UserLoginDTO): Promise<UserResponseDTO | null> {
     // eslint-disable-next-line no-debugger
     debugger;
 
@@ -171,16 +136,10 @@ export class UserService {
     user = await this.userLdapLogin({ username, password, user });
 
     if (!user) {
-      throw new HttpException(
-        'Invalid username/password',
-        HttpStatus.FORBIDDEN,
-      );
+      throw new HttpException('Invalid username/password', HttpStatus.FORBIDDEN);
     }
 
-    return user.toResponseObject(
-      this.configService,
-      this.authService.token({ id: user.id }),
-    );
+    return user.toResponseObject(this.authService.token({ id: user.id }));
   }
 
   /**
@@ -206,9 +165,6 @@ export class UserService {
     await this.userRepository.save(user);
     // #endregion
 
-    return user.toResponseObject(
-      this.configService,
-      this.authService.token({ id: user.id }),
-    );
+    return user.toResponseObject(this.authService.token({ id: user.id }));
   }
 }

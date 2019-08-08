@@ -22,8 +22,6 @@ import { UserResponseDTO, LoginService, Gender } from './models/user.dto';
 
 @Entity('user')
 export class UserEntity {
-  configService: ConfigService;
-
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -128,17 +126,5 @@ export class UserEntity {
   comparePassword = async (attempt: string | undefined): Promise<boolean> =>
     bcrypt.compare(attempt || '', this.password);
 
-  toResponseObject(
-    configService: ConfigService,
-    token: string,
-  ): UserResponseDTO {
-    if (!this.configService) {
-      this.configService = configService;
-    }
-
-    // eslint-disable-next-line no-debugger
-    debugger;
-
-    return { token, ...this };
-  }
+  toResponseObject = (token: string): UserResponseDTO => ({ token, ...this });
 }

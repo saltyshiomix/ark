@@ -33,10 +33,7 @@ export class UserResolver {
   }
 
   @Mutation()
-  async login(
-    @Args('username') username: string,
-    @Args('password') password: string,
-  ): Promise<UserResponseDTO | null> {
+  async login(@Args('username') username: string, @Args('password') password: string): Promise<UserResponseDTO | null> {
     return this.userService.login({ username, password });
   }
 }

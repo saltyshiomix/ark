@@ -4,7 +4,7 @@
 // import { IncomingMessage } from 'http';
 import { join } from 'path';
 import { NestFactory } from '@nestjs/core';
-import { INestApplication, Logger } from '@nestjs/common';
+import { Logger } from '@nestjs/common';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { NestApplicationOptions } from '@nestjs/common/interfaces/nest-application-options.interface';
 import responseTime from 'response-time';
@@ -12,7 +12,7 @@ import helmet from 'helmet';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+// import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 // import passport from 'passport';
 // #endregion
 // #region Imports Local
@@ -35,9 +35,7 @@ const nestjsOptions: NestApplicationOptions = {
 async function bootstrap(configService: ConfigService): Promise<void> {
   // #region create NestJS server
   // eslint-disable-next-line prettier/prettier
-  const app: NestExpressApplication = await NestFactory.create<
-    NestExpressApplication
-  >(AppModule, nestjsOptions);
+  const app: NestExpressApplication = await NestFactory.create<NestExpressApplication>(AppModule, nestjsOptions);
   app.useLogger(app.get(AppLogger));
   // #endregion
 
@@ -86,12 +84,7 @@ async function bootstrap(configService: ConfigService): Promise<void> {
 
   // #region start server
   await app.listen(configService.get('PORT'), configService.get('HOST'));
-  Logger.log(
-    'Server running on ' +
-      `${configService.get('HOST')}:` +
-      `${configService.get('PORT')}`,
-    'Bootstrap',
-  );
+  Logger.log(`Server running on ${configService.get('HOST')}:${configService.get('PORT')}`, 'Bootstrap');
   // #endregion
 }
 

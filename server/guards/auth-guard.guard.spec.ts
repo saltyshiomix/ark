@@ -26,17 +26,13 @@ const mockContext = {
   getResponse: jest.fn().mockReturnThis(),
 };
 
-AuthGuard('jwt').prototype.canActivate = jest
-  .fn()
-  .mockImplementation(() => true);
+AuthGuard('jwt').prototype.canActivate = jest.fn().mockImplementation(() => true);
 
 describe('GqlAuthGuard', () => {
   let guard: AuthenticationGuard;
 
   beforeEach(() => {
-    guard = new AuthenticationGuard(
-      (jest.fn().mockReturnThis() as unknown) as AuthService,
-    );
+    guard = new AuthenticationGuard((jest.fn().mockReturnThis() as unknown) as AuthService);
   });
   it('should be defined', () => {
     expect(guard).toBeDefined();

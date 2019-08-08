@@ -13,16 +13,13 @@ import { AuthService } from '../auth/auth.service';
 // #endregion
 
 @Injectable()
-export class AuthenticationGuard extends AuthGuard('jwt')
-  implements CanActivate {
+export class AuthenticationGuard extends AuthGuard('jwt') implements CanActivate {
   constructor(private readonly authService: AuthService) {
     super();
   }
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const gqlContext: GraphQLExecutionContext = GqlExecutionContext.create(
-      context,
-    );
+    const gqlContext: GraphQLExecutionContext = GqlExecutionContext.create(context);
     const gqlCtx: any = gqlContext.getContext();
 
     let canActivate: boolean | Observable<boolean>;
@@ -34,18 +31,13 @@ export class AuthenticationGuard extends AuthGuard('jwt')
       canActivate = await super.canActivate(gqlContext);
     }
 
-    // TODO
-    //  canActivate instanceof Observable ? canActivate.toPromise() : canActivate;
-
-    return true;
+    return canActivate instanceof Observable ? canActivate.toPromise() : canActivate;
   }
 
   getResponse = () => undefined;
 
   getRequest(context: ExecutionContext): IncomingMessage {
-    const gqlContext: GraphQLExecutionContext = GqlExecutionContext.create(
-      context,
-    );
+    const gqlContext: GraphQLExecutionContext = GqlExecutionContext.create(context);
     if (gqlContext.getContext() instanceof Function) {
       return context.switchToHttp().getRequest();
     }

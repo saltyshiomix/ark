@@ -1,13 +1,7 @@
 /** @format */
 
 // #region Imports NPM
-import {
-  Injectable,
-  ArgumentMetadata,
-  PipeTransform,
-  HttpException,
-  HttpStatus,
-} from '@nestjs/common';
+import { Injectable, ArgumentMetadata, PipeTransform, HttpException, HttpStatus } from '@nestjs/common';
 import { validate } from 'class-validator';
 import { plainToClass } from 'class-transformer';
 // #endregion
@@ -16,10 +10,7 @@ import { plainToClass } from 'class-transformer';
 export class ValidationPipe implements PipeTransform {
   async transform(value: any, metadata: ArgumentMetadata): Promise<any> {
     if (value instanceof Object && this.isEmpty(value)) {
-      throw new HttpException(
-        'Validation failed: No body submitted',
-        HttpStatus.BAD_REQUEST,
-      );
+      throw new HttpException('Validation failed: No body submitted', HttpStatus.BAD_REQUEST);
     }
     const { metatype } = metadata;
     if (!metatype || !this.toValidate(metatype)) {
@@ -28,10 +19,7 @@ export class ValidationPipe implements PipeTransform {
     const object = plainToClass(metatype, value);
     const errors = await validate(object);
     if (errors.length > 0) {
-      throw new HttpException(
-        `Validation failed: ${this.formatErrors(errors)}`,
-        HttpStatus.BAD_REQUEST,
-      );
+      throw new HttpException(`Validation failed: ${this.formatErrors(errors)}`, HttpStatus.BAD_REQUEST);
     }
     return value;
   }

@@ -3,13 +3,7 @@
 /// <reference types="../typings/global" />
 
 // #region Imports NPM
-import {
-  Module,
-  NestModule,
-  MiddlewareConsumer,
-  RequestMethod,
-  CacheModule,
-} from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer, RequestMethod, CacheModule } from '@nestjs/common';
 
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -46,15 +40,9 @@ import { AppController } from './app.controller';
         max: 60, // maximum number of items in cache
         host: configService.get('REDIS_HOST'),
         port: parseInt(configService.get('REDIS_PORT'), 10),
-        db: configService.get('REDIS_DB')
-          ? parseInt(configService.get('REDIS_DB'), 10)
-          : undefined,
-        password: configService.get('REDIS_PASSWORD')
-          ? configService.get('REDIS_PASSWORD')
-          : undefined,
-        keyPrefix: configService.get('REDIS_PREFIX')
-          ? configService.get('REDIS_PREFIX')
-          : undefined,
+        db: configService.get('REDIS_DB') ? parseInt(configService.get('REDIS_DB'), 10) : undefined,
+        password: configService.get('REDIS_PASSWORD') ? configService.get('REDIS_PASSWORD') : undefined,
+        keyPrefix: configService.get('REDIS_PREFIX') ? configService.get('REDIS_PREFIX') : undefined,
       }),
     }),
     // #endregion
@@ -103,11 +91,7 @@ import { AppController } from './app.controller';
 })
 export class AppModule implements NestModule {
   public configure(consumer: MiddlewareConsumer): void {
-    consumer
-      .apply(NextAssetsMiddleware)
-      .forRoutes({ path: '_next*', method: RequestMethod.GET });
-    consumer
-      .apply(NextMiddleware)
-      .forRoutes({ path: '*', method: RequestMethod.ALL });
+    consumer.apply(NextAssetsMiddleware).forRoutes({ path: '_next*', method: RequestMethod.GET });
+    consumer.apply(NextMiddleware).forRoutes({ path: '*', method: RequestMethod.ALL });
   }
 }
