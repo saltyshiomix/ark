@@ -15,8 +15,10 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { Mutation } from 'react-apollo';
+import { ApolloError } from 'apollo-client';
 // #endregion
 // #region Imports Local
+import { Error } from '../../components/error';
 import { LOGIN } from '../../lib/queries';
 import KngkInpzLogo from '../../static/assets/svg/kngk-inpz.svg';
 // #endregion
@@ -85,9 +87,6 @@ const useStyles = makeStyles((theme: Theme) =>
       borderColor: 'rgba(44, 67, 115, 0.4)',
       width: '100%',
     },
-    'errors': {
-      color: 'red',
-    },
     'loading': {
       margin: theme.spacing(2),
       color: 'red',
@@ -115,8 +114,6 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function Login(): React.ReactElement {
-  // const client: HttpClient = new HttpClient();
-
   const classes = useStyles({});
 
   const [username, setUsername] = useState('');
@@ -135,7 +132,7 @@ export default function Login(): React.ReactElement {
   const handleSaveChecked = (e: React.ChangeEvent<HTMLInputElement>): void => setSave(e.target.checked);
 
   return (
-    <Mutation mutation={LOGIN}>
+    <Mutation mutation={LOGIN} onError={() => {}}>
       {(login: Function, { loading, error, data }: any) => {
         if (data) {
           // window.location.href = '/';
@@ -222,11 +219,7 @@ export default function Login(): React.ReactElement {
                       label="Запомнить меня на этом компьютере"
                     />
                     {loading && <CircularProgress className={classes.loading} />}
-                    {!!error && (
-                      <Typography className={classes.errors} variant="h6">
-                        Ошибка: {error.message}
-                      </Typography>
-                    )}
+                    {error && <Error error={error} />}
                     <br />
                     <div className={classes.submitButtonContainer}>
                       <Button

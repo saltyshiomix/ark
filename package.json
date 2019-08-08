@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "portal",
-  "version": "4.0.18",
+  "version": "4.0.19",
   "scripts": {
     "clean": "rimraf .next node_modules",
     "secrets": "cat /dev/urandom | head -c 512 | openssl sha256 | cut -d ' ' -f 2",
@@ -80,9 +80,6 @@
     "express": "^4.17.1",
     "express-jwt": "^5.3.1",
     "express-session": "^1.16.2",
-    "graphile-build": "^4.4.1",
-    "graphile-build-pg": "^4.4.1",
-    "graphile-utils": "^4.4.1",
     "graphql": "^14.4.2",
     "graphql-tag": "^2.10.1",
     "graphql-tools": "^4.0.5",
@@ -172,7 +169,7 @@
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^1.6.1",
     "eslint-plugin-unicorn": "^10.0.0",
-    "husky": "^3.0.2",
+    "husky": "^3.0.3",
     "jest": "^24.8.0",
     "lint-staged": "^9.2.1",
     "nodemon": "^1.19.1",

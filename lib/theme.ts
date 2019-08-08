@@ -67,6 +67,11 @@ const theme = createMuiTheme({
           color: '#2c4373',
         },
       },
+      root: {
+        '&$disabled': {
+          color: 'rgba(255,255,255,0.1)',
+        },
+      },
     },
   },
 });

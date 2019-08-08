@@ -1,13 +1,14 @@
 /** @format */
+
 // #region Imports NPM
 import fetch from 'isomorphic-fetch';
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache, NormalizedCacheObject } from 'apollo-cache-inmemory';
-import { ApolloLink, Observable, FetchResult, split } from 'apollo-link';
-import { getMainDefinition } from 'apollo-utilities';
+import { ApolloLink, Observable, FetchResult /* , split */ } from 'apollo-link';
+// import { getMainDefinition } from 'apollo-utilities';
 import { onError } from 'apollo-link-error';
 import { HttpLink } from 'apollo-link-http';
-import { WebSocketLink } from 'apollo-link-ws';
+// import { WebSocketLink } from 'apollo-link-ws';
 // #endregion
 // #region Imports Local
 import { NodeIdGetterObj } from './types';
@@ -64,7 +65,7 @@ export const apolloClient = (
       onError(({ graphQLErrors, networkError }): any => {
         if (graphQLErrors) {
           graphQLErrors.map(({ message, locations, path }): any =>
-            console.error(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`),
+            console.error('[GraphQL error]: Path:', path, 'Message:', message, 'Location:', locations),
           );
         }
         if (networkError) {
@@ -93,11 +94,11 @@ export const apolloClient = (
       onError(({ graphQLErrors, networkError }): Observable<FetchResult> | void => {
         if (graphQLErrors) {
           graphQLErrors.map(({ message, locations, path }): any =>
-            console.error(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`),
+            console.error(`[GraphQL error]: Path: ${path}`, `Message:`, message, `Location:`, locations),
           );
         }
         if (networkError) {
-          console.error(`[Network error]: ${networkError}`);
+          console.error(`[Network error]:`, networkError);
         }
       }),
 
