@@ -13,6 +13,7 @@
 - [x] [GraphQL](https://graphql.org/)
 - [x] [React.js](https://reactjs.org/)
 - [x] User authentication - powered by [Passport](http://www.passportjs.org)
+- [x] LDAP through custom NestJS LDAPService
 - [ ] [WebSockets](https://www.apollographql.com/docs/link/links/ws/)
 - [ ] Admin page
 
@@ -42,7 +43,9 @@
   - [PostgreSQL](https://www.postgresql.org) - The World's Most Advanced Open Source Relational Database
   - [GraphQL](https://github.com/graphql/express-graphql) - Create a GraphQL HTTP server with Express.
 - User authentication
+  - [LDAP] - Custom NestJS LDAPService, internally using [ldapjs](http://ldapjs.org/)
   - [Passport](http://www.passportjs.org) - Simple, unobtrusive authentication for Node.js
+  - [Passport JWT](https://github.com/mikenicholson/passport-jwt) - Passport authentication using JSON Web Tokens
 - UI framework
   - [Next.js](https://nextjs.org) - The React Framework
   - [React](https://reactjs.org) - A JavaScript library for building user interfaces
@@ -200,7 +203,7 @@ module.exports = {
 - [x] UI: integration between [Next.js](https://nextjs.org) and [Material UI](https://material-ui.com)
 - [x] Test: unit tests
 - [x] Test: e2e tests
-- [x] Authentication with Passport-JWT
+- [x] Authentication with LDAP
 - [ ] WebSockets - [Apollo Link WS](https://www.apollographql.com/docs/link/links/ws/)
 
 ## Trouble Shootings
