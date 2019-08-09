@@ -1,6 +1,6 @@
 # Portal
 
-[Nest.js](https://nestjs.com), [TypeORM](https://typeorm.io), [GraphQL](https://graphql.org/), [Next.js (v9)](https://nextjs.org), [Material UI (v4)](https://material-ui.com), [React.js](https://reactjs.org/)
+[Nest.js](https://nestjs.com), [TypeORM](https://typeorm.io), [GraphQL](https://graphql.org/), LDAP, Authentication w/Passport-JWT, [Next.js (v9)](https://nextjs.org), [React.js](https://reactjs.org/), [Material UI (v4)](https://material-ui.com)
 
 ## Features
 
