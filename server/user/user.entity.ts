@@ -8,7 +8,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   BeforeInsert,
-  DatabaseType,
+  // DatabaseType,
   // OneToMany,
   // ManyToMany,
   // JoinTable,
@@ -16,7 +16,6 @@ import {
 import * as bcrypt from 'bcrypt';
 // #endregion
 // #region Imports Local
-import { ConfigService } from '../config/config.service';
 import { UserResponseDTO, LoginService, Gender } from './models/user.dto';
 // #endregion
 

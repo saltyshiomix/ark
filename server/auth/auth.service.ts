@@ -6,7 +6,7 @@ import { JwtService } from '@nestjs/jwt';
 // #endregion
 // #region Imports Local
 import { JwtPayload } from './models/jwt-payload.interface';
-import { UserResponseDTO, UserRegisterDTO } from '../user/models/user.dto';
+import { UserResponseDTO } from '../user/models/user.dto';
 // eslint-disable-next-line import/no-cycle
 import { UserService } from '../user/user.service';
 // #endregion

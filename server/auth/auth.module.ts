@@ -6,7 +6,6 @@ import { JwtModule, JwtModuleOptions } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 // #endregion
 // #region Imports Local
-// import { NextModule } from '../next/next.module';
 import { ConfigModule } from '../config/config.module';
 import { ConfigService } from '../config/config.service';
 import { AuthController } from './auth.controller';

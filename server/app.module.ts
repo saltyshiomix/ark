@@ -13,17 +13,13 @@ import redisCacheStore from 'cache-manager-redis';
 // #region Imports Local
 import { ConfigModule } from './config/config.module';
 import { NextModule } from './next/next.module';
-// import { UsersModule } from './users/users.module';
 import { HomeModule } from './home/home.module';
 import { NextMiddleware } from './next/next.middleware';
 import { NextAssetsMiddleware } from './next/next.assets.middleware';
 import { ConfigService } from './config/config.service';
-// import { NextService } from './next/next.service';
-// import { sessionRedis } from '../lib/session-redis';
 import { ApiModule } from './api.module';
 import { DateScalar } from './shared/date.scalar';
 import { AuthModule } from './auth/auth.module';
-import { AppController } from './app.controller';
 // #endregion
 
 @Module({
@@ -80,12 +76,6 @@ import { AppController } from './app.controller';
   providers: [
     // #region GraphQL
     DateScalar,
-    // #endregion
-  ],
-
-  controllers: [
-    // #region Assets
-    AppController,
     // #endregion
   ],
 })

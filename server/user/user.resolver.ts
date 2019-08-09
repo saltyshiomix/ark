@@ -17,7 +17,6 @@ import { Request } from 'express';
 import { UserService } from './user.service';
 import {
   UserResponseDTO,
-  // UserRegisterDTO,
 } from './models/user.dto';
 import { AuthenticationGuard } from '../guards/auth-guard.guard';
 // #endregion

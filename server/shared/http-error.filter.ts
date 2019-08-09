@@ -4,13 +4,12 @@
 import {
   ExceptionFilter,
   Catch,
-  ArgumentsHost,
   Logger,
   HttpException,
   HttpStatus,
   ExecutionContext,
 } from '@nestjs/common';
-import { GqlExecutionContext, GraphQLExecutionContext } from '@nestjs/graphql';
+import { GqlExecutionContext } from '@nestjs/graphql';
 import { Request, Response } from 'express';
 import { TokenExpiredError, JsonWebTokenError } from 'jsonwebtoken';
 // #endregion
