@@ -29,6 +29,7 @@ export class LdapService extends EventEmitter {
 
   private getGroups: any;
 
+  // TODO: userCache through redis ?
   private userCache: any;
 
   private salt: string;
@@ -238,7 +239,7 @@ export class LdapService extends EventEmitter {
    * @param {string} input - String to sanitize
    * @returns {string} Sanitized string
    */
-  public sanitizeInput(input: string): string {
+  private sanitizeInput(input: string): string {
     return input
       .replace(/\*/g, '\\2a')
       .replace(/\(/g, '\\28')
@@ -255,7 +256,7 @@ export class LdapService extends EventEmitter {
    * @param {string} username - Username to search for
    * @returns {undefined} - If user is not found but no error happened, result is undefined.
    */
-  public async findUser(username: string): Promise<any> {
+  private async findUser(username: string): Promise<any> {
     if (!username) {
       throw new Error('empty username');
     }
@@ -297,7 +298,7 @@ export class LdapService extends EventEmitter {
    * @param {Object} user - The LDAP user object
    * @returns {void} - Result handling callback
    */
-  public async findGroups(user: any): Promise<any> {
+  private async findGroups(user: any): Promise<any> {
     if (!user) {
       throw new Error('no user');
     }
