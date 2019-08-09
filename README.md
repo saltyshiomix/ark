@@ -23,8 +23,9 @@
   - [Next.js](https://nextjs.org) - The React Framework
 - Lang
   - [TypeScript](https://www.typescriptlang.org) - Javascript that scales
-- Tests
+- Linters
   - [ESLint](https://eslint.org/) - A fully pluggable tool for identifying and reporting on patterns in JavaScript
+- Tests
   - [Jest](https://jestjs.io/) - Delightful JavaScript Testing
   - [Enzyme](https://airbnb.io/enzyme/) - JavaScript Testing utilities for React
   - [@material-ui/core/test-utils](https://material-ui.com/guides/testing/)
@@ -40,15 +41,15 @@
 - Database
   - [PostgreSQL](https://www.postgresql.org) - The World's Most Advanced Open Source Relational Database
   - [GraphQL](https://github.com/graphql/express-graphql) - Create a GraphQL HTTP server with Express.
-- WebSockets
-  - subscription
 - User authentication
   - [Passport](http://www.passportjs.org) - Simple, unobtrusive authentication for Node.js
 - UI framework
-  - [React](https://reactjs.org) - A JavaScript library for building user interfaces
   - [Next.js](https://nextjs.org) - The React Framework
+  - [React](https://reactjs.org) - A JavaScript library for building user interfaces
   - [Apollo GraphQL](https://www.apollographql.com/client/) - A fully-featured, production ready caching GraphQL client for every UI framework and GraphQL server
   - [Material UI](https://material-ui.com) - React components that implement Google's Material Design.
+- WebSockets
+  - subscription
 
 ## Setup
 
@@ -199,11 +200,8 @@ module.exports = {
 - [x] UI: integration between [Next.js](https://nextjs.org) and [Material UI](https://material-ui.com)
 - [x] Test: unit tests
 - [x] Test: e2e tests
-- [x] Feature: authentication with Passport-JWT
+- [x] Authentication with Passport-JWT
 - [ ] WebSockets - [Apollo Link WS](https://www.apollographql.com/docs/link/links/ws/)
-- [ ] API: JSON API routes
-- [ ] UX: validation
-- [ ] Feature: blogging
 
 ## Trouble Shootings
 
