@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "portal",
-  "version": "4.0.22",
+  "version": "4.0.23",
   "scripts": {
     "clean": "rimraf .next node_modules",
     "secrets": "cat /dev/urandom | head -c 512 | openssl sha256 | cut -d ' ' -f 2",

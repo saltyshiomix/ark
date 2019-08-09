@@ -13,7 +13,6 @@ import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import InputLabel from '@material-ui/core/InputLabel';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { MutationFunction } from 'react-apollo';
 import { ApolloError } from 'apollo-client';
@@ -21,7 +20,8 @@ import { ApolloError } from 'apollo-client';
 // #region Imports Local
 import { GQLError } from './gql-error';
 import { Loading } from './loading';
-import KngkInpzLogo from '../static/assets/svg/kngk-inpz.svg';
+import LogoComponent from '../static/assets/svg/logo.svg';
+import { getStorage } from '../lib/session-storage';
 // #endregion
 
 interface LoginProps {
@@ -121,11 +121,11 @@ export const LoginComponent = (props: LoginProps): React.ReactElement => {
 
   const classes = useStyles({});
 
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState(getStorage('user.name'));
   const [usernameLabelWidth, setUsernameLabelWidth] = useState(0);
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState(getStorage('user.pass'));
   const [passwordLabelWidth, setPasswordLabelWidth] = useState(0);
-  const [saveChecked, setSave] = useState(false);
+  const [saveChecked, setSave] = useState(true);
 
   const usernameLabelRef = useRef<HTMLLabelElement | any>({});
   const passwordLabelRef = useRef<HTMLLabelElement | any>({});
@@ -139,18 +139,13 @@ export const LoginComponent = (props: LoginProps): React.ReactElement => {
   return (
     <div className={classes.root}>
       <div className={classes.logoContainer}>
-        <KngkInpzLogo className={classes.logo} />
+        <LogoComponent className={classes.logo} />
       </div>
       <div className={classes.loginContainer}>
         <form
           onSubmit={async (e: any): Promise<void> => {
             e.preventDefault();
-            login({
-              variables: {
-                username: e.target.username.value,
-                password: e.target.password.value,
-              },
-            });
+            login({ variables: { username, password } });
           }}
           className={classes.container}
           autoComplete="off"
@@ -162,6 +157,7 @@ export const LoginComponent = (props: LoginProps): React.ReactElement => {
                 Авторизация
               </Typography>
               <br />
+
               <FormControl className={classes.formControl} fullWidth variant="outlined">
                 <InputLabel
                   htmlFor="username"
@@ -182,6 +178,7 @@ export const LoginComponent = (props: LoginProps): React.ReactElement => {
                 />
               </FormControl>
               <br />
+
               <FormControl className={classes.formControl} fullWidth variant="outlined">
                 <InputLabel
                   htmlFor="password"
@@ -202,6 +199,7 @@ export const LoginComponent = (props: LoginProps): React.ReactElement => {
                 />
               </FormControl>
               <br />
+
               <FormControlLabel
                 className={classes.labelForCheckbox}
                 control={
@@ -215,9 +213,11 @@ export const LoginComponent = (props: LoginProps): React.ReactElement => {
                 }
                 label="Запомнить меня на этом компьютере"
               />
+
               {loading && <Loading />}
               {error && <GQLError error={error} />}
               <br />
+
               <div className={classes.submitButtonContainer}>
                 <Button
                   className={classes.submitButton}
