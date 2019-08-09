@@ -2,7 +2,7 @@
 
 // #region Imports NPM
 import { IncomingMessage } from 'http';
-import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
+import { Injectable, CanActivate, ExecutionContext, UnauthorizedException } from '@nestjs/common';
 import { HttpArgumentsHost } from '@nestjs/common/interfaces/features/arguments-host.interface';
 import { AuthGuard } from '@nestjs/passport';
 import { GqlExecutionContext, GraphQLExecutionContext } from '@nestjs/graphql';
@@ -32,6 +32,13 @@ export class AuthenticationGuard extends AuthGuard('jwt') implements CanActivate
     }
 
     return canActivate instanceof Observable ? canActivate.toPromise() : canActivate;
+  }
+
+  handleRequest(err: Error, user: any, info: any, context: any): any {
+    if (err || !user) {
+      throw err || new UnauthorizedException();
+    }
+    return user;
   }
 
   getResponse = () => undefined;

@@ -16,13 +16,13 @@ export class NextService {
 
   public async getApp(): Promise<Server> {
     if (!this.app) {
-      this.app = next({ dev, quiet: !dev });
-      this.handler = this.app.getRequestHandler();
-
       try {
+        this.app = next({ dev, quiet: !dev });
+        this.handler = this.app.getRequestHandler();
+
         await this.app.prepare();
       } catch (error) {
-        console.error('Next service error:', error);
+        console.error('Next service error (getApp):', error);
       }
     }
     return this.app;
@@ -30,22 +30,39 @@ export class NextService {
 
   public async getRequestHandler(): Promise<any> {
     if (!this.app) {
-      this.handler = (await this.getApp()).getRequestHandler();
+      try {
+        const app = await this.getApp();
+        this.handler = app.getRequestHandler();
+      } catch (error) {
+        console.error('Next service error (getRequestHandler):', error);
+      }
     }
     return this.handler;
   }
 
   public async error(req: Request, res: Response, status: number, exception: HttpException | unknown): Promise<void> {
-    if (status === 404) {
-      return (await this.getApp()).render404(req, res);
+    try {
+      const app = await this.getApp();
+
+      if (status === 404) {
+        return app.render404(req, res);
+      }
+
+      const message = exception instanceof HttpException ? exception.toString() : 'Internal server error';
+      return app.renderError(new Error(message), req, res, req.url, req.query);
+    } catch (error) {
+      console.error('Next service error:', error);
+      throw error;
     }
-
-    const message = exception instanceof HttpException ? exception.toString() : 'Internal server error';
-
-    return (await this.getApp()).renderError(new Error(message), req, res, req.url, req.query);
   }
 
   public async render(@Req() req: Request, @Res() res: Response, page: string): Promise<void> {
-    return (await this.getApp()).render(req, res, page, req.query);
+    try {
+      const app = await this.getApp();
+      return app.render(req, res, page, req.query);
+    } catch (error) {
+      console.error('Next service error (render):', error);
+      throw error;
+    }
   }
 }

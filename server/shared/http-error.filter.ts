@@ -23,18 +23,23 @@ import { AppGraphQLExecutionContext } from './logging.interceptor';
 export class HttpErrorFilter implements ExceptionFilter {
   constructor(private readonly nextService: NextService) {}
 
-  catch(exception: HttpException, host: ExecutionContext): void {
+  catch(exception: Error | HttpException | JsonWebTokenError | TokenExpiredError, host: ExecutionContext): void {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
-    /* eslint-disable prettier/prettier */
-    const status =
-      exception instanceof JsonWebTokenError || exception instanceof TokenExpiredError
-        ? HttpStatus.UNAUTHORIZED
-        : exception instanceof HttpException
-          ? exception.getStatus()
-          : HttpStatus.INTERNAL_SERVER_ERROR;
-    /* eslint-enable prettier/prettier */
+
+    let status: number;
+    let message: string | object;
+    if (exception instanceof HttpException) {
+      status = exception.getStatus();
+      message = exception.getResponse();
+      if (typeof message === 'object') {
+        message = (message as any).error;
+      }
+    } else {
+      status = HttpStatus.INTERNAL_SERVER_ERROR;
+      ({ message } = exception);
+    }
 
     if (response.status && request.method && request.url) {
       // #region HTTP query
@@ -43,10 +48,7 @@ export class HttpErrorFilter implements ExceptionFilter {
         timestamp: new Date().toLocaleString('ru'),
         path: request.url,
         method: request.method,
-        message:
-          status !== HttpStatus.INTERNAL_SERVER_ERROR
-            ? exception.message.error || exception.message || null
-            : 'Internal server error',
+        message,
       };
 
       if (status === HttpStatus.INTERNAL_SERVER_ERROR) {
@@ -68,12 +70,7 @@ export class HttpErrorFilter implements ExceptionFilter {
       const context: AppGraphQLExecutionContext = GqlExecutionContext.create(host);
       const info = context.getInfo();
 
-      Logger.error(
-        `${info.parentType.name} "${info.fieldName}": ${exception.message}`,
-        exception.stack,
-        'ExceptionFilter',
-        true,
-      );
+      Logger.error(`${info.parentType.name} "${info.fieldName}": ${message}`, undefined, 'ExceptionFilter', true);
       // #endregion
     }
   }

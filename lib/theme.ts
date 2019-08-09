@@ -32,7 +32,20 @@ const theme = createMuiTheme({
     borderRadius: 0,
   },
   overrides: {
-    MuiOutlinedInput: {},
+    MuiOutlinedInput: {
+      root: {
+        '&:hover .MuiOutlinedInput-notchedOutline': {
+          borderColor: 'rgba(44, 67, 115, 0.9)',
+        },
+      },
+      notchedOutline: {
+        'borderColor': 'rgba(44, 67, 115, 0.5)',
+        'borderWidth': 2,
+        '&$disabled': {
+          borderColor: 'rgba(0, 0, 0, 0.3)',
+        },
+      },
+    },
     MuiCheckbox: {
       root: {
         color: '#2c4373',
@@ -66,15 +79,11 @@ const theme = createMuiTheme({
         '&:hover': {
           color: '#2c4373',
         },
-      },
-      root: {
-        '&$disabled': {
-          color: 'rgba(255,255,255,0.3)',
+        '&:disabled': {
+          color: 'rgba(0, 0, 0, 0.5)',
+          backgroundColor: 'rgba(255, 255, 255, 0.3)',
         },
       },
-      // disabled: {
-      //   color: 'rgba(255,255,255,0.3)',
-      // },
     },
   },
 });
