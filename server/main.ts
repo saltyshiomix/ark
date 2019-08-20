@@ -52,7 +52,7 @@ async function bootstrap() {
   passport.deserializeUser((obj, cb) => cb(null, obj));
 
   // start server
-  await server.listen(process.env.PORT as string, '0.0.0.0');
+  server.listen(process.env.PORT as string, '0.0.0.0');
 }
 
 bootstrap();
