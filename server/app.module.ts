@@ -6,6 +6,8 @@ import {
 } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeOrmService } from './database/typeorm.service';
+import { SessionPostgresModule } from './session/session.postgres.module';
+import { SessionPassportModule } from './session/session.passport.module';
 import { EnvModule } from './env/env.module';
 import { NextModule } from './next/next.module';
 import { UsersModule } from './users/users.module';
@@ -20,6 +22,8 @@ import { NextAssetsMiddleware } from './next/next.assets.middleware';
       imports: [EnvModule],
       useClass: TypeOrmService,
     }),
+    SessionPostgresModule,
+    SessionPassportModule,
     EnvModule,
     NextModule,
     UsersModule,
