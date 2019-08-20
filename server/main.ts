@@ -1,6 +1,6 @@
 import { config } from 'dotenv';
 import { NestFactory } from '@nestjs/core';
-import { INestApplication } from '@nestjs/common';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
 import session from 'express-session';
 import passport from 'passport';
@@ -10,7 +10,7 @@ async function bootstrap() {
   config();
 
   // create nest server
-  const server: INestApplication = await NestFactory.create(AppModule);
+  const server = await NestFactory.create<NestExpressApplication>(AppModule);
 
   // CORS
   server.enableCors();
