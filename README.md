@@ -9,6 +9,7 @@
   <a href="https://david-dm.org/saltyshiomix/ark?type=dev"> 
     <img src="https://david-dm.org/saltyshiomix/ark/dev-status.svg" alt="devDependency Status" />
   </a>
+  <img src="https://img.shields.io/github/license/saltyshiomix/ark.svg" alt="Package License (MIT)">
 </div>
 
 ## Features
