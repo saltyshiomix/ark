@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { User } from '../users/user.entity';
-import { UsersService } from '../users/users.service';
+import { UserService } from '../user/user.service';
+import { User } from '../user/user.entity';
 import { RegisterUserDto } from './dto/register-user.dto';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly userService: UsersService,
+    private readonly userService: UserService,
   ) {}
 
   public async validateUserByEmail(email: string): Promise<User|undefined> {
