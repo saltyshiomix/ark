@@ -2195,10 +2195,10 @@ configstore@^3.0.0:
     write-file-atomic "^2.0.0"
     xdg-basedir "^3.0.0"
 
-connect-pg-simple@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/connect-pg-simple/-/connect-pg-simple-6.0.0.tgz#d86c2a49b4f6ff36fc56635efd8dba93a3a6fbaa"
-  integrity sha512-6pQnRSGFyswyHMdKQp5C+g78fjU/1/6eY05VeixXwMixw5KYhAcoOCXyf8TdPE1IzRLNDBMQi64vojXK/HMXVw==
+connect-pg-simple@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/connect-pg-simple/-/connect-pg-simple-6.0.1.tgz#c0987baaae343601e40fe70cffb8a25a25d7b62d"
+  integrity sha512-zW5AOtRNOLcXxphSmQ+oYj0snlLs1Je3u5K2NWyF7WhMVoPvnQXraK2wzS8f7qLwhMcmYukah2ymu0Gdxf7Qsg==
   dependencies:
     pg "^7.4.3"
 
