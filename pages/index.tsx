@@ -17,7 +17,7 @@ export default function Index() {
       },
       container: {
         width: 480,
-        margin: `${theme.spacing(2)}px auto`
+        margin: `${theme.spacing(2)}px auto`,
       },
       card: {
         padding: theme.spacing(4),
