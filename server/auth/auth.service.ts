@@ -16,9 +16,6 @@ export class AuthService {
     if (user) {
       return user;
     }
-
-    const { name, email, password } = registerUserDto;
-    user = await this.service.create({ name, email, password });
-    return await this.service.save(user);
+    return this.service.save(await this.service.create(registerUserDto));
   }
 }
