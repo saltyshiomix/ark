@@ -5,10 +5,10 @@ import { RegisterUserDto } from './dto/register-user.dto';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly service: UsersService) {}
+  constructor(private readonly userService: UsersService) {}
 
   public async validateUserByEmail(email: string): Promise<User|undefined> {
-    return await this.service.findOneByEmail(email);
+    return await this.userService.findOneByEmail(email);
   }
 
   public async registerUserIfNotExist(registerUserDto: RegisterUserDto): Promise<User> {
@@ -16,6 +16,6 @@ export class AuthService {
     if (user) {
       return user;
     }
-    return this.service.save(await this.service.create(registerUserDto));
+    return this.userService.save(await this.userService.create(registerUserDto));
   }
 }
