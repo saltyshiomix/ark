@@ -1,14 +1,14 @@
 import {
   Entity,
   Column,
-  PrimaryColumn
+  PrimaryColumn,
 } from 'typeorm';
 
 @Entity()
 export class Session {
   @PrimaryColumn({
     type: 'varchar',
-    collation: 'default'
+    collation: 'default',
   })
   sid: string;
 

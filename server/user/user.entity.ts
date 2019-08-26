@@ -14,7 +14,7 @@ export class User {
   name: string;
 
   @Column('varchar', {
-    unique: true
+    unique: true,
   })
   email: string;
 
