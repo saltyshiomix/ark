@@ -1,7 +1,7 @@
 import {
   IsNotEmpty,
   IsEmail,
-  MinLength
+  MinLength,
 } from 'class-validator';
 
 export class RegisterUserDto {

@@ -1,6 +1,6 @@
 import {
   IsEmail,
-  MinLength
+  MinLength,
 } from 'class-validator';
 
 export class LoginUserDto {
