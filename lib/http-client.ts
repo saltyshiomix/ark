@@ -1,25 +1,21 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import ky from 'ky-universal';
+
+const prefixUrl: string = `${process.env.HOST}:${process.env.PORT}`;
 
 export default class HttpClient {
-  private client: AxiosInstance;
-
-  constructor() {
-    this.client = axios.create({ baseURL: `${process.env.HOST}:${process.env.PORT}` });
+  public async get<T>(url: string): Promise<T> {
+    return ky.get(url, { prefixUrl }).json();
   }
 
-  public async get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
-    return (await this.client.get(url, config)).data;
+  public async post<T>(url: string, data?: any): Promise<T> {
+    return ky.post(url, { prefixUrl, json: data }).json();
   }
 
-  public async post<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
-    return (await this.client.post(url, data, config)).data;
+  public async put<T>(url: string, data?: any): Promise<T> {
+    return ky.put(url, { prefixUrl, json: data }).json();
   }
 
-  public async put<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
-    return (await this.client.put(url, data, config)).data;
-  }
-
-  public async delete<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
-    return (await this.client.delete(url, config)).data;
+  public async delete<T>(url: string): Promise<T> {
+    return ky.delete(url, { prefixUrl }).json();
   }
 }

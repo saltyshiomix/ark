@@ -135,8 +135,7 @@ DB_DATABASE=arkdb
 DB_SYNCHRONIZE=true
 
 # App
-PROTOCOL=http
-HOST=localhost
+HOST=http://localhost
 PORT=4000
 SESSION_SECRET=ark
 ```

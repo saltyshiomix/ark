@@ -1,7 +1,7 @@
 import {
   Entity,
   Column,
-  PrimaryGeneratedColumn
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 
@@ -14,7 +14,7 @@ export class User {
   name: string;
 
   @Column('varchar', {
-    unique: true
+    unique: true,
   })
   email: string;
 
