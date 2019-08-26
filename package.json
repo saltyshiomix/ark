@@ -1,14 +1,14 @@
 {
   "private": true,
   "name": "ark",
-  "version": "3.3.0",
+  "version": "3.4.0",
   "scripts": {
     "dev": "nodemon server/main.ts",
     "build": "next build && tsc --project tsconfig.server.json",
     "start": "cross-env NODE_ENV=production node .next/production-server/main.js"
   },
   "dependencies": {
-    "@material-ui/core": "^4.3.2",
+    "@material-ui/core": "^4.3.3",
     "@nestjs/common": "^6.5.3",
     "@nestjs/core": "^6.5.3",
     "@nestjs/passport": "^6.1.0",
@@ -20,12 +20,12 @@
     "class-transformer": "^0.2.3",
     "class-validator": "^0.10.0",
     "compression": "^1.7.4",
-    "connect-pg-simple": "^6.0.0",
+    "connect-pg-simple": "^6.0.1",
     "cookie-parser": "^1.4.4",
     "dotenv": "^8.1.0",
     "express-session": "^1.16.2",
     "helmet": "^3.20.0",
-    "next": "^9.0.3",
+    "next": "^9.0.5",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "pg": "^7.12.1",

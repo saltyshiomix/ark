@@ -5,6 +5,9 @@ import { AppModule } from './app.module';
 import { SessionPostgresModule } from './session/session.postgres.module';
 import { SessionPassportModule } from './session/session.passport.module';
 
+// import reflect-metadata shims to use TypeORM
+import 'reflect-metadata';
+
 async function bootstrap() {
   // enable environment variables
   config();
@@ -35,7 +38,7 @@ async function bootstrap() {
   app.get(SessionPassportModule).initialize(app);
 
   // start a server
-  app.listen(process.env.PORT as string, '0.0.0.0');
+  app.listen(process.env.PORT, '0.0.0.0');
 }
 
 bootstrap();

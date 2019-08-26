@@ -10,7 +10,7 @@ import { SessionPostgresModule } from './session/session.postgres.module';
 import { SessionPassportModule } from './session/session.passport.module';
 import { EnvModule } from './env/env.module';
 import { NextModule } from './next/next.module';
-import { UsersModule } from './users/users.module';
+import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { HomeModule } from './home/home.module';
 import { NextMiddleware } from './next/next.middleware';
@@ -26,7 +26,7 @@ import { NextAssetsMiddleware } from './next/next.assets.middleware';
     SessionPassportModule,
     EnvModule,
     NextModule,
-    UsersModule,
+    UserModule,
     AuthModule,
     HomeModule,
   ],

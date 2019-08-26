@@ -1,14 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { User } from '../users/user.entity';
-import { UsersService } from '../users/users.service';
+import { UserService } from '../user/user.service';
+import { User } from '../user/user.entity';
 import { RegisterUserDto } from './dto/register-user.dto';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly service: UsersService) {}
+  constructor(
+    private readonly userService: UserService,
+  ) {}
 
   public async validateUserByEmail(email: string): Promise<User|undefined> {
-    return await this.service.findOneByEmail(email);
+    return await this.userService.findOneByEmail(email);
   }
 
   public async registerUserIfNotExist(registerUserDto: RegisterUserDto): Promise<User> {
@@ -16,9 +18,6 @@ export class AuthService {
     if (user) {
       return user;
     }
-
-    const { name, email, password } = registerUserDto;
-    user = await this.service.create({ name, email, password });
-    return await this.service.save(user);
+    return this.userService.save(await this.userService.create(registerUserDto));
   }
 }
