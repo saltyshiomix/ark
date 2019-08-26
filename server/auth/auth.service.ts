@@ -5,7 +5,9 @@ import { RegisterUserDto } from './dto/register-user.dto';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly userService: UsersService) {}
+  constructor(
+    private readonly userService: UsersService,
+  ) {}
 
   public async validateUserByEmail(email: string): Promise<User|undefined> {
     return await this.userService.findOneByEmail(email);
