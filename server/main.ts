@@ -38,7 +38,7 @@ async function bootstrap() {
   app.get(SessionPassportModule).initialize(app);
 
   // start a server
-  app.listen(process.env.PORT, '0.0.0.0');
+  await app.listen(process.env.PORT, '0.0.0.0');
 }
 
 bootstrap();
