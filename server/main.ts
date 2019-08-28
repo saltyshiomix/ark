@@ -38,7 +38,9 @@ async function bootstrap() {
   app.get(SessionPassportModule).initialize(app);
 
   // start a server
-  await app.listen(process.env.PORT, '0.0.0.0');
+  await app.listen(process.env.PORT, '0.0.0.0', () => {
+    console.log(`[ ARK ] Ready on ${process.env.HOST}:${process.env.PORT}`);
+  });
 }
 
 bootstrap();
