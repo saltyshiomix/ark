@@ -19,6 +19,7 @@
     "forceConsistentCasingInFileNames": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "incremental": true,
   },
   "include": [
     "next-env.d.ts",
