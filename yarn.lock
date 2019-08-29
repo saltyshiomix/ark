@@ -881,19 +881,19 @@
     prop-types "^15.7.2"
     react-is "^16.8.6"
 
-"@nestjs/common@^6.6.2":
-  version "6.6.2"
-  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-6.6.2.tgz#5a1aacd3eb1e2b8e38740f3c9a2233fc19557893"
-  integrity sha512-d7/OLI/f04LX0wgFPGuEO2ApNr4Nosn7r7JFaKQFAH1X1j0xOdXwnknUmA9AP06Nta72EAAWWI2a+hOIQBp+NQ==
+"@nestjs/common@^6.6.3":
+  version "6.6.3"
+  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-6.6.3.tgz#b6c04cc175e17f82b9f0b404dbe4ba799b414fdc"
+  integrity sha512-QWMXdb3X6sflDlFvqK7yUa4WCck3cVUrNM0X/rHUharvLMX7Qx15N5x88rtL8oTpXrL9GuxhIiOBbef4ahAyGA==
   dependencies:
     axios "0.19.0"
     cli-color "1.4.0"
     uuid "3.3.3"
 
-"@nestjs/core@^6.6.2":
-  version "6.6.2"
-  resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-6.6.2.tgz#0b11f834360462faead04c23d0e268edf57955da"
-  integrity sha512-TKA7t/OHQeCf80TQsARH7Gmk7olnFMI3XJPaIDraUbBa/AmuGb4peSiMLn1I+ZYcg6wTgPaGNEiLuDWcRB13hQ==
+"@nestjs/core@^6.6.3":
+  version "6.6.3"
+  resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-6.6.3.tgz#d8750ee959cee6440e5f4f03aa5d78ad290daef8"
+  integrity sha512-kQSDpxpfq5O5vjt/51FMxbiy11MFsY0k2IIQpZIXA96G9yV9zbO11tAe/+mulhv3d5CoqGBeEB4wOUjy8xCCcw==
   dependencies:
     "@nuxtjs/opencollective" "0.2.2"
     fast-safe-stringify "2.0.6"
@@ -907,10 +907,10 @@
   resolved "https://registry.yarnpkg.com/@nestjs/passport/-/passport-6.1.0.tgz#80da326cc976a82530648d8025b04c8e2d41c10e"
   integrity sha512-V4KdtFFLsdZQ/HlIECpiK6byzGz57Y12TAc+Iatykk8jWuVFE1jq8RJbpTfB0zG0PTfcGm9crQ6Ut2Rwdmis4Q==
 
-"@nestjs/platform-express@^6.6.2":
-  version "6.6.2"
-  resolved "https://registry.yarnpkg.com/@nestjs/platform-express/-/platform-express-6.6.2.tgz#7c05f1e08b4c58b2ed54159297dc3daa3e3d9e59"
-  integrity sha512-sn5mB4joGJPBL0oGx31cUc+bW/V/pbh1Ow2e7E/oYOTaB7933N5/SSOTkExyjw2r2wBF+gLffZ7hhyW0WWvwJw==
+"@nestjs/platform-express@^6.6.3":
+  version "6.6.3"
+  resolved "https://registry.yarnpkg.com/@nestjs/platform-express/-/platform-express-6.6.3.tgz#6d48eeedc6ab518321fbe33ed3be632ac9c9fe35"
+  integrity sha512-Lyc7gSKh5XNnlNNSO8L9WFboVWK46fW0om0x24KZBH/mGrdPvOtW2hvTZNXoj6wBkHn0TyNMf382SR6lFEykYA==
   dependencies:
     body-parser "1.19.0"
     cors "2.8.5"
