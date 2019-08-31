@@ -1,3 +1,4 @@
+import { join } from 'path';
 import { config } from 'dotenv';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
@@ -30,6 +31,9 @@ async function bootstrap() {
   // enable json response
   app.use(require('body-parser').urlencoded({ extended: true }));
   app.use(require('body-parser').json());
+
+  // favicon
+  app.use(require('serve-favicon')(join(process.cwd(), 'static/favicon.ico')));
 
   // production ready session store
   app.get(SessionPostgresModule).initialize(app);
