@@ -3,9 +3,9 @@
   "compilerOptions": {
     "module": "commonjs",
     "noEmit": false,
-    "outDir": ".next/production-server/",
+    "outDir": ".next/production-server/"
   },
   "include": [
-    "server",
-  ],
+    "server"
+  ]
 }
