@@ -50,7 +50,7 @@
     "@types/react-dom": "^16.9.0",
     "cross-env": "^5.2.1",
     "dotenv-webpack": "^1.7.0",
-    "nodemon": "^1.19.1",
+    "nodemon": "^1.19.2",
     "ts-node": "^8.3.0",
     "typescript": "^3.6.2",
     "webpack": "^4.39.3"
