@@ -1,14 +1,14 @@
 {
   "private": true,
   "name": "ark",
-  "version": "3.7.2",
+  "version": "3.7.3",
   "scripts": {
     "dev": "nodemon server/main.ts",
     "build": "next build && tsc --project tsconfig.server.json",
     "start": "cross-env NODE_ENV=production node .next/production-server/main.js"
   },
   "dependencies": {
-    "@material-ui/core": "^4.4.0",
+    "@material-ui/core": "^4.4.1",
     "@nestjs/common": "^6.6.7",
     "@nestjs/core": "^6.6.7",
     "@nestjs/passport": "^6.1.0",
