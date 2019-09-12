@@ -7,7 +7,7 @@ import { Request, Response } from 'express';
 import { NextService } from './next.service';
 
 @Injectable()
-export class NextAssetsMiddleware implements NestMiddleware {
+export class NextMiddleware implements NestMiddleware {
   constructor(private readonly nextService: NextService) {}
 
   @Header('content-type', 'text/javascript')

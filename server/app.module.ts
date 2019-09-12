@@ -13,7 +13,7 @@ import { NextModule } from './next/next.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { HomeModule } from './home/home.module';
-import { NextAssetsMiddleware } from './next/next.assets.middleware';
+import { NextMiddleware } from './next/next.middleware';
 
 @Module({
   imports: [
@@ -32,6 +32,6 @@ import { NextAssetsMiddleware } from './next/next.assets.middleware';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(NextAssetsMiddleware).forRoutes({ path: '_next*', method: RequestMethod.GET });
+    consumer.apply(NextMiddleware).forRoutes({ path: '_next*', method: RequestMethod.GET });
   }
 }
