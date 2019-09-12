@@ -6,9 +6,6 @@ import { NextModule } from './next/next.module';
 import { SessionPostgresModule } from './session/session.postgres.module';
 import { SessionPassportModule } from './session/session.passport.module';
 
-// import reflect-metadata shims to use TypeORM
-import 'reflect-metadata';
-
 async function bootstrap() {
   // enable environment variables
   config();
