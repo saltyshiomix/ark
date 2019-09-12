@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import next from 'next';
 import { NextService } from './next.service';
 
+const dev: boolean = process.env.NODE_ENV !== 'production';
+
 @Module({
   providers: [
     NextService,
@@ -17,9 +19,14 @@ export class NextModule {
 
   public async prepare() {
     const app = next({
-      dev: process.env.NODE_ENV !== 'production',
+      dev,
       dir: process.cwd(),
     });
+
+    if (dev) {
+      console.log('[ ARK ] Preparing Next.js ...');
+    }
+
     return app.prepare().then(() => this.next.setApp(app));
   }
 }
