@@ -16,7 +16,6 @@ export class NextService {
     if (!this.app) {
       this.app = next({ dev });
       this.handler = this.app.getRequestHandler();
-
       await this.app.prepare();
     }
     return this.app;
@@ -26,7 +25,7 @@ export class NextService {
     if (!this.app) {
       this.app = await this.getApp();
     }
-    return this.app.render(req, res, page, req.query);
+    return this.app.render(req, res, `/${page}`, req.query);
   }
 
   public async getRequestHandler(): Promise<any> {

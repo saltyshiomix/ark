@@ -29,7 +29,7 @@ export class AuthController {
 
   @Get('register')
   public async showRegister(@Req() req: Request, @Res() res: Response) {
-    return await this.nextService.render(req, res, '/auth/register');
+    return await this.nextService.render(req, res, 'auth/register');
   }
 
   @Post('register')
@@ -43,7 +43,7 @@ export class AuthController {
 
   @Get('login')
   public async showLogin(@Req() req: Request, @Res() res: Response) {
-    return await this.nextService.render(req, res, '/auth/login');
+    return await this.nextService.render(req, res, 'auth/login');
   }
 
   @Post('login')
