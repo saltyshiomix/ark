@@ -12,30 +12,30 @@ import { IUser } from '../../interfaces/user';
 
 const client = new HttpClient;
 
-export default function Login() {
-  const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-      root: {
-        textAlign: 'center',
-        paddingTop: theme.spacing(8),
-      },
-      container: {
-        width: 480,
-        margin: `${theme.spacing(2)}px auto`,
-      },
-      card: {
-        padding: theme.spacing(4),
-      },
-      formControl: {
-        minWidth: 320,
-        margin: `${theme.spacing(1)}px 0`,
-      },
-      submitButton: {
-        margin: `${theme.spacing(4)}px 0`,
-      },
-    }),
-  );
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      textAlign: 'center',
+      paddingTop: theme.spacing(8),
+    },
+    container: {
+      width: 480,
+      margin: `${theme.spacing(2)}px auto`,
+    },
+    card: {
+      padding: theme.spacing(4),
+    },
+    formControl: {
+      minWidth: 320,
+      margin: `${theme.spacing(1)}px 0`,
+    },
+    submitButton: {
+      margin: `${theme.spacing(4)}px 0`,
+    },
+  }),
+);
 
+export default function Login() {
   const classes = useStyles({});
 
   const [email, setEmail] = useState('');
