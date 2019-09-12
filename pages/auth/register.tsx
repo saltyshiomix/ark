@@ -8,7 +8,7 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import HttpClient from '../../lib/http-client';
-import { IUser } from '../../interfaces/user';
+import { User } from '../../interfaces';
 
 const client = new HttpClient;
 
@@ -70,7 +70,7 @@ export default function Register() {
       password: e.target.password.value,
     }
 
-    const user: IUser = await client.post('auth/register', data);
+    const user: User = await client.post('auth/register', data);
     if (user) {
       location.href = '/';
     } else {
