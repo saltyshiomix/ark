@@ -53,7 +53,7 @@ export default function Login() {
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    window.location.href = '/auth/register';
+    location.href = '/auth/register';
   };
 
   const handleSubmit = async (e: any) => {
@@ -66,7 +66,7 @@ export default function Login() {
 
     const user: IUser = await client.post('auth/login', data);
     if (user) {
-      window.location.href = '/';
+      location.href = '/';
     } else {
       alert('Failed to login!');
     }

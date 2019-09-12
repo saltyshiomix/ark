@@ -34,8 +34,14 @@ export class AuthController {
 
   @Post('register')
   public register(@RegisterUser(new ValidationPipe) _user: RegisterUserDto, @Req() req: RequestWithSession, @Res() res: Response, @Next() next: NextFunction) {
-    authenticate('local-register', (_err, user) => {
-      req.logIn(user, (_err) => {
+    authenticate('local-register', (err, user) => {
+      if (err) {
+        return res.json(false);
+      }
+      req.logIn(user, (err) => {
+        if (err) {
+          return res.json(false);
+        }
         req.session.save(() => res.json(req.user));
       });
     })(req, res, next);
@@ -48,8 +54,14 @@ export class AuthController {
 
   @Post('login')
   public login(@LoginUser(new ValidationPipe) _user: LoginUserDto, @Req() req: RequestWithSession, @Res() res: Response, @Next() next: NextFunction) {
-    authenticate('local-login', (_err, user) => {
-      req.logIn(user, (_err) => {
+    authenticate('local-login', (err, user) => {
+      if (err) {
+        return res.json(false);
+      }
+      req.logIn(user, (err) => {
+        if (err) {
+          return res.json(false);
+        }
         req.session.save(() => res.json(req.user));
       });
     })(req, res, next);
@@ -57,6 +69,6 @@ export class AuthController {
 
   @Get('logout')
   public logout(@Req() req: RequestWithSession, @Res() res: Response) {
-    req.session.destroy(() => res.json(true));
+    req.session.destroy(() => res.redirect('/auth/login'));
   }
 }

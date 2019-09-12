@@ -58,7 +58,7 @@ export default function Register() {
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    window.location.href = '/auth/login';
+    location.href = '/auth/login';
   };
 
   const handleSubmit = async (e: any) => {
@@ -72,7 +72,7 @@ export default function Register() {
 
     const user: IUser = await client.post('auth/register', data);
     if (user) {
-      window.location.href = '/';
+      location.href = '/';
     } else {
       alert('Failed to register!');
     }

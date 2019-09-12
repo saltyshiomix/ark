@@ -4,9 +4,6 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import HttpClient from '../lib/http-client';
-
-const client = new HttpClient;
 
 export default function Index() {
   const useStyles = makeStyles((theme: Theme) =>
@@ -29,13 +26,7 @@ export default function Index() {
 
   const handleClick = async (e: React.MouseEvent) => {
     e.preventDefault();
-
-    const loggedOut: boolean = await client.get('auth/logout');
-    if (loggedOut) {
-      window.location.href = '/auth/login';
-    } else {
-      alert('Failed to log out!');
-    }
+    location.href = '/auth/logout';
   };
 
   return (
