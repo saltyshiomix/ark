@@ -13,21 +13,11 @@ async function bootstrap() {
   // create nest server
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
-  // CORS
-  app.enableCors();
-
   // improve security
   app.use(require('helmet')());
 
   // improve performance
   app.use(require('compression')());
-
-  // enable cookie
-  app.use(require('cookie-parser')());
-
-  // enable json response
-  app.use(require('body-parser').urlencoded({ extended: true }));
-  app.use(require('body-parser').json());
 
   // production ready session store
   app.get(SessionPostgresModule).initialize(app);
