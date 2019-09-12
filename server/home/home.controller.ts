@@ -17,7 +17,7 @@ export class HomeController {
   @Get()
   public showHome(@Req() req: Request, @Res() res: Response) {
     if (req.user) {
-      return this.nextService.render(req, res, '/index');
+      return this.nextService.render('/index', req, res);
     }
     return res.redirect('/auth/login');
   }

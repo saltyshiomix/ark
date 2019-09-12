@@ -1,13 +1,10 @@
-import { join } from 'path';
 import { config } from 'dotenv';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
+import { NextModule } from './next/next.module';
 import { SessionPostgresModule } from './session/session.postgres.module';
 import { SessionPassportModule } from './session/session.passport.module';
-
-// import reflect-metadata shims to use TypeORM
-import 'reflect-metadata';
 
 async function bootstrap() {
   // enable environment variables
@@ -16,24 +13,11 @@ async function bootstrap() {
   // create nest server
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
-  // CORS
-  app.enableCors();
-
   // improve security
   app.use(require('helmet')());
 
   // improve performance
   app.use(require('compression')());
-
-  // enable cookie
-  app.use(require('cookie-parser')());
-
-  // enable json response
-  app.use(require('body-parser').urlencoded({ extended: true }));
-  app.use(require('body-parser').json());
-
-  // favicon
-  app.use(require('serve-favicon')(join(process.cwd(), 'static/favicon.ico')));
 
   // production ready session store
   app.get(SessionPostgresModule).initialize(app);
@@ -41,9 +25,12 @@ async function bootstrap() {
   // enable passport session
   app.get(SessionPassportModule).initialize(app);
 
-  // start a server
-  await app.listen(process.env.PORT, '0.0.0.0', () => {
-    console.log(`[ ARK ] Ready on ${process.env.HOST}:${process.env.PORT}`);
+  // prepare Next.js
+  app.get(NextModule).prepare().then(() => {
+    // start a server
+    app.listen(process.env.PORT, '0.0.0.0', () => {
+      console.log(`[ ARK ] Ready on ${process.env.HOST}:${process.env.PORT}`);
+    });
   });
 }
 
