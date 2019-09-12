@@ -34,7 +34,6 @@
     "react-dom": "^16.9.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.5.3",
-    "serve-favicon": "^2.5.0",
     "typeorm": "^0.2.18"
   },
   "devDependencies": {
