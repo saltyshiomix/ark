@@ -8,34 +8,34 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import HttpClient from '../../lib/http-client';
-import { IUser } from '../../interfaces/user';
+import { User } from '../../interfaces';
 
-const client = new HttpClient;
+const http = new HttpClient;
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      textAlign: 'center',
+      paddingTop: theme.spacing(8),
+    },
+    container: {
+      width: 480,
+      margin: `${theme.spacing(2)}px auto`,
+    },
+    card: {
+      padding: theme.spacing(4),
+    },
+    formControl: {
+      minWidth: 320,
+      margin: `${theme.spacing(1)}px 0`,
+    },
+    submitButton: {
+      margin: `${theme.spacing(4)}px 0`,
+    },
+  }),
+);
 
 export default function Login() {
-  const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-      root: {
-        textAlign: 'center',
-        paddingTop: theme.spacing(8),
-      },
-      container: {
-        width: 480,
-        margin: `${theme.spacing(2)}px auto`,
-      },
-      card: {
-        padding: theme.spacing(4),
-      },
-      formControl: {
-        minWidth: 320,
-        margin: `${theme.spacing(1)}px 0`,
-      },
-      submitButton: {
-        margin: `${theme.spacing(4)}px 0`,
-      },
-    }),
-  );
-
   const classes = useStyles({});
 
   const [email, setEmail] = useState('');
@@ -53,7 +53,7 @@ export default function Login() {
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    window.location.href = '/auth/register';
+    location.href = '/auth/register';
   };
 
   const handleSubmit = async (e: any) => {
@@ -64,9 +64,9 @@ export default function Login() {
       password: e.target.password.value,
     }
 
-    const user: IUser = await client.post('auth/login', data);
+    const user: User = await http.post('auth/login', data);
     if (user) {
-      window.location.href = '/';
+      location.href = '/';
     } else {
       alert('Failed to login!');
     }

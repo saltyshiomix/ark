@@ -15,10 +15,10 @@ export class HomeController {
   constructor(private readonly nextService: NextService) {}
 
   @Get()
-  public async showHome(@Req() req: Request, @Res() res: Response) {
+  public showHome(@Req() req: Request, @Res() res: Response) {
     if (req.user) {
-      return await this.nextService.render(req, res, '/index');
+      return this.nextService.render(req, res, '/index');
     }
-    return res.redirect('auth/login');
+    return res.redirect('/auth/login');
   }
 }

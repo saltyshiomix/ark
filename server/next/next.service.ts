@@ -16,7 +16,6 @@ export class NextService {
     if (!this.app) {
       this.app = next({ dev });
       this.handler = this.app.getRequestHandler();
-
       await this.app.prepare();
     }
     return this.app;

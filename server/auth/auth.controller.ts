@@ -28,35 +28,47 @@ export class AuthController {
   constructor(private readonly nextService: NextService) {}
 
   @Get('register')
-  public async showRegister(@Req() req: Request, @Res() res: Response) {
-    return await this.nextService.render(req, res, '/auth/register');
+  public showRegister(@Req() req: Request, @Res() res: Response) {
+    return this.nextService.render(req, res, '/auth/register');
   }
 
   @Post('register')
-  public async register(@RegisterUser(new ValidationPipe) _user: RegisterUserDto, @Req() req: RequestWithSession, @Res() res: Response, @Next() next: NextFunction) {
-    authenticate('local-register', (_err, user) => {
-      req.logIn(user, (_err) => {
+  public register(@RegisterUser(new ValidationPipe) _user: RegisterUserDto, @Req() req: RequestWithSession, @Res() res: Response, @Next() next: NextFunction) {
+    authenticate('local-register', (err, user) => {
+      if (err) {
+        return res.json(false);
+      }
+      req.logIn(user, (err) => {
+        if (err) {
+          return res.json(false);
+        }
         req.session.save(() => res.json(req.user));
       });
     })(req, res, next);
   }
 
   @Get('login')
-  public async showLogin(@Req() req: Request, @Res() res: Response) {
-    return await this.nextService.render(req, res, '/auth/login');
+  public showLogin(@Req() req: Request, @Res() res: Response) {
+    return this.nextService.render(req, res, '/auth/login');
   }
 
   @Post('login')
-  public async login(@LoginUser(new ValidationPipe) _user: LoginUserDto, @Req() req: RequestWithSession, @Res() res: Response, @Next() next: NextFunction) {
-    authenticate('local-login', (_err, user) => {
-      req.logIn(user, (_err) => {
+  public login(@LoginUser(new ValidationPipe) _user: LoginUserDto, @Req() req: RequestWithSession, @Res() res: Response, @Next() next: NextFunction) {
+    authenticate('local-login', (err, user) => {
+      if (err) {
+        return res.json(false);
+      }
+      req.logIn(user, (err) => {
+        if (err) {
+          return res.json(false);
+        }
         req.session.save(() => res.json(req.user));
       });
     })(req, res, next);
   }
 
   @Get('logout')
-  public async logout(@Req() req: RequestWithSession, @Res() res: Response) {
-    req.session.destroy(() => res.json(true));
+  public logout(@Req() req: RequestWithSession, @Res() res: Response) {
+    req.session.destroy(() => res.redirect('/auth/login'));
   }
 }

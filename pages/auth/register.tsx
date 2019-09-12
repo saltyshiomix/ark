@@ -8,34 +8,34 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import HttpClient from '../../lib/http-client';
-import { IUser } from '../../interfaces/user';
+import { User } from '../../interfaces';
 
-const client = new HttpClient;
+const http = new HttpClient;
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      textAlign: 'center',
+      paddingTop: theme.spacing(8),
+    },
+    container: {
+      width: 480,
+      margin: `${theme.spacing(2)}px auto`,
+    },
+    card: {
+      padding: theme.spacing(4),
+    },
+    formControl: {
+      minWidth: 320,
+      margin: `${theme.spacing(1)}px 0`,
+    },
+    submitButton: {
+      margin: `${theme.spacing(4)}px 0`,
+    },
+  }),
+);
 
 export default function Register() {
-  const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-      root: {
-        textAlign: 'center',
-        paddingTop: theme.spacing(8),
-      },
-      container: {
-        width: 480,
-        margin: `${theme.spacing(2)}px auto`,
-      },
-      card: {
-        padding: theme.spacing(4),
-      },
-      formControl: {
-        minWidth: 320,
-        margin: `${theme.spacing(1)}px 0`,
-      },
-      submitButton: {
-        margin: `${theme.spacing(4)}px 0`,
-      },
-    }),
-  );
-
   const classes = useStyles({});
 
   const [name, setName] = useState('');
@@ -58,7 +58,7 @@ export default function Register() {
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    window.location.href = '/auth/login';
+    location.href = '/auth/login';
   };
 
   const handleSubmit = async (e: any) => {
@@ -70,9 +70,9 @@ export default function Register() {
       password: e.target.password.value,
     }
 
-    const user: IUser = await client.post('auth/register', data);
+    const user: User = await http.post('auth/register', data);
     if (user) {
-      window.location.href = '/';
+      location.href = '/';
     } else {
       alert('Failed to register!');
     }
