@@ -28,12 +28,12 @@ export class AuthController {
   constructor(private readonly nextService: NextService) {}
 
   @Get('register')
-  public async showRegister(@Req() req: Request, @Res() res: Response) {
-    return await this.nextService.render(req, res, 'auth/register');
+  public showRegister(@Req() req: Request, @Res() res: Response) {
+    return this.nextService.render(req, res, 'auth/register');
   }
 
   @Post('register')
-  public async register(@RegisterUser(new ValidationPipe) _user: RegisterUserDto, @Req() req: RequestWithSession, @Res() res: Response, @Next() next: NextFunction) {
+  public register(@RegisterUser(new ValidationPipe) _user: RegisterUserDto, @Req() req: RequestWithSession, @Res() res: Response, @Next() next: NextFunction) {
     authenticate('local-register', (_err, user) => {
       req.logIn(user, (_err) => {
         req.session.save(() => res.json(req.user));
@@ -42,12 +42,12 @@ export class AuthController {
   }
 
   @Get('login')
-  public async showLogin(@Req() req: Request, @Res() res: Response) {
-    return await this.nextService.render(req, res, 'auth/login');
+  public showLogin(@Req() req: Request, @Res() res: Response) {
+    return this.nextService.render(req, res, 'auth/login');
   }
 
   @Post('login')
-  public async login(@LoginUser(new ValidationPipe) _user: LoginUserDto, @Req() req: RequestWithSession, @Res() res: Response, @Next() next: NextFunction) {
+  public login(@LoginUser(new ValidationPipe) _user: LoginUserDto, @Req() req: RequestWithSession, @Res() res: Response, @Next() next: NextFunction) {
     authenticate('local-login', (_err, user) => {
       req.logIn(user, (_err) => {
         req.session.save(() => res.json(req.user));
@@ -56,7 +56,7 @@ export class AuthController {
   }
 
   @Get('logout')
-  public async logout(@Req() req: RequestWithSession, @Res() res: Response) {
+  public logout(@Req() req: RequestWithSession, @Res() res: Response) {
     req.session.destroy(() => res.json(true));
   }
 }
