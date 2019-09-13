@@ -934,6 +934,14 @@
   resolved "https://registry.yarnpkg.com/@nestpress/passport/-/passport-1.0.0.tgz#495e58bb2d9749e8ab8536ce0a2a5744322fe6d3"
   integrity sha512-EVBs28vloG/snnK1VbBZpQP3ntmDc8Sf5FVe75/s87qjeHKElDAu3WsTZzsQeJKfTzfZrWTyLMzYZtWqdD3s+g==
 
+"@nestpress/postgres-express-session@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@nestpress/postgres-express-session/-/postgres-express-session-1.0.0.tgz#9ed21b8dab71a52ecdc8b0aadc11624c7f466426"
+  integrity sha512-WGmFSh3hUZ2vL2c+1UYv9IIUD/MvQnVFWAG2kfGY8Tt/LZA4EzPjMX5yf0Fc3qCrZeDnRpcACy6l8XZRZrLb2g==
+  dependencies:
+    connect-pg-simple "^6.0.1"
+    express-session "^1.16.2"
+
 "@nuxtjs/opencollective@0.2.2":
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/@nuxtjs/opencollective/-/opencollective-0.2.2.tgz#26a761ebf588cc92a422d7cee996a66bd6e2761e"
@@ -982,14 +990,6 @@
   dependencies:
     "@types/node" "*"
     "@types/range-parser" "*"
-
-"@types/express-session@^1.15.14":
-  version "1.15.14"
-  resolved "https://registry.yarnpkg.com/@types/express-session/-/express-session-1.15.14.tgz#76ae4fd6e2c7c02a241d469ea2426f422c841b3f"
-  integrity sha512-7kVzFTT0Jy0zmUYDt9ik76XbcqyS9NalV4gn4eLwhk1nGQn+lS/HjPODhG3Oi/GBR2w1LQHUdkz/5KICYMACiw==
-  dependencies:
-    "@types/express" "*"
-    "@types/node" "*"
 
 "@types/express@*":
   version "4.17.1"

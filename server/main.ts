@@ -16,14 +16,14 @@ async function bootstrap() {
   // enable passport session
   app.get(PassportModule).initialize(app);
 
+  // enable session store in PostgreSQL
+  app.get(SessionPostgresModule).initialize(app);
+
   // improve security
   app.use(require('helmet')());
 
   // improve performance
   app.use(require('compression')());
-
-  // production ready session store
-  app.get(SessionPostgresModule).initialize(app);
 
   // prepare Next.js
   app.get(NextModule).prepare().then(() => {
