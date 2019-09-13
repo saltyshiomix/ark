@@ -1,8 +1,8 @@
 import { config } from 'dotenv';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { NextModule } from '@nestpress/next';
 import { AppModule } from './app.module';
-import { NextModule } from './next/next.module';
 import { SessionPostgresModule } from './session/session.postgres.module';
 import { SessionPassportModule } from './session/session.passport.module';
 

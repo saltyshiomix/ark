@@ -924,6 +924,11 @@
   dependencies:
     uuid "3.3.2"
 
+"@nestpress/next@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@nestpress/next/-/next-1.0.0.tgz#aef0495ea2c86aaa99d34847e8534153310aaf93"
+  integrity sha512-u0ZpnthQ5rKPZJETzVQGS1BG1aXqgHLYG3wpiz2aIULCpBZ9S6a3NAltC2OXXYCcjvpBd8yQpt4TRfbDIMj8oQ==
+
 "@nuxtjs/opencollective@0.2.2":
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/@nuxtjs/opencollective/-/opencollective-0.2.2.tgz#26a761ebf588cc92a422d7cee996a66bd6e2761e"

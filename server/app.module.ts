@@ -6,14 +6,16 @@ import {
 } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeOrmService } from './database/typeorm.service';
+import {
+  NextModule,
+  NextMiddleware,
+} from '@nestpress/next';
 import { SessionPostgresModule } from './session/session.postgres.module';
 import { SessionPassportModule } from './session/session.passport.module';
 import { EnvModule } from './env/env.module';
-import { NextModule } from './next/next.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { HomeModule } from './home/home.module';
-import { NextMiddleware } from './next/next.middleware';
 
 @Module({
   imports: [

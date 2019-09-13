@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { NextModule } from '../next/next.module';
+import { NextModule } from '@nestpress/next';
 import { HomeController } from './home.controller';
 
 @Module({
