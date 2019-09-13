@@ -2,9 +2,9 @@ import { config } from 'dotenv';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { NextModule } from '@nestpress/next';
+import { PassportModule } from '@nestpress/passport';
 import { AppModule } from './app.module';
 import { SessionPostgresModule } from './session/session.postgres.module';
-import { SessionPassportModule } from './session/session.passport.module';
 
 async function bootstrap() {
   // enable environment variables
@@ -12,6 +12,9 @@ async function bootstrap() {
 
   // create nest server
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
+  // enable passport session
+  app.get(PassportModule).initialize(app);
 
   // improve security
   app.use(require('helmet')());
@@ -21,9 +24,6 @@ async function bootstrap() {
 
   // production ready session store
   app.get(SessionPostgresModule).initialize(app);
-
-  // enable passport session
-  app.get(SessionPassportModule).initialize(app);
 
   // prepare Next.js
   app.get(NextModule).prepare().then(() => {
