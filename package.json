@@ -50,6 +50,6 @@
     "nodemon": "^1.19.2",
     "ts-node": "^8.3.0",
     "typescript": "^3.6.3",
-    "webpack": "^4.39.3"
+    "webpack": "^4.40.2"
   }
 }
