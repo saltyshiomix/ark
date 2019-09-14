@@ -19,12 +19,6 @@ async function bootstrap() {
   // enable session store in PostgreSQL
   app.get(SessionPostgresModule).initialize(app);
 
-  // improve security
-  app.use(require('helmet')());
-
-  // improve performance
-  app.use(require('compression')());
-
   // prepare Next.js
   app.get(NextModule).prepare().then(() => {
     // start a server
