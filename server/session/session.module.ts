@@ -9,7 +9,7 @@ import { EnvService } from '../env/env.service';
     EnvModule,
   ],
 })
-export class SessionPostgresModule extends PostgresExpressSessionModule {
+export class SessionModule extends PostgresExpressSessionModule {
   constructor(
     private readonly env: EnvService,
   ) {

@@ -11,7 +11,7 @@ import {
   NextMiddleware,
 } from '@nestpress/next';
 import { PassportModule } from '@nestpress/passport';
-import { SessionPostgresModule } from './session/session.postgres.module';
+import { SessionModule } from './session/session.module';
 import { EnvModule } from './env/env.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
@@ -25,7 +25,7 @@ import { HomeModule } from './home/home.module';
     }),
     NextModule,
     PassportModule,
-    SessionPostgresModule,
+    SessionModule,
     EnvModule,
     UserModule,
     AuthModule,

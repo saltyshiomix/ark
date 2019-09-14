@@ -4,7 +4,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { NextModule } from '@nestpress/next';
 import { PassportModule } from '@nestpress/passport';
 import { AppModule } from './app.module';
-import { SessionPostgresModule } from './session/session.postgres.module';
+import { SessionModule } from './session/session.module';
 
 async function bootstrap() {
   // enable environment variables
@@ -14,7 +14,7 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   // enable session store in PostgreSQL
-  app.get(SessionPostgresModule).initialize(app);
+  app.get(SessionModule).initialize(app);
 
   // enable passport session
   // NOTE: we must use this at the end of `app.use()` list
