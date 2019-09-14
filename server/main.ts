@@ -13,11 +13,12 @@ async function bootstrap() {
   // create nest server
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
-  // enable passport session
-  app.get(PassportModule).initialize(app);
-
   // enable session store in PostgreSQL
   app.get(SessionPostgresModule).initialize(app);
+
+  // enable passport session
+  // NOTE: we must use this at the end of `app.use()` list
+  app.get(PassportModule).initialize(app);
 
   // prepare Next.js
   app.get(NextModule).prepare().then(() => {
