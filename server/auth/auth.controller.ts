@@ -12,8 +12,8 @@ import {
   Response,
   NextFunction,
 } from 'express';
+import { NextService } from '@nestpress/next';
 import { authenticate } from 'passport';
-import { NextService } from '../next/next.service';
 import { RegisterUser } from './decorators/register-user.decorator';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { LoginUser } from './decorators/login-user.decorator';

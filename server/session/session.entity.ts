@@ -1,20 +1,5 @@
-import {
-  Entity,
-  Column,
-  PrimaryColumn,
-} from 'typeorm';
+import { Entity } from 'typeorm';
+import { PostgresExpressSession } from '@nestpress/postgres-express-session';
 
 @Entity()
-export class Session {
-  @PrimaryColumn({
-    type: 'varchar',
-    collation: 'default',
-  })
-  sid: string;
-
-  @Column('json')
-  sess: string;
-
-  @Column('timestamp')
-  expire: number;
-}
+export class Session extends PostgresExpressSession {}
