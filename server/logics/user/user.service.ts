@@ -12,29 +12,29 @@ export class UserService {
     private readonly repository: Repository<User>,
   ) {}
 
-  async findAll(): Promise<User[]> {
+  public async findAll(): Promise<User[]> {
     return this.repository.find();
   }
 
-  async findOne(id: number): Promise<User | undefined> {
+  public async findOne(id: number): Promise<User | undefined> {
     return this.repository.findOne(id);
   }
 
-  async findOneByEmail(email: string): Promise<User | undefined> {
+  public async findOneByEmail(email: string): Promise<User | undefined> {
     return this.repository.findOne({ email });
   }
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
+  public async create(createUserDto: CreateUserDto): Promise<User> {
     let { name, email, password } = createUserDto;
     password = await hash(password, 8);
     return this.repository.create({ name, email, password });
   }
 
-  async save(user: User): Promise<User> {
+  public async save(user: User): Promise<User> {
     return this.repository.save(user);
   }
 
-  async delete(id: number): Promise<DeleteResult> {
+  public async delete(id: number): Promise<DeleteResult> {
     return this.repository.delete(id);
   }
 }
