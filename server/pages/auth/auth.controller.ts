@@ -4,22 +4,18 @@ import {
   Post,
   Req,
   Res,
-  Next,
-  ValidationPipe,
+  UseGuards,
 } from '@nestjs/common';
 import {
   Request,
   Response,
-  NextFunction,
 } from 'express';
+import { AuthGuard } from '@nestjs/passport';
 import { NextService } from '@nestpress/next';
-import { authenticate } from 'passport';
-import { RegisterUser } from './decorators/register-user.decorator';
-import { RegisterUserDto } from './dto/register-user.dto';
-import { LoginUser } from './decorators/login-user.decorator';
-import { LoginUserDto } from './dto/login-user.dto';
+import { User } from '../../entities/user.entity';
 
-interface RequestWithSession extends Request {
+interface RequestWithUserSession extends Request {
+  user: User;
   session: any;
 }
 
@@ -35,18 +31,14 @@ export class AuthController {
   }
 
   @Post('register')
-  public register(@RegisterUser(new ValidationPipe) _user: RegisterUserDto, @Req() req: RequestWithSession, @Res() res: Response, @Next() next: NextFunction) {
-    authenticate('local-register', (err, user) => {
+  @UseGuards(AuthGuard('local-register'))
+  public register(@Req() req: RequestWithUserSession, @Res() res: Response) {
+    req.logIn(req.user, err => {
       if (err) {
         return res.json(false);
       }
-      req.logIn(user, (err) => {
-        if (err) {
-          return res.json(false);
-        }
-        req.session.save(() => res.json(req.user));
-      });
-    })(req, res, next);
+      return res.json(req.user);
+    });
   }
 
   @Get('login')
@@ -55,22 +47,18 @@ export class AuthController {
   }
 
   @Post('login')
-  public login(@LoginUser(new ValidationPipe) _user: LoginUserDto, @Req() req: RequestWithSession, @Res() res: Response, @Next() next: NextFunction) {
-    authenticate('local-login', (err, user) => {
+  @UseGuards(AuthGuard('local-login'))
+  public login(@Req() req: RequestWithUserSession, @Res() res: Response) {
+    req.logIn(req.user, err => {
       if (err) {
         return res.json(false);
       }
-      req.logIn(user, (err) => {
-        if (err) {
-          return res.json(false);
-        }
-        req.session.save(() => res.json(req.user));
-      });
-    })(req, res, next);
+      return res.json(req.user);
+    });
   }
 
   @Get('logout')
-  public logout(@Req() req: RequestWithSession, @Res() res: Response) {
+  public logout(@Req() req: RequestWithUserSession, @Res() res: Response) {
     req.session.destroy(() => res.redirect('/auth/login'));
   }
 }
