@@ -20,9 +20,9 @@ export class LocalRegisterStrategy extends PassportStrategy(Strategy, 'local-reg
   public async validate(req: Request, email: string, password: string) {
     const { name } = req.body;
     const user: User = await this.authService.registerUserIfNotExist({ name, email, password });
-    if (user) {
-      return user;
+    if (!user) {
+      return false;
     }
-    return false;
+    return user;
   }
 }
