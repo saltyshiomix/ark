@@ -7,7 +7,9 @@ import { EnvService } from '../logics/env/env.service';
 
 @Injectable()
 export class TypeOrmService implements TypeOrmOptionsFactory {
-  constructor(private readonly env: EnvService) {}
+  constructor(
+    private readonly env: EnvService,
+  ) {}
 
   createTypeOrmOptions(): TypeOrmModuleOptions {
     return {
