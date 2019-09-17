@@ -60,10 +60,13 @@ export default function Login() {
       password: e.target.password.value,
     }
 
-    const user: User = await http.post('auth/login', data);
-    if (user) {
+    try {
+      const user: User = await http.post('auth/login', data);
+      if (!user) {
+        alert('Failed to login!');
+      }
       location.href = '/';
-    } else {
+    } catch (err) {
       alert('Failed to login!');
     }
   }

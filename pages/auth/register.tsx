@@ -66,11 +66,14 @@ export default function Register() {
       password: e.target.password.value,
     }
 
-    const user: User = await http.post('auth/register', data);
-    if (user) {
+    try {
+      const user: User = await http.post('auth/register', data);
+      if (!user) {
+        alert('Failed to register!');
+      }
       location.href = '/';
-    } else {
-      alert('Failed to register!');
+    } catch (err) {
+      alert(`Failed to register! ${err}`);
     }
   }
 
