@@ -33,12 +33,7 @@ export class AuthController {
   @Post('register')
   @UseGuards(AuthGuard('local-register'))
   public register(@Req() req: RequestWithUserSession, @Res() res: Response) {
-    req.logIn(req.user, err => {
-      if (err) {
-        return res.json(false);
-      }
-      return res.json(req.user);
-    });
+    this.performLogin(req, res);
   }
 
   @Get('login')
@@ -49,16 +44,23 @@ export class AuthController {
   @Post('login')
   @UseGuards(AuthGuard('local-login'))
   public login(@Req() req: RequestWithUserSession, @Res() res: Response) {
+    this.performLogin(req, res);
+  }
+
+  @Get('logout')
+  public logout(@Req() req: RequestWithUserSession, @Res() res: Response) {
+    req.session.destroy(() => res.redirect('/auth/login'));
+  }
+
+  private performLogin(req: RequestWithUserSession, res: Response) {
+    if (!req.user) {
+      res.json(false);
+    }
     req.logIn(req.user, err => {
       if (err) {
         return res.json(false);
       }
       return res.json(req.user);
     });
-  }
-
-  @Get('logout')
-  public logout(@Req() req: RequestWithUserSession, @Res() res: Response) {
-    req.session.destroy(() => res.redirect('/auth/login'));
   }
 }
