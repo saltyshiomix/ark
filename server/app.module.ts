@@ -11,6 +11,10 @@ import {
 import { EntityModule } from './entities/entity.module';
 import { LogicModule } from './logics/logic.module';
 import { PageModule } from './pages/page.module';
+import {
+  RedirectIfAuthenticatedMiddleware,
+  RedirectIfNotAuthenticatedMiddleware,
+} from './logics/auth/middlewares';
 
 @Module({
   imports: [
@@ -33,6 +37,27 @@ export class AppModule implements NestModule {
       .apply(NextMiddleware)
       .forRoutes({
         path: 'static*',
+        method: RequestMethod.GET,
+      });
+
+    consumer
+      .apply(RedirectIfAuthenticatedMiddleware)
+      .forRoutes({
+        path: 'auth/register',
+        method: RequestMethod.GET,
+      });
+
+    consumer
+      .apply(RedirectIfAuthenticatedMiddleware)
+      .forRoutes({
+        path: 'auth/login',
+        method: RequestMethod.GET,
+      });
+
+    consumer
+      .apply(RedirectIfNotAuthenticatedMiddleware)
+      .forRoutes({
+        path: '',
         method: RequestMethod.GET,
       });
   }

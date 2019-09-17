@@ -6,18 +6,11 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
-import {
-  Request,
-  Response,
-} from 'express';
-import { AuthGuard } from '@nestjs/passport';
 import { NextService } from '@nestpress/next';
-import { User } from '../entities/user.entity';
-
-interface RequestWithUserSession extends Request {
-  user: User;
-  session: any;
-}
+import {
+  RegisterGuard,
+  LoginGuard,
+} from '../logics/auth/guards';
 
 @Controller('auth')
 export class AuthController {
@@ -26,41 +19,29 @@ export class AuthController {
   ) {}
 
   @Get('register')
-  public showRegister(@Req() req: Request, @Res() res: Response) {
+  public showRegister(@Req() req, @Res() res) {
     return this.nextService.render('/auth/register', req, res);
   }
 
   @Post('register')
-  @UseGuards(AuthGuard('local-register'))
-  public register(@Req() req: RequestWithUserSession, @Res() res: Response) {
-    this.performLogin(req, res);
+  @UseGuards(RegisterGuard)
+  public register(@Req() req, @Res() res) {
+    res.json(req.user);
   }
 
   @Get('login')
-  public showLogin(@Req() req: Request, @Res() res: Response) {
+  public showLogin(@Req() req, @Res() res) {
     return this.nextService.render('/auth/login', req, res);
   }
 
   @Post('login')
-  @UseGuards(AuthGuard('local-login'))
-  public login(@Req() req: RequestWithUserSession, @Res() res: Response) {
-    this.performLogin(req, res);
+  @UseGuards(LoginGuard)
+  public login(@Req() req, @Res() res) {
+    res.json(req.user);
   }
 
   @Get('logout')
-  public logout(@Req() req: RequestWithUserSession, @Res() res: Response) {
+  public logout(@Req() req, @Res() res) {
     req.session.destroy(() => res.redirect('/auth/login'));
-  }
-
-  private performLogin(req: RequestWithUserSession, res: Response) {
-    if (!req.user) {
-      res.json(false);
-    }
-    req.logIn(req.user, err => {
-      if (err) {
-        return res.json(false);
-      }
-      return res.json(req.user);
-    });
   }
 }

@@ -1,5 +1,7 @@
-import { Module } from '@nestjs/common';
-import { NestExpressApplication } from '@nestjs/platform-express';
+import {
+  Module,
+  INestApplication,
+} from '@nestjs/common';
 import { PostgresExpressSessionModule } from '@nestpress/postgres-express-session';
 import { EnvModule } from '../../logics/env/env.module';
 import { EnvService } from '../../logics/env/env.service';
@@ -16,7 +18,7 @@ export class SessionModule extends PostgresExpressSessionModule {
     super();
   }
 
-  public initialize(app: NestExpressApplication) {
+  public initialize(app: INestApplication) {
     super.initialize(app, {
       secret: this.env.get('SESSION_SECRET'),
       username: this.env.get('DB_USERNAME'),

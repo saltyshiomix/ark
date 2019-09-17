@@ -62,6 +62,7 @@ export default function Login() {
 
     try {
       const user: User = await http.post('auth/login', data);
+      console.log(user);
       if (!user) {
         alert('Failed to login!');
       }
