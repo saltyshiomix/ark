@@ -2,9 +2,8 @@ import { config } from 'dotenv';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { NextModule } from '@nestpress/next';
-import { PassportModule } from '@nestpress/passport';
-import { SessionModule } from './logics/session/session.module';
 import { AppModule } from './app.module';
+import { LogicModule } from './logics/logic.module';
 
 async function bootstrap() {
   // enable environment variables
@@ -13,12 +12,8 @@ async function bootstrap() {
   // create nest server
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
-  // enable session store in PostgreSQL
-  app.get(SessionModule).initialize(app);
-
-  // enable passport session
-  // NOTE: we must use this at the end of `app.use()` list
-  app.get(PassportModule).initialize(app);
+  // initialize logics
+  app.get(LogicModule).initialize(app);
 
   // prepare Next.js
   app.get(NextModule).prepare().then(() => {
