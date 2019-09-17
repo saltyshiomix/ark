@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { PostgresExpressSessionModule } from '@nestpress/postgres-express-session';
-import { EnvModule } from '../env/env.module';
-import { EnvService } from '../env/env.service';
+import { EnvModule } from '../../logics/env/env.module';
+import { EnvService } from '../../logics/env/env.service';
 
 @Module({
   imports: [
