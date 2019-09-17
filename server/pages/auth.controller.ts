@@ -12,7 +12,7 @@ import {
 } from 'express';
 import { AuthGuard } from '@nestjs/passport';
 import { NextService } from '@nestpress/next';
-import { User } from '../../entities/user.entity';
+import { User } from '../entities/user.entity';
 
 interface RequestWithUserSession extends Request {
   user: User;

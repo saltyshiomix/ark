@@ -1,10 +1,8 @@
 import { Module } from '@nestjs/common';
 import { NextModule } from '@nestpress/next';
 import { AuthModule } from '../logics/auth/auth.module';
-import { AuthController } from './auth/auth.controller';
-import { HomeController } from './home/home.controller';
-import { LocalLoginStrategy } from './auth/strategies/local-login.strategy';
-import { LocalRegisterStrategy } from './auth/strategies/local-register.stratery';
+import { AuthController } from './auth.controller';
+import { HomeController } from './home.controller';
 
 @Module({
   imports: [
@@ -14,10 +12,6 @@ import { LocalRegisterStrategy } from './auth/strategies/local-register.stratery
   controllers: [
     AuthController,
     HomeController,
-  ],
-  providers: [
-    LocalLoginStrategy,
-    LocalRegisterStrategy,
   ],
 })
 export class PageModule {}

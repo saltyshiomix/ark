@@ -2,7 +2,7 @@ import { compare } from 'bcrypt';
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
-import { AuthService } from '../../../logics/auth/auth.service';
+import { AuthService } from '../auth.service';
 import { User } from '../../../entities/user.entity';
 
 @Injectable()
