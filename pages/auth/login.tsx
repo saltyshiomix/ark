@@ -7,6 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
+import Link from '../../components/Link';
 import HttpClient from '../../lib/http-client';
 import { User } from '../../interfaces';
 
@@ -51,11 +52,6 @@ export default function Login() {
   const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
   const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
 
-  const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    location.href = '/auth/register';
-  };
-
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
@@ -64,10 +60,13 @@ export default function Login() {
       password: e.target.password.value,
     }
 
-    const user: User = await http.post('auth/login', data);
-    if (user) {
+    try {
+      const user: User = await http.post('auth/login', data);
+      if (!user) {
+        alert('Failed to login!');
+      }
       location.href = '/';
-    } else {
+    } catch (err) {
       alert('Failed to login!');
     }
   }
@@ -117,12 +116,12 @@ export default function Login() {
               LOGIN
             </Button>
             <br />
-            <Button
-              size="small"
-              onClick={handleClick}
+            <Link
+              href="/auth/register"
+              color="secondary"
             >
-              Or create an account
-            </Button>
+              Create an Account
+            </Link>
           </CardContent>
         </Card>
       </form>
