@@ -9,12 +9,12 @@ export class AuthService {
     private readonly userService: UserService,
   ) {}
 
-  public async validateUserByEmail(email: string): Promise<User|undefined> {
-    return await this.userService.findOneByEmail(email);
+  public async validateUserByEmail(email: string): Promise<User | undefined> {
+    return this.userService.findOneByEmail(email);
   }
 
   public async registerUserIfNotExist(registerUserDto: RegisterUserDto): Promise<User> {
-    let user: User|undefined = await this.validateUserByEmail(registerUserDto.email);
+    let user: User | undefined = await this.validateUserByEmail(registerUserDto.email);
     if (user) {
       return user;
     }

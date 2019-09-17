@@ -25,7 +25,9 @@ interface RequestWithSession extends Request {
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly nextService: NextService) {}
+  constructor(
+    private readonly nextService: NextService,
+  ) {}
 
   @Get('register')
   public showRegister(@Req() req: Request, @Res() res: Response) {
