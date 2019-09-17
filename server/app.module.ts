@@ -4,32 +4,20 @@ import {
   MiddlewareConsumer,
   RequestMethod,
 } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { TypeOrmService } from './database/typeorm.service';
 import {
   NextModule,
   NextMiddleware,
 } from '@nestpress/next';
-import { PassportModule } from '@nestpress/passport';
-import { SessionModule } from './session/session.module';
-import { EnvModule } from './env/env.module';
-import { UserModule } from './user/user.module';
-import { AuthModule } from './auth/auth.module';
-import { HomeModule } from './home/home.module';
+import { EntityModule } from './entities/entity.module';
+import { LogicModule } from './logics/logic.module';
+import { PageModule } from './pages/page.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forRootAsync({
-      imports: [EnvModule],
-      useClass: TypeOrmService,
-    }),
     NextModule,
-    PassportModule,
-    SessionModule,
-    EnvModule,
-    UserModule,
-    AuthModule,
-    HomeModule,
+    EntityModule,
+    LogicModule,
+    PageModule,
   ],
 })
 export class AppModule implements NestModule {

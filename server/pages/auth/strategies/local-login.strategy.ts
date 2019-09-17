@@ -2,12 +2,14 @@ import { compare } from 'bcrypt';
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
-import { AuthService } from '../auth.service';
-import { User } from '../../user/user.entity';
+import { AuthService } from '../../../logics/auth/auth.service';
+import { User } from '../../../entities/user.entity';
 
 @Injectable()
 export class LocalLoginStrategy extends PassportStrategy(Strategy, 'local-login') {
-  constructor(private readonly service: AuthService) {
+  constructor(
+    private readonly authService: AuthService,
+  ) {
     super({
       usernameField: 'email',
       passwordField: 'password',
@@ -15,7 +17,7 @@ export class LocalLoginStrategy extends PassportStrategy(Strategy, 'local-login'
   }
 
   public async validate(email: string, password: string) {
-    const user: User|undefined = await this.service.validateUserByEmail(email);
+    const user: User | undefined = await this.authService.validateUserByEmail(email);
     if (!user) {
       return false;
     }

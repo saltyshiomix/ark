@@ -3,8 +3,8 @@ import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { NextModule } from '@nestpress/next';
 import { PassportModule } from '@nestpress/passport';
+import { SessionModule } from './logics/session/session.module';
 import { AppModule } from './app.module';
-import { SessionModule } from './session/session.module';
 
 async function bootstrap() {
   // enable environment variables
