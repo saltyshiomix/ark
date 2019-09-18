@@ -49,9 +49,9 @@ export class AppModule implements NestModule {
   }
 
   private handleApiRoutes(consumer: MiddlewareConsumer): void {
-    consumer
-      .apply(ApiAuthMiddleware)
-      .forRoutes('api/user*');
+    // consumer
+    //   .apply(ApiAuthMiddleware)
+    //   .forRoutes('api/user*');
   }
 
   private handleRoutes(consumer: MiddlewareConsumer): void {
