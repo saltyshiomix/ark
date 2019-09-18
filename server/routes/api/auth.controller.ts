@@ -1,6 +1,5 @@
 import {
   Controller,
-  Get,
   Post,
   Req,
   Res,
@@ -25,7 +24,7 @@ export class ApiAuthController {
     res.json(req.user);
   }
 
-  @Get('logout')
+  @Post('logout')
   public logout(@Req() req, @Res() res) {
     req.session.destroy(() => {
       res.json(true);

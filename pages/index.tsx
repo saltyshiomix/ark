@@ -29,7 +29,7 @@ export default function Index() {
 
   const handleClick = async (e: React.MouseEvent) => {
     e.preventDefault();
-    const isLoggedOut: boolean = await http.get('api/auth/logout');
+    const isLoggedOut: boolean = await http.post('api/auth/logout');
     if (isLoggedOut) {
       location.href = '/auth/login';
     }
