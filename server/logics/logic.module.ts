@@ -1,27 +1,27 @@
-import { Module } from '@nestjs/common';
-import { NestExpressApplication } from '@nestjs/platform-express';
-import { PassportModule } from '@nestpress/passport';
-import { SessionModule } from './session/session.module';
+import {
+  Module,
+  INestApplication,
+} from '@nestjs/common';
 import { EnvModule } from './env/env.module';
-import { UserModule } from './user/user.module';
+import { SessionModule } from './session/session.module';
 import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
-    PassportModule,
-    SessionModule,
     EnvModule,
-    UserModule,
+    SessionModule,
     AuthModule,
+    UserModule,
   ],
 })
 export class LogicModule {
-  public initialize(app: NestExpressApplication) {
+  public initialize(app: INestApplication) {
     // enable session store in PostgreSQL
     app.get(SessionModule).initialize(app);
 
     // enable passport session
     // NOTE: we must use this at the end of `app.use()` list
-    app.get(PassportModule).initialize(app);
+    app.get(AuthModule).initialize(app);
   }
 }

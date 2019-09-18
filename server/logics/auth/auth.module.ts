@@ -1,8 +1,10 @@
-import { Module } from '@nestjs/common';
+import passport from 'passport';
+import {
+  Module,
+  INestApplication,
+} from '@nestjs/common';
 import { UserModule } from '../user/user.module';
 import { AuthService } from './auth.service';
-import { LocalLoginStrategy } from './strategies/local-login.strategy';
-import { LocalRegisterStrategy } from './strategies/local-register.stratery';
 
 @Module({
   imports: [
@@ -10,11 +12,26 @@ import { LocalRegisterStrategy } from './strategies/local-register.stratery';
   ],
   providers: [
     AuthService,
-    LocalLoginStrategy,
-    LocalRegisterStrategy,
   ],
   exports: [
     AuthService,
   ],
 })
-export class AuthModule {}
+export class AuthModule {
+  constructor(
+    private readonly authService: AuthService,
+  ) {}
+
+  public initialize(app: INestApplication) {
+    app.use(passport.initialize());
+    app.use(passport.session());
+
+    passport.serializeUser((user: any, done: (err: any, id?: any) => void) => done(null, user));
+    passport.deserializeUser((id: any, done: (err: any, user?: any) => void) => done(null, id));
+
+    passport.use(this.authService.getLocalRegisterStrategy());
+    passport.use(this.authService.getLocalLoginStrategy());
+  }
+
+  
+}
