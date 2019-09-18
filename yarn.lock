@@ -929,11 +929,6 @@
   resolved "https://registry.yarnpkg.com/@nestpress/next/-/next-1.0.0.tgz#aef0495ea2c86aaa99d34847e8534153310aaf93"
   integrity sha512-u0ZpnthQ5rKPZJETzVQGS1BG1aXqgHLYG3wpiz2aIULCpBZ9S6a3NAltC2OXXYCcjvpBd8yQpt4TRfbDIMj8oQ==
 
-"@nestpress/passport@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@nestpress/passport/-/passport-1.0.0.tgz#495e58bb2d9749e8ab8536ce0a2a5744322fe6d3"
-  integrity sha512-EVBs28vloG/snnK1VbBZpQP3ntmDc8Sf5FVe75/s87qjeHKElDAu3WsTZzsQeJKfTzfZrWTyLMzYZtWqdD3s+g==
-
 "@nestpress/postgres-express-session@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@nestpress/postgres-express-session/-/postgres-express-session-1.0.0.tgz#9ed21b8dab71a52ecdc8b0aadc11624c7f466426"
