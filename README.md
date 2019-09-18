@@ -173,7 +173,15 @@ module.exports = {
 
 ## Screenshots
 
+### Register Page
+
 <p align="center"><img src="https://i.imgur.com/hTXWo3k.png"></p>
+
+### Login Page
+
+<p align="center"><img src="https://i.imgur.com/hxoJvmJ.png"></p>
+
+### Top Page (Auth Guard)
 
 <p align="center"><img src="https://i.imgur.com/ym0XlJR.png"></p>
 
