@@ -10,8 +10,9 @@ import {
 } from '@nestpress/next';
 import { EntityModule } from './entities/entity.module';
 import { LogicModule } from './logics/logic.module';
-import { PageModule } from './pages/page.module';
+import { RouteModule } from './routes/route.module';
 import {
+  ApiAuthMiddleware,
   RedirectIfAuthenticatedMiddleware,
   RedirectIfNotAuthenticatedMiddleware,
 } from './logics/auth/middlewares';
@@ -21,11 +22,17 @@ import {
     NextModule,
     EntityModule,
     LogicModule,
-    PageModule,
+    RouteModule,
   ],
 })
 export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
+  public configure(consumer: MiddlewareConsumer) {
+    this.handleAssets(consumer);
+    this.handleApiRoutes(consumer);
+    this.handleRoutes(consumer)
+  }
+
+  private handleAssets(consumer: MiddlewareConsumer): void {
     consumer
       .apply(NextMiddleware)
       .forRoutes({
@@ -39,7 +46,15 @@ export class AppModule implements NestModule {
         path: 'static*',
         method: RequestMethod.GET,
       });
+  }
 
+  private handleApiRoutes(consumer: MiddlewareConsumer): void {
+    // consumer
+    //   .apply(ApiAuthMiddleware)
+    //   .forRoutes('api/user*');
+  }
+
+  private handleRoutes(consumer: MiddlewareConsumer): void {
     consumer
       .apply(RedirectIfAuthenticatedMiddleware)
       .forRoutes({

@@ -11,7 +11,7 @@ import Link from '../../components/Link';
 import HttpClient from '../../lib/http-client';
 import { User } from '../../interfaces';
 
-const http = new HttpClient;
+const http = new HttpClient();
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function Register() {
+const RegisterPage = () => {
   const classes = useStyles({});
 
   const [name, setName] = useState('');
@@ -67,11 +67,12 @@ export default function Register() {
     }
 
     try {
-      const user: User = await http.post('auth/register', data);
-      if (!user) {
+      const user: User = await http.post('api/auth/register', data);
+      if (user) {
+        location.href = '/';
+      } else {
         alert('Failed to register!');
       }
-      location.href = '/';
     } catch (err) {
       alert(`Failed to register! ${err}`);
     }
@@ -145,3 +146,5 @@ export default function Register() {
     </div>
   );
 }
+
+export default RegisterPage;

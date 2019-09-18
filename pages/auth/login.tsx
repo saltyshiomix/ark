@@ -11,7 +11,7 @@ import Link from '../../components/Link';
 import HttpClient from '../../lib/http-client';
 import { User } from '../../interfaces';
 
-const http = new HttpClient;
+const http = new HttpClient();
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function Login() {
+const LoginPage = () => {
   const classes = useStyles({});
 
   const [email, setEmail] = useState('');
@@ -61,12 +61,12 @@ export default function Login() {
     }
 
     try {
-      const user: User = await http.post('auth/login', data);
-      console.log(user);
-      if (!user) {
+      const user: User = await http.post('api/auth/login', data);
+      if (user) {
+        location.href = '/';
+      } else {
         alert('Failed to login!');
       }
-      location.href = '/';
     } catch (err) {
       alert('Failed to login!');
     }
@@ -129,3 +129,5 @@ export default function Login() {
     </div>
   );
 }
+
+export default LoginPage;

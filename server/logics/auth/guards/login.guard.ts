@@ -22,18 +22,18 @@ export class LoginGuard implements CanActivate {
       context.switchToHttp().getNext(),
     ];
 
-    return new Promise((resolve, reject) => {
-      this.authService.passport.authenticate('local-login', (err, user) => {
-        if (err) {
-          reject(false);
+    return new Promise((resolve) => {
+      this.authService.passport.authenticate('local-login', (err: any, user?: any) => {
+        if (err || !user) {
+          return resolve(false);
         }
         req.logIn(user, (err) => {
           if (err) {
-            return reject(false);
+            return resolve(false);
           }
           req.session.save((err) => {
             if (err) {
-              return reject(false);
+              return resolve(false);
             }
             return resolve(true);
           });
