@@ -14,4 +14,4 @@ import { HomeController } from './home.controller';
     HomeController,
   ],
 })
-export class PageModule {}
+export class RouteModule {}

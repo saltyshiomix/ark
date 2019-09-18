@@ -10,7 +10,7 @@ import {
 } from '@nestpress/next';
 import { EntityModule } from './entities/entity.module';
 import { LogicModule } from './logics/logic.module';
-import { PageModule } from './pages/page.module';
+import { RouteModule } from './routes/route.module';
 import {
   RedirectIfAuthenticatedMiddleware,
   RedirectIfNotAuthenticatedMiddleware,
@@ -21,7 +21,7 @@ import {
     NextModule,
     EntityModule,
     LogicModule,
-    PageModule,
+    RouteModule,
   ],
 })
 export class AppModule implements NestModule {
