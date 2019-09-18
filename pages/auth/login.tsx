@@ -62,10 +62,11 @@ export default function Login() {
 
     try {
       const user: User = await http.post('api/auth/login', data);
-      if (!user) {
+      if (user) {
+        location.href = '/';
+      } else {
         alert('Failed to login!');
       }
-      location.href = '/';
     } catch (err) {
       alert('Failed to login!');
     }

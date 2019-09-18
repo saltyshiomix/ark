@@ -68,10 +68,11 @@ export default function Register() {
 
     try {
       const user: User = await http.post('api/auth/register', data);
-      if (!user) {
+      if (user) {
+        location.href = '/';
+      } else {
         alert('Failed to register!');
       }
-      location.href = '/';
     } catch (err) {
       alert(`Failed to register! ${err}`);
     }
