@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function Register() {
+const Register = () => {
   const classes = useStyles({});
 
   const [name, setName] = useState('');
@@ -146,3 +146,5 @@ export default function Register() {
     </div>
   );
 }
+
+export default Register;
