@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function Index() {
+const Index = ({ user }) => {
   const classes = useStyles({});
 
   const handleClick = async (e: React.MouseEvent) => {
@@ -41,7 +41,9 @@ export default function Index() {
       <div className={classes.container}>
         <Card className={classes.card}>
           <CardContent>
-            <Typography variant="body1">You are now logged in :)</Typography>
+            <Typography variant="body1">
+              You are now logged in as {user.name} :)
+            </Typography>
             <br />
             <Button
               type="submit"
@@ -58,3 +60,12 @@ export default function Index() {
     </div>
   );
 }
+
+Index.getInitialProps = async ({ req }) => {
+  const { user } = req;
+  return {
+    user,
+  };
+};
+
+export default Index;
