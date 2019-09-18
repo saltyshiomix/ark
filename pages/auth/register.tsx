@@ -11,7 +11,7 @@ import Link from '../../components/Link';
 import HttpClient from '../../lib/http-client';
 import { User } from '../../interfaces';
 
-const http = new HttpClient;
+const http = new HttpClient();
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -67,7 +67,7 @@ export default function Register() {
     }
 
     try {
-      const user: User = await http.post('auth/register', data);
+      const user: User = await http.post('api/auth/register', data);
       if (!user) {
         alert('Failed to register!');
       }

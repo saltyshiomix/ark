@@ -11,7 +11,7 @@ import Link from '../../components/Link';
 import HttpClient from '../../lib/http-client';
 import { User } from '../../interfaces';
 
-const http = new HttpClient;
+const http = new HttpClient();
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -61,8 +61,7 @@ export default function Login() {
     }
 
     try {
-      const user: User = await http.post('auth/login', data);
-      console.log(user);
+      const user: User = await http.post('api/auth/login', data);
       if (!user) {
         alert('Failed to login!');
       }

@@ -22,18 +22,18 @@ export class RegisterGuard implements CanActivate {
       context.switchToHttp().getNext(),
     ];
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.authService.passport.authenticate('local-register', (err, user) => {
-        if (err) {
-          reject(false);
+        if (err || !user) {
+          return resolve(false);
         }
         req.logIn(user, (err) => {
           if (err) {
-            return reject(false);
+            return resolve(false);
           }
           req.session.save((err) => {
             if (err) {
-              return reject(false);
+              return resolve(false);
             }
             return resolve(true);
           });

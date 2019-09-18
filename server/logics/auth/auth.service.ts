@@ -57,7 +57,7 @@ export class AuthService {
     const verify: VerifyFunction  = async (email: string, password: string, done: (err: any, user?: any) => void) => {
       const user: any = await this.validateUser(email, password);
       if (!user) {
-        return done(new UnauthorizedException, user);
+        return done(new UnauthorizedException, null);
       }
       return done(null, user);
     };
