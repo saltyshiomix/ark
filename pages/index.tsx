@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const Index = ({ user }) => {
+const IndexPage = ({ user }) => {
   const classes = useStyles({});
 
   const handleClick = async (e: React.MouseEvent) => {
@@ -61,11 +61,11 @@ const Index = ({ user }) => {
   );
 }
 
-Index.getInitialProps = async ({ req }) => {
+IndexPage.getInitialProps = async ({ req }) => {
   const { user } = req;
   return {
     user,
   };
 };
 
-export default Index;
+export default IndexPage;

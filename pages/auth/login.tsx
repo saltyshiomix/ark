@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const Login = () => {
+const LoginPage = () => {
   const classes = useStyles({});
 
   const [email, setEmail] = useState('');
@@ -130,4 +130,4 @@ const Login = () => {
   );
 }
 
-export default Login;
+export default LoginPage;

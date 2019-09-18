@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const Register = () => {
+const RegisterPage = () => {
   const classes = useStyles({});
 
   const [name, setName] = useState('');
@@ -147,4 +147,4 @@ const Register = () => {
   );
 }
 
-export default Register;
+export default RegisterPage;
