@@ -5,6 +5,10 @@ import {
 } from '@nestjs/common';
 import { UserModule } from '../user/user.module';
 import { AuthService } from './auth.service';
+import {
+  LocalRegisterStrategy,
+  LocalLoginStrategy,
+} from './strategies';
 
 @Module({
   imports: [
@@ -12,6 +16,8 @@ import { AuthService } from './auth.service';
   ],
   providers: [
     AuthService,
+    LocalRegisterStrategy,
+    LocalLoginStrategy,
   ],
   exports: [
     AuthService,
@@ -29,7 +35,7 @@ export class AuthModule {
     passport.serializeUser((user: any, done: (err: any, id?: any) => void) => done(null, user));
     passport.deserializeUser((id: any, done: (err: any, user?: any) => void) => done(null, id));
 
-    passport.use(this.authService.getLocalRegisterStrategy());
-    passport.use(this.authService.getLocalLoginStrategy());
+    passport.use(new LocalRegisterStrategy(this.authService));
+    passport.use(new LocalLoginStrategy(this.authService));
   }
 }
