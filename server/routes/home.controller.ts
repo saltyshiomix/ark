@@ -12,7 +12,9 @@ import { NextService } from '@nestpress/next';
 
 @Controller()
 export class HomeController {
-  constructor(private readonly nextService: NextService) {}
+  constructor(
+    private readonly nextService: NextService,
+  ) {}
 
   @Get()
   public showHome(@Req() req: Request, @Res() res: Response) {
