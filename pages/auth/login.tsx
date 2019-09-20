@@ -17,7 +17,7 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Link from '../../components/Link';
-import HttpClient from '../../lib/http-client';
+import { HttpClient } from '../../lib';
 import { User } from '../../interfaces';
 
 const http = new HttpClient();
