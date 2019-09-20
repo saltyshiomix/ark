@@ -1,7 +1,7 @@
-import { HttpClient } from './http-client';
+import { Http } from './http';
 import { theme } from './theme';
 
 export {
-  HttpClient,
+  Http,
   theme,
 };
