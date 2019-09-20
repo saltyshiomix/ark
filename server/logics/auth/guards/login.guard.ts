@@ -1,16 +1,12 @@
+import passport from 'passport';
 import {
   Injectable,
   CanActivate,
   ExecutionContext,
 } from '@nestjs/common';
-import { AuthService } from '../auth.service';
 
 @Injectable()
 export class LoginGuard implements CanActivate {
-  constructor(
-    private readonly authService: AuthService,
-  ) {}
-
   public async canActivate(context: ExecutionContext): Promise<boolean> {
     const [
       req,
@@ -23,7 +19,7 @@ export class LoginGuard implements CanActivate {
     ];
 
     return new Promise((resolve) => {
-      this.authService.passport.authenticate('local-login', (err: any, user?: any) => {
+      passport.authenticate('local-login', (err: any, user?: any) => {
         if (err || !user) {
           return resolve(false);
         }
