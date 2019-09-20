@@ -29,7 +29,7 @@ export class AppModule implements NestModule {
   public configure(consumer: MiddlewareConsumer) {
     this.handleAssets(consumer);
     // this.handleApiRoutes(consumer);
-    this.handleRoutes(consumer)
+    this.handleRoutes(consumer);
   }
 
   private handleAssets(consumer: MiddlewareConsumer): void {
