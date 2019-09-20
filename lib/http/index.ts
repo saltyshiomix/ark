@@ -2,7 +2,7 @@ import ky from 'ky-universal';
 
 const prefixUrl: string = `${process.env.HOST}:${process.env.PORT}`;
 
-export default class HttpClient {
+export class Http {
   public async get<T>(url: string): Promise<T> {
     return ky.get(url, { prefixUrl }).json();
   }

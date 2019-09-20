@@ -1,12 +1,18 @@
-import React from 'react';
-import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import HttpClient from '../lib/http-client';
+import { MouseEvent } from 'react';
+import {
+  Theme,
+  makeStyles,
+  createStyles,
+} from '@material-ui/core/styles';
+import {
+  Typography,
+  Button,
+  Card,
+  CardContent,
+} from '@material-ui/core';
+import { Http } from '../lib';
 
-const http = new HttpClient();
+const http = new Http();
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const IndexPage = ({ user }) => {
   const classes = useStyles({});
 
-  const handleClick = async (e: React.MouseEvent) => {
+  const handleClick = async (e: MouseEvent) => {
     e.preventDefault();
     const isLoggedOut: boolean = await http.post('api/auth/logout');
     if (isLoggedOut) {
