@@ -12,9 +12,9 @@ import {
 @Injectable()
 export class ApiAuthMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction) {
-    if (req.user) {
-      next();
+    if (!req.user) {
+      throw new UnauthorizedException();
     }
-    throw new UnauthorizedException();
+    next();
   }
 }
