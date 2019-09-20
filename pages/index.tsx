@@ -3,14 +3,13 @@ import {
   Theme,
   makeStyles,
   createStyles,
-} from '@material-ui/core/styles';
-import {
   Typography,
   Button,
   Card,
   CardContent,
 } from '@material-ui/core';
 import { Http } from '../lib';
+import { Layout } from '../components';
 
 const http = new Http();
 
@@ -42,28 +41,29 @@ const IndexPage = ({ user }) => {
   };
 
   return (
-    <div className={classes.root}>
-      <Typography variant="h2">ARK</Typography>
-      <div className={classes.container}>
-        <Card className={classes.card}>
-          <CardContent>
-            <Typography variant="body1">
-              You are now logged in as {user.name} :)
-            </Typography>
-            <br />
-            <Button
-              type="submit"
-              variant="outlined"
-              color="primary"
-              size="large"
-              onClick={handleClick}
-            >
-              LOGOUT
-            </Button>
-          </CardContent>
-        </Card>
+    <Layout>
+      <div className={classes.root}>
+        <div className={classes.container}>
+          <Card className={classes.card}>
+            <CardContent>
+              <Typography variant="body1">
+                You are now logged in as {user.name} :)
+              </Typography>
+              <br />
+              <Button
+                type="submit"
+                variant="outlined"
+                color="primary"
+                size="large"
+                onClick={handleClick}
+              >
+                LOGOUT
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 }
 
