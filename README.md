@@ -1,6 +1,6 @@
 <p align="center"><img src="https://i.imgur.com/hTXWo3k.png"></p>
 
-<p align="center">An easiest authentication example on top of <a href="https://nestjs.com">nest</a>, <a href="http://typeorm.io">TypeORM</a>, <a href="https://nextjs.org">Next.js (v9)</a> and <a href="https://material-ui.com">Material UI (v4)</a>.</p>
+<p align="center">An easiest authentication system on top of <a href="https://nestjs.com">nest</a>, <a href="http://typeorm.io">TypeORM</a>, <a href="https://nextjs.org">Next.js (v9)</a> and <a href="https://material-ui.com">Material UI (v4)</a>.</p>
 
 <div align="center">
   <a href="https://david-dm.org/saltyshiomix/ark">
@@ -195,7 +195,6 @@ module.exports = {
 - [x] Database: auto synchronization with entities
 - [x] Server: integration between [nest](https://nestjs.com) and [Next.js](https://nextjs.org)
 - [x] UI: integration between [Next.js](https://nextjs.org) and [Material UI](https://material-ui.com)
-- [x] UX: validation
 - [x] API: JSON API routes
 - [x] Auth: [passport-local](https://github.com/jaredhanson/passport-local) (email & password)
 - [ ] Auth: [passport-github2](https://github.com/cfsghost/passport-github) (GitHub login)
