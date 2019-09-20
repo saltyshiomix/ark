@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "ark",
-  "version": "5.2.0",
+  "version": "5.3.0",
   "scripts": {
     "dev": "nodemon server/main.ts",
     "build": "run-s build:clean build:all",
