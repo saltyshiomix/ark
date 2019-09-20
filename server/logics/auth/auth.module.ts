@@ -32,6 +32,4 @@ export class AuthModule {
     passport.use(this.authService.getLocalRegisterStrategy());
     passport.use(this.authService.getLocalLoginStrategy());
   }
-
-  
 }
