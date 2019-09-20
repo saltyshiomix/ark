@@ -16,7 +16,7 @@ import CardContent from '@material-ui/core/CardContent';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
-import Link from '../../components/Link';
+import { Link } from '../../components';
 import { HttpClient } from '../../lib';
 import { User } from '../../interfaces';
 
