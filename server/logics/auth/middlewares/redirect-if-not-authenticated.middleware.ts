@@ -14,6 +14,6 @@ export class RedirectIfNotAuthenticatedMiddleware implements NestMiddleware {
     if (!req.user) {
       return res.redirect('/auth/login');
     }
-    return next();
+    next();
   }
 }
