@@ -1,4 +1,4 @@
-import React from 'react';
+import { MouseEvent } from 'react';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const IndexPage = ({ user }) => {
   const classes = useStyles({});
 
-  const handleClick = async (e: React.MouseEvent) => {
+  const handleClick = async (e: MouseEvent) => {
     e.preventDefault();
     const isLoggedOut: boolean = await http.post('api/auth/logout');
     if (isLoggedOut) {
