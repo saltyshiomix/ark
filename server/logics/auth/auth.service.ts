@@ -1,6 +1,4 @@
 import bcrypt from 'bcrypt';
-import { Request } from 'express';
-import { PassportStatic } from 'passport';
 import {
   Strategy,
   IStrategyOptions,
@@ -12,18 +10,15 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
+import { Request } from 'express';
 import { UserService } from '../user/user.service';
 import { User } from '../../entities/user.entity';
 
 @Injectable()
 export class AuthService {
-  public readonly passport: PassportStatic;
-
   constructor(
     private readonly userService: UserService,
-  ) {
-    this.passport = require('passport');
-  }
+  ) {}
 
   public getLocalRegisterStrategy(): Strategy {
     const options: IStrategyOptionsWithRequest = {
