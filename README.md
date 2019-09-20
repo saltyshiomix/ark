@@ -188,7 +188,7 @@ module.exports = {
 ## Roadmaps
 
 - [x] Support: Mac, Linux and Windows
-- [x] Support: production usages
+- [x] Support: production guides
 - [x] Security: environment variables both server and client
 - [x] Security: production ready session store
 - [x] Security: custom auth guards
@@ -200,8 +200,6 @@ module.exports = {
 - [x] Auth: [passport-local](https://github.com/jaredhanson/passport-local) (email & password)
 - [ ] Auth: [passport-github2](https://github.com/cfsghost/passport-github) (GitHub login)
 - [ ] Auth: [passport-twitter](https://github.com/jaredhanson/passport-twitter) (Twitter login)
-- [x] Feature: authentication
-- [ ] Feature: blogging
 - [ ] Test: unit tests
 - [ ] Test: e2e tests
 
