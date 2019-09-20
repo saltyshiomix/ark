@@ -150,6 +150,7 @@ With production usages, please use [pm2](https://github.com/Unitech/pm2) for Nod
 $ npm install --global pm2
 
 # run the app "ARK" with the config `ecosystem.config.js`
+$ cd ark
 $ pm2 start
 ```
 
@@ -185,39 +186,10 @@ module.exports = {
 
 <p align="center"><img src="https://i.imgur.com/ym0XlJR.png"></p>
 
-## Roadmaps
-
-- [x] Support: Mac, Linux and Windows
-- [x] Support: production guides
-- [x] Security: environment variables both server and client
-- [x] Security: production ready session store
-- [x] Security: custom auth guards
-- [x] Database: auto synchronization with entities
-- [x] Server: integration between [nest](https://nestjs.com) and [Next.js](https://nextjs.org)
-- [x] UI: integration between [Next.js](https://nextjs.org) and [Material UI](https://material-ui.com)
-- [x] API: JSON API routes
-- [x] Auth: [passport-local](https://github.com/jaredhanson/passport-local) (email & password)
-- [ ] Auth: [passport-github2](https://github.com/cfsghost/passport-github) (GitHub login)
-- [ ] Auth: [passport-twitter](https://github.com/jaredhanson/passport-twitter) (Twitter login)
-- [ ] Test: unit tests
-- [ ] Test: e2e tests
-
 ## Articles
 
 - [A road to the easiest user authentication system for Node.js](https://dev.to/saltyshiomix/a-road-to-the-easiest-user-authentication-system-for-nodejs-138f)
 
-## Trouble Shootings
+## Related
 
-### Node.js v10 vs v12
-
-We use Node.js **v12**, so if you use v10, please `rm -f yarn.lock`:
-
-(Because Node.js v10 and v12 are incompatible in terms of no coexistence. APIs are compatible.)
-
-```bash
-# remove incompatible dependencies
-$ rm -rf node_modules yarn.lock
-
-# use your compatible dependencies
-$ yarn
-```
+- [nestpress](https://github.com/saltyshiomix/nestpress) - Better NestJS Utilities and Examples
