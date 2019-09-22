@@ -1,5 +1,6 @@
 import {
   ChangeEvent,
+  FormEvent,
   useState,
 } from 'react';
 import {
@@ -53,13 +54,13 @@ const RegisterPage = () => {
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
   const handlePassword = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const data = {
-      name: e.target.name.value,
-      email: e.target.email.value,
-      password: e.target.password.value,
+      name: e.currentTarget.username.value,
+      email: e.currentTarget.email.value,
+      password: e.currentTarget.password.value,
     }
 
     try {
@@ -87,8 +88,8 @@ const RegisterPage = () => {
           <CardContent>
             <FormControl className={classes.formControl} variant="outlined">
               <TextField
-                id="name"
-                name="name"
+                id="username"
+                name="username"
                 type="text"
                 label="NAME"
                 value={name}

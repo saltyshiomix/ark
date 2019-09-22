@@ -1,5 +1,6 @@
 import {
   ChangeEvent,
+  FormEvent,
   useState,
 } from 'react';
 import {
@@ -51,12 +52,12 @@ const LoginPage = () => {
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
   const handlePassword = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const data = {
-      email: e.target.email.value,
-      password: e.target.password.value,
+      email: e.currentTarget.email.value,
+      password: e.currentTarget.password.value,
     }
 
     try {
