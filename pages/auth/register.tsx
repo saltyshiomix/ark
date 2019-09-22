@@ -44,17 +44,17 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const RegisterPage = () => {
+const Register = () => {
   const classes = useStyles({});
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleName = (e: ChangeEvent<HTMLInputElement>) => setName(e.target.value);
-  const handleEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
-  const handlePassword = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
+  const onChangeName = (e: ChangeEvent<HTMLInputElement>) => setName(e.target.value);
+  const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
+  const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const data = {
@@ -79,7 +79,7 @@ const RegisterPage = () => {
     <div className={classes.root}>
       <Typography variant="h2">ARK</Typography>
       <form
-        onSubmit={handleSubmit}
+        onSubmit={onSubmit}
         className={classes.container}
         autoComplete="off"
         noValidate
@@ -93,7 +93,7 @@ const RegisterPage = () => {
                 type="text"
                 label="NAME"
                 value={name}
-                onChange={handleName}
+                onChange={onChangeName}
                 variant="outlined"
                 margin="normal"
               />
@@ -105,7 +105,7 @@ const RegisterPage = () => {
                 type="text"
                 label="EMAIL"
                 value={email}
-                onChange={handleEmail}
+                onChange={onChangeEmail}
                 variant="outlined"
                 margin="normal"
               />
@@ -118,7 +118,7 @@ const RegisterPage = () => {
                 type="password"
                 label="PASSWORD"
                 value={password}
-                onChange={handlePassword}
+                onChange={onChangePassword}
                 variant="outlined"
                 margin="normal"
               />
@@ -144,6 +144,6 @@ const RegisterPage = () => {
       </form>
     </div>
   );
-}
+};
 
-export default RegisterPage;
+export default Register;

@@ -31,10 +31,10 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const IndexPage = ({ user }) => {
+const Index = ({ user }) => {
   const classes = useStyles({});
 
-  const handleClick = async (e: MouseEvent) => {
+  const onClick = async (e: MouseEvent) => {
     e.preventDefault();
     const isLoggedOut: boolean = await http.post('api/auth/logout');
     if (isLoggedOut) {
@@ -57,7 +57,7 @@ const IndexPage = ({ user }) => {
                 variant="outlined"
                 color="primary"
                 size="large"
-                onClick={handleClick}
+                onClick={onClick}
               >
                 LOGOUT
               </Button>
@@ -67,13 +67,13 @@ const IndexPage = ({ user }) => {
       </div>
     </Layout>
   );
-}
+};
 
-IndexPage.getInitialProps = async ({ req }) => {
+Index.getInitialProps = async ({ req }) => {
   const { user } = req;
   return {
     user,
   };
 };
 
-export default IndexPage;
+export default Index;

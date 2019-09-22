@@ -44,15 +44,15 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const LoginPage = () => {
+const Login = () => {
   const classes = useStyles({});
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
-  const handlePassword = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
+  const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
+  const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const data = {
@@ -76,7 +76,7 @@ const LoginPage = () => {
     <div className={classes.root}>
       <Typography variant="h2">ARK</Typography>
       <form
-        onSubmit={handleSubmit}
+        onSubmit={onSubmit}
         className={classes.container}
         autoComplete="off"
         noValidate
@@ -90,7 +90,7 @@ const LoginPage = () => {
                 type="text"
                 label="EMAIL"
                 value={email}
-                onChange={handleEmail}
+                onChange={onChangeEmail}
                 variant="outlined"
                 margin="normal"
               />
@@ -102,7 +102,7 @@ const LoginPage = () => {
                 type="password"
                 label="PASSWORD"
                 value={password}
-                onChange={handlePassword}
+                onChange={onChangePassword}
                 variant="outlined"
                 margin="normal"
               />
@@ -128,6 +128,6 @@ const LoginPage = () => {
       </form>
     </div>
   );
-}
+};
 
-export default LoginPage;
+export default Login;
