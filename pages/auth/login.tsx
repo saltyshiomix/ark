@@ -1,8 +1,7 @@
 import {
   ChangeEvent,
+  FormEvent,
   useState,
-  useEffect,
-  useRef,
 } from 'react';
 import {
   Theme,
@@ -15,8 +14,7 @@ import {
   Card,
   CardContent,
   FormControl,
-  InputLabel,
-  OutlinedInput,
+  TextField,
 } from '@material-ui/core';
 import { Http } from '../../lib';
 import { Link } from '../../components';
@@ -39,7 +37,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     formControl: {
       minWidth: 320,
-      margin: `${theme.spacing(1)}px 0`,
     },
     submitButton: {
       margin: `${theme.spacing(4)}px 0`,
@@ -47,28 +44,20 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const LoginPage = () => {
+const Login = () => {
   const classes = useStyles({});
-
   const [email, setEmail] = useState('');
-  const [emailLabelWidth, setEmailLabelWidth] = useState(0);
   const [password, setPassword] = useState('');
-  const [passwordLabelWidth, setPasswordLabelWidth] = useState(0);
 
-  const emailLabelRef = useRef({} as HTMLLabelElement);
-  const passwordLabelRef = useRef({} as HTMLLabelElement);
-  useEffect(() => setEmailLabelWidth(emailLabelRef.current.offsetWidth));
-  useEffect(() => setPasswordLabelWidth(passwordLabelRef.current.offsetWidth));
+  const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
+  const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
 
-  const handleEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
-  const handlePassword = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
-
-  const handleSubmit = async (e: any) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const data = {
-      email: e.target.email.value,
-      password: e.target.password.value,
+      email: e.currentTarget.email.value,
+      password: e.currentTarget.password.value,
     }
 
     try {
@@ -87,7 +76,7 @@ const LoginPage = () => {
     <div className={classes.root}>
       <Typography variant="h2">ARK</Typography>
       <form
-        onSubmit={handleSubmit}
+        onSubmit={onSubmit}
         className={classes.container}
         autoComplete="off"
         noValidate
@@ -95,29 +84,29 @@ const LoginPage = () => {
         <Card className={classes.card}>
           <CardContent>
             <FormControl className={classes.formControl} variant="outlined">
-              <InputLabel htmlFor="email" ref={emailLabelRef}>EMAIL</InputLabel>
-              <OutlinedInput
+              <TextField
                 id="email"
                 name="email"
-                type="email"
+                type="text"
+                label="EMAIL"
                 value={email}
-                onChange={handleEmail}
-                labelWidth={emailLabelWidth}
+                onChange={onChangeEmail}
+                variant="outlined"
+                margin="normal"
               />
             </FormControl>
-            <br />
             <FormControl className={classes.formControl} variant="outlined">
-              <InputLabel htmlFor="password" ref={passwordLabelRef}>PASSWORD</InputLabel>
-              <OutlinedInput
+              <TextField
                 id="password"
                 name="password"
                 type="password"
+                label="PASSWORD"
                 value={password}
-                onChange={handlePassword}
-                labelWidth={passwordLabelWidth}
+                onChange={onChangePassword}
+                variant="outlined"
+                margin="normal"
               />
             </FormControl>
-            <br />
             <Button
               className={classes.submitButton}
               type="submit"
@@ -139,6 +128,6 @@ const LoginPage = () => {
       </form>
     </div>
   );
-}
+};
 
-export default LoginPage;
+export default Login;

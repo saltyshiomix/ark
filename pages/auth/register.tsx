@@ -1,8 +1,7 @@
 import {
   ChangeEvent,
+  FormEvent,
   useState,
-  useEffect,
-  useRef,
 } from 'react';
 import {
   Theme,
@@ -15,8 +14,7 @@ import {
   Card,
   CardContent,
   FormControl,
-  InputLabel,
-  OutlinedInput,
+  TextField,
 } from '@material-ui/core';
 import { Http } from '../../lib';
 import { Link } from '../../components';
@@ -39,7 +37,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     formControl: {
       minWidth: 320,
-      margin: `${theme.spacing(1)}px 0`,
     },
     submitButton: {
       margin: `${theme.spacing(4)}px 0`,
@@ -47,34 +44,23 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const RegisterPage = () => {
+const Register = () => {
   const classes = useStyles({});
-
   const [name, setName] = useState('');
-  const [nameLabelWidth, setNameLabelWidth] = useState(0);
   const [email, setEmail] = useState('');
-  const [emailLabelWidth, setEmailLabelWidth] = useState(0);
   const [password, setPassword] = useState('');
-  const [passwordLabelWidth, setPasswordLabelWidth] = useState(0);
 
-  const nameLabelRef = useRef({} as HTMLLabelElement);
-  const emailLabelRef = useRef({} as HTMLLabelElement);
-  const passwordLabelRef = useRef({} as HTMLLabelElement);
-  useEffect(() => setNameLabelWidth(nameLabelRef.current.offsetWidth));
-  useEffect(() => setEmailLabelWidth(emailLabelRef.current.offsetWidth));
-  useEffect(() => setPasswordLabelWidth(passwordLabelRef.current.offsetWidth));
+  const onChangeName = (e: ChangeEvent<HTMLInputElement>) => setName(e.target.value);
+  const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
+  const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
 
-  const handleName = (e: ChangeEvent<HTMLInputElement>) => setName(e.target.value);
-  const handleEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
-  const handlePassword = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
-
-  const handleSubmit = async (e: any) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const data = {
-      name: e.target.name.value,
-      email: e.target.email.value,
-      password: e.target.password.value,
+      name: e.currentTarget.username.value,
+      email: e.currentTarget.email.value,
+      password: e.currentTarget.password.value,
     }
 
     try {
@@ -93,7 +79,7 @@ const RegisterPage = () => {
     <div className={classes.root}>
       <Typography variant="h2">ARK</Typography>
       <form
-        onSubmit={handleSubmit}
+        onSubmit={onSubmit}
         className={classes.container}
         autoComplete="off"
         noValidate
@@ -101,40 +87,42 @@ const RegisterPage = () => {
         <Card className={classes.card}>
           <CardContent>
             <FormControl className={classes.formControl} variant="outlined">
-              <InputLabel htmlFor="name" ref={nameLabelRef}>NAME</InputLabel>
-              <OutlinedInput
-                id="name"
-                name="name"
-                type="name"
+              <TextField
+                id="username"
+                name="username"
+                type="text"
+                label="NAME"
                 value={name}
-                onChange={handleName}
-                labelWidth={nameLabelWidth}
+                onChange={onChangeName}
+                variant="outlined"
+                margin="normal"
               />
             </FormControl>
             <FormControl className={classes.formControl} variant="outlined">
-              <InputLabel htmlFor="email" ref={emailLabelRef}>EMAIL</InputLabel>
-              <OutlinedInput
+              <TextField
                 id="email"
                 name="email"
-                type="email"
+                type="text"
+                label="EMAIL"
                 value={email}
-                onChange={handleEmail}
-                labelWidth={emailLabelWidth}
+                onChange={onChangeEmail}
+                variant="outlined"
+                margin="normal"
               />
             </FormControl>
             <br />
             <FormControl className={classes.formControl} variant="outlined">
-              <InputLabel htmlFor="password" ref={passwordLabelRef}>PASSWORD</InputLabel>
-              <OutlinedInput
+              <TextField
                 id="password"
                 name="password"
                 type="password"
+                label="PASSWORD"
                 value={password}
-                onChange={handlePassword}
-                labelWidth={passwordLabelWidth}
+                onChange={onChangePassword}
+                variant="outlined"
+                margin="normal"
               />
             </FormControl>
-            <br />
             <Button
               className={classes.submitButton}
               type="submit"
@@ -156,6 +144,6 @@ const RegisterPage = () => {
       </form>
     </div>
   );
-}
+};
 
-export default RegisterPage;
+export default Register;
