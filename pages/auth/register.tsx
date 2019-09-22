@@ -1,8 +1,6 @@
 import {
   ChangeEvent,
   useState,
-  useEffect,
-  useRef,
 } from 'react';
 import {
   Theme,
@@ -15,8 +13,7 @@ import {
   Card,
   CardContent,
   FormControl,
-  InputLabel,
-  OutlinedInput,
+  TextField,
 } from '@material-ui/core';
 import { Http } from '../../lib';
 import { Link } from '../../components';
@@ -49,20 +46,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const RegisterPage = () => {
   const classes = useStyles({});
-
   const [name, setName] = useState('');
-  const [nameLabelWidth, setNameLabelWidth] = useState(0);
   const [email, setEmail] = useState('');
-  const [emailLabelWidth, setEmailLabelWidth] = useState(0);
   const [password, setPassword] = useState('');
-  const [passwordLabelWidth, setPasswordLabelWidth] = useState(0);
-
-  const nameLabelRef = useRef({} as HTMLLabelElement);
-  const emailLabelRef = useRef({} as HTMLLabelElement);
-  const passwordLabelRef = useRef({} as HTMLLabelElement);
-  useEffect(() => setNameLabelWidth(nameLabelRef.current.offsetWidth));
-  useEffect(() => setEmailLabelWidth(emailLabelRef.current.offsetWidth));
-  useEffect(() => setPasswordLabelWidth(passwordLabelRef.current.offsetWidth));
 
   const handleName = (e: ChangeEvent<HTMLInputElement>) => setName(e.target.value);
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
@@ -101,40 +87,42 @@ const RegisterPage = () => {
         <Card className={classes.card}>
           <CardContent>
             <FormControl className={classes.formControl} variant="outlined">
-              <InputLabel htmlFor="name" ref={nameLabelRef}>NAME</InputLabel>
-              <OutlinedInput
+              <TextField
                 id="name"
                 name="name"
-                type="name"
+                type="text"
+                label="NAME"
                 value={name}
                 onChange={handleName}
-                labelWidth={nameLabelWidth}
+                variant="outlined"
+                margin="normal"
               />
             </FormControl>
             <FormControl className={classes.formControl} variant="outlined">
-              <InputLabel htmlFor="email" ref={emailLabelRef}>EMAIL</InputLabel>
-              <OutlinedInput
+              <TextField
                 id="email"
                 name="email"
-                type="email"
+                type="text"
+                label="EMAIL"
                 value={email}
                 onChange={handleEmail}
-                labelWidth={emailLabelWidth}
+                variant="outlined"
+                margin="normal"
               />
             </FormControl>
             <br />
             <FormControl className={classes.formControl} variant="outlined">
-              <InputLabel htmlFor="password" ref={passwordLabelRef}>PASSWORD</InputLabel>
-              <OutlinedInput
+              <TextField
                 id="password"
                 name="password"
                 type="password"
+                label="PASSWORD"
                 value={password}
                 onChange={handlePassword}
-                labelWidth={passwordLabelWidth}
+                variant="outlined"
+                margin="normal"
               />
             </FormControl>
-            <br />
             <Button
               className={classes.submitButton}
               type="submit"
