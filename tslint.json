@@ -1,0 +1,10 @@
+{
+  "extends": ["tslint-microsoft-contrib/recommended"],
+  "rulesDirectory": ["node_modules/tslint-microsoft-contrib"],
+  "rules": {
+    "export-name": false,
+    "max-func-body-length": [true, 120, { "ignore-parameters-to-function-regex": "^describe$" }],
+    "no-backbone-get-set-outside-model": false,
+    "no-relative-imports": false
+  }
+}
