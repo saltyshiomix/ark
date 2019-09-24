@@ -18,8 +18,8 @@ async function bootstrap() {
   // prepare Next.js
   app.get(NextModule).prepare().then(() => {
     // start a server
-    app.listen(process.env.PORT, '0.0.0.0', () => {
-      console.log(`[ ARK ] Ready on ${process.env.HOST}:${process.env.PORT}`);
+    app.listen(process.env.APP_PORT, '0.0.0.0', () => {
+      console.log(`[ ARK ] Ready on ${process.env.APP_HOST}:${process.env.APP_PORT}`);
     });
   });
 }

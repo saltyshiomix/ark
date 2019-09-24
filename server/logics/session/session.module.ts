@@ -20,7 +20,7 @@ export class SessionModule extends PostgresExpressSessionModule {
 
   public initialize(app: INestApplication) {
     super.initialize(app, {
-      secret: this.env.get('SESSION_SECRET'),
+      secret: this.env.get('APP_SESSION_SECRET'),
       username: this.env.get('DB_USERNAME'),
       password: this.env.get('DB_PASSWORD'),
       database: this.env.get('DB_DATABASE'),
