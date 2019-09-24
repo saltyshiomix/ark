@@ -12,7 +12,6 @@ import { EntityModule } from './entities/entity.module';
 import { LogicModule } from './logics/logic.module';
 import { RouteModule } from './routes/route.module';
 import {
-  // ApiAuthMiddleware,
   RedirectIfAuthenticatedMiddleware,
   RedirectIfNotAuthenticatedMiddleware,
 } from './logics/auth/middlewares';
@@ -28,7 +27,6 @@ import {
 export class AppModule implements NestModule {
   public configure(consumer: MiddlewareConsumer) {
     this.handleAssets(consumer);
-    // this.handleApiRoutes(consumer);
     this.handleRoutes(consumer);
   }
 
@@ -47,12 +45,6 @@ export class AppModule implements NestModule {
         method: RequestMethod.GET,
       });
   }
-
-  // private handleApiRoutes(consumer: MiddlewareConsumer): void {
-  //   consumer
-  //     .apply(ApiAuthMiddleware)
-  //     .forRoutes('api/user*');
-  // }
 
   private handleRoutes(consumer: MiddlewareConsumer): void {
     consumer
