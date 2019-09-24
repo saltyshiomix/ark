@@ -3,10 +3,11 @@
   "name": "ark",
   "version": "6.3.0",
   "scripts": {
-    "dev": "nodemon server/main.ts",
+    "test": "run-p lint",
     "lint": "tslint --project tsconfig.json",
+    "dev": "nodemon server/main.ts",
     "prebuild": "rimraf .next",
-    "build": "run-p build:server build:client",
+    "build": "run-p lint build:server build:client",
     "build:server": "tsc --project tsconfig.server.json",
     "build:client": "next build",
     "start": "cross-env NODE_ENV=production node .next/production-server/main.js"
