@@ -1,8 +1,13 @@
 import React from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/styles';
+import { InitializeFonts } from '../components';
 
 class MyDocument extends Document {
+  componentDidMount() {
+    InitializeFonts();
+  }
+
   render() {
     return (
       <html lang="en" dir="ltr">
@@ -16,7 +21,6 @@ class MyDocument extends Document {
           <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png" />
           <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png" />
           <link rel="apple-touch-icon" href="/static/icon.png" />
-          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" />
         </Head>
         <body>
           <Main />
