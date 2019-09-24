@@ -1,3 +1,5 @@
+// tslint:disable:react-a11y-anchors
+
 import React from 'react';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
@@ -32,7 +34,7 @@ interface LinkPropsBase {
 
 type LinkProps = LinkPropsBase & NextComposedProps & Omit<MuiLinkProps, 'ref'>;
 
-function LinkComponent(props: LinkProps) {
+const LinkComponent = (props: LinkProps) => {
   const {
     activeClassName = 'active',
     className: classNameProps,
