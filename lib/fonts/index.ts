@@ -2,7 +2,7 @@ const FontFaceObserver = require('fontfaceobserver');
 
 require('typeface-roboto');
 
-export const InitializeFonts = () => {
+export const initializeFonts = () => {
   const roboto = new FontFaceObserver('Roboto');
 
   // non-blocking loading fonts
