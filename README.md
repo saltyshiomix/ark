@@ -127,7 +127,6 @@ $ yarn start
 The `.env` file is like this:
 
 ```
-# DB
 DB_HOST=localhost
 DB_PORT=5432
 DB_USERNAME=arkuser
@@ -135,10 +134,10 @@ DB_PASSWORD=arkark
 DB_DATABASE=arkdb
 DB_SYNCHRONIZE=true
 
-# App
-HOST=http://localhost
-PORT=4000
-SESSION_SECRET=ark
+APP_PROTOCOL=http
+APP_HOST=localhost
+APP_PORT=4000
+APP_SESSION_SECRET=ark
 ```
 
 ## Production Deployment
