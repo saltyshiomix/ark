@@ -1,7 +1,2 @@
-import { Layout } from './Layout';
-import { Link } from './Link';
-
-export {
-  Layout,
-  Link,
-};
+export * from './Layout';
+export * from './Link';

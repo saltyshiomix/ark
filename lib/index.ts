@@ -1,7 +1,3 @@
-import { Http } from './http';
-import { theme } from './theme';
-
-export {
-  Http,
-  theme,
-};
+export * from './fonts';
+export * from './http';
+export * from './theme';
