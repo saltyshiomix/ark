@@ -1,6 +1,6 @@
 import ky from 'ky-universal';
 
-const prefixUrl: string = `${process.env.HOST}:${process.env.PORT}`;
+const prefixUrl: string = `${process.env.APP_PROTOCOL}://${process.env.APP_HOST}:${process.env.APP_PORT}`;
 
 export class Http {
   public async get<T>(url: string): Promise<T> {
