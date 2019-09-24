@@ -46,6 +46,8 @@
   - [React](https://reactjs.org) - A JavaScript library for building user interfaces
   - [Next.js](https://nextjs.org) - The React Framework
   - [Material UI](https://material-ui.com) - React components that implement Google's Material Design.
+- Testing
+  - Linting: [tslint](https://github.com/palantir/tslint) and [tslint-microsoft-contrib](https://github.com/microsoft/tslint-microsoft-contrib)
 
 ## Setup
 
