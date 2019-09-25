@@ -22,7 +22,7 @@ const ElevationScroll = (props: ElevateAppBarProps) => {
   return cloneElement(children, {
     elevation: trigger ? 4 : 0,
   });
-}
+};
 
 export const ElevateAppBar = () => {
   return (

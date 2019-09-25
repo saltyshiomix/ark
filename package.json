@@ -1,11 +1,13 @@
 {
   "private": true,
   "name": "ark",
-  "version": "6.3.0",
+  "version": "6.4.0",
   "scripts": {
+    "test": "run-p lint",
+    "lint": "tslint --project tsconfig.json",
     "dev": "nodemon server/main.ts",
     "prebuild": "rimraf .next",
-    "build": "run-p build:server build:client",
+    "build": "run-p lint build:server build:client",
     "build:server": "tsc --project tsconfig.server.json",
     "build:client": "next build",
     "start": "cross-env NODE_ENV=production node .next/production-server/main.js"
@@ -52,7 +54,10 @@
     "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.0",
     "ts-node": "^8.4.1",
+    "tslint": "^5.20.0",
+    "tslint-microsoft-contrib": "^6.2.0",
     "typescript": "^3.6.3",
+    "typescript-tslint-plugin": "^0.5.4",
     "url-loader": "^2.1.0",
     "webpack": "^4.40.2"
   }
