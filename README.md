@@ -187,6 +187,10 @@ module.exports = {
 
 <p align="center"><img src="https://i.imgur.com/ym0XlJR.png"></p>
 
+## Editor Support of `typescript-tslint-plugin`
+
+See the full informetion [here](https://github.com/microsoft/typescript-tslint-plugin#editor-support).
+
 ## Articles
 
 - [A road to the easiest user authentication system for Node.js](https://dev.to/saltyshiomix/a-road-to-the-easiest-user-authentication-system-for-nodejs-138f)
