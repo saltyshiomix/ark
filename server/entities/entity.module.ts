@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TypeOrmService } from './typeorm.service';
+import { TypeOrmService } from '../logics/database/typeorm.service';
 import { EnvModule } from '../logics/env/env.module';
 
 @Module({
