@@ -8,7 +8,6 @@ import {
   NextModule,
   NextMiddleware,
 } from '@nestpress/next';
-import { EntityModule } from './entities/entity.module';
 import { LogicModule } from './logics/logic.module';
 import { RouteModule } from './routes/route.module';
 import {
@@ -19,7 +18,6 @@ import {
 @Module({
   imports: [
     NextModule,
-    EntityModule,
     LogicModule,
     RouteModule,
   ],
