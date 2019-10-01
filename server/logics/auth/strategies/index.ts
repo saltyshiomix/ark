@@ -1,7 +1,2 @@
-import { LocalRegisterStrategy } from './local-register.strategy';
-import { LocalLoginStrategy } from './local-login.strategy';
-
-export {
-  LocalRegisterStrategy,
-  LocalLoginStrategy,
-};
+export * from './local-register.strategy';
+export * from './local-login.strategy';

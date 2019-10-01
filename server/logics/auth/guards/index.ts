@@ -1,7 +1,2 @@
-import { RegisterGuard } from './register.guard';
-import { LoginGuard } from './login.guard';
-
-export {
-  RegisterGuard,
-  LoginGuard,
-};
+export * from './register.guard';
+export * from './login.guard';
