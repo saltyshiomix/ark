@@ -43,7 +43,7 @@
     "@types/bcrypt": "^3.0.0",
     "@types/dotenv": "^6.1.1",
     "@types/next": "^8.0.6",
-    "@types/node": "^12.7.8",
+    "@types/node": "^12.7.11",
     "@types/passport-local": "^1.0.33",
     "@types/react": "^16.9.5",
     "@types/react-dom": "^16.9.1",
