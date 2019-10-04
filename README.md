@@ -1,6 +1,6 @@
 <p align="center"><img src="https://i.imgur.com/hTXWo3k.png"></p>
 
-<p align="center">An easiest authentication system on top of <a href="https://nestjs.com">nest</a>, <a href="http://typeorm.io">TypeORM</a>, <a href="https://nextjs.org">Next.js (v9)</a> and <a href="https://material-ui.com">Material UI (v4)</a>.</p>
+<p align="center">An easiest authentication system on top of <a href="https://nestjs.com">NestJS</a>, <a href="http://typeorm.io">TypeORM</a>, <a href="https://nextjs.org">NEXT.js (v9)</a> and <a href="https://material-ui.com">Material UI (v4)</a>.</p>
 
 <div align="center">
   <a href="https://david-dm.org/saltyshiomix/ark">
@@ -16,17 +16,17 @@
 
 - Cross platform - Mac, Linux and Windows
 - Database synchronization with entities - powered by [TypeORM](http://typeorm.io)
-- Server Side Rendering - powered by [Next.js](https://nextjs.org)
-- API server - powered by [nest](https://nestjs.com)
-- User authentication - powered by [Passport](http://www.passportjs.org)
+- Server Side Rendering - powered by [NEXT.js](https://nextjs.org)
+- API server - powered by [NestJS](https://nestjs.com)
+- Authentication - powered by [Passport](http://www.passportjs.org)
 - [Material UI](https://material-ui.com) design
-- Environment variables using [dotenv](https://github.com/motdotla/dotenv)
+- Environment variables - powered by [dotenv](https://github.com/motdotla/dotenv)
 
 ## Technologies
 
 - Hot reloading for the developer experience :)
   - [nodemon](https://nodemon.io) - Monitor for any changes in your node.js application and automatically restart the server
-  - [Next.js](https://nextjs.org) - The React Framework
+  - [NEXT.js](https://nextjs.org) - The React Framework
 - Lang
   - [TypeScript](https://www.typescriptlang.org) - Javascript that scales
 - Database
@@ -34,9 +34,9 @@
 - ORM (Object-relational mapping)
   - [TypeORM](http://typeorm.io) - ORM for TypeScript and JavaScript (ES7, ES6, ES5)
 - Server
-  - [nest](https://nestjs.com) - A progressive Node.js framework for building efficient, reliable and scalable server-side applications
+  - [NestJS](https://nestjs.com) - A progressive Node.js framework for building efficient, reliable and scalable server-side applications
       - internally using [Express](https://expressjs.com) - Fast, unopinionated, minimalist web framework for Node.js
-  - [Next.js](https://nextjs.org) - The React Framework
+  - [NEXT.js](https://nextjs.org) - The React Framework
 - Environment variables
   - [dotenv](https://github.com/motdotla/dotenv) - Loads environment variables from .env for nodejs projects
   - [dotenv-webpack](https://github.com/mrsteele/dotenv-webpack) - A secure webpack plugin that supports dotenv and other environment variables and only exposes what you choose and use.
@@ -44,7 +44,7 @@
   - [Passport](http://www.passportjs.org) - Simple, unobtrusive authentication for Node.js
 - UI framework
   - [React](https://reactjs.org) - A JavaScript library for building user interfaces
-  - [Next.js](https://nextjs.org) - The React Framework
+  - [NEXT.js](https://nextjs.org) - The React Framework
   - [Material UI](https://material-ui.com) - React components that implement Google's Material Design.
 - Testing
   - Linting: [tslint](https://github.com/palantir/tslint) and [tslint-microsoft-contrib](https://github.com/microsoft/tslint-microsoft-contrib)
