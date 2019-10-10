@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "ark",
-  "version": "6.6.0",
+  "version": "6.7.0",
   "scripts": {
     "test": "run-p lint",
     "lint": "tslint --project tsconfig.json",
@@ -56,7 +56,7 @@
     "ts-node": "^8.4.1",
     "tslint": "^5.20.0",
     "tslint-microsoft-contrib": "^6.2.0",
-    "typescript": "^3.6.3",
+    "typescript": "^3.6.4",
     "typescript-tslint-plugin": "^0.5.4",
     "url-loader": "^2.2.0",
     "webpack": "^4.41.0"

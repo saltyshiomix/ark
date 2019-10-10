@@ -24,24 +24,8 @@ import {
 })
 export class AppModule implements NestModule {
   public configure(consumer: MiddlewareConsumer) {
-    this.handleAssets(consumer);
     this.handleRoutes(consumer);
-  }
-
-  private handleAssets(consumer: MiddlewareConsumer): void {
-    consumer
-      .apply(NextMiddleware)
-      .forRoutes({
-        path: '_next*',
-        method: RequestMethod.GET,
-      });
-
-    consumer
-      .apply(NextMiddleware)
-      .forRoutes({
-        path: 'static*',
-        method: RequestMethod.GET,
-      });
+    this.handleAssets(consumer);
   }
 
   private handleRoutes(consumer: MiddlewareConsumer): void {
@@ -63,6 +47,22 @@ export class AppModule implements NestModule {
       .apply(RedirectIfNotAuthenticatedMiddleware)
       .forRoutes({
         path: '',
+        method: RequestMethod.GET,
+      });
+  }
+
+  private handleAssets(consumer: MiddlewareConsumer): void {
+    consumer
+      .apply(NextMiddleware)
+      .forRoutes({
+        path: '_next*',
+        method: RequestMethod.GET,
+      });
+
+    consumer
+      .apply(NextMiddleware)
+      .forRoutes({
+        path: '*',
         method: RequestMethod.GET,
       });
   }
