@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "ark",
-  "version": "6.7.0",
+  "version": "6.7.1",
   "scripts": {
     "test": "run-p lint",
     "lint": "tslint --project tsconfig.json",
@@ -13,10 +13,10 @@
     "start": "cross-env NODE_ENV=production node .next/production-server/main.js"
   },
   "dependencies": {
-    "@material-ui/core": "^4.5.0",
-    "@nestjs/common": "^6.8.2",
-    "@nestjs/core": "^6.8.2",
-    "@nestjs/platform-express": "^6.8.2",
+    "@material-ui/core": "^4.5.1",
+    "@nestjs/common": "^6.8.3",
+    "@nestjs/core": "^6.8.3",
+    "@nestjs/platform-express": "^6.8.3",
     "@nestjs/typeorm": "^6.2.0",
     "@nestpress/next": "^1.2.0",
     "@nestpress/postgres-express-session": "^1.1.0",
@@ -59,6 +59,6 @@
     "typescript": "^3.6.4",
     "typescript-tslint-plugin": "^0.5.4",
     "url-loader": "^2.2.0",
-    "webpack": "^4.41.0"
+    "webpack": "^4.41.1"
   }
 }
