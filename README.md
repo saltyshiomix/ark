@@ -3,12 +3,6 @@
 <p align="center">An easiest authentication system on top of <a href="https://nestjs.com">NestJS</a>, <a href="http://typeorm.io">TypeORM</a>, <a href="https://nextjs.org">NEXT.js (v9)</a> and <a href="https://material-ui.com">Material UI (v4)</a>.</p>
 
 <div align="center">
-  <a href="https://david-dm.org/saltyshiomix/ark">
-    <img src="https://david-dm.org/saltyshiomix/ark.svg" alt="Dependency Status" />
-  </a>
-  <a href="https://david-dm.org/saltyshiomix/ark?type=dev"> 
-    <img src="https://david-dm.org/saltyshiomix/ark/dev-status.svg" alt="devDependency Status" />
-  </a>
   <img src="https://img.shields.io/github/license/saltyshiomix/ark.svg" alt="Package License (MIT)">
 </div>
 
