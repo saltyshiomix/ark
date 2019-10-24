@@ -23,7 +23,7 @@
     "@zeit/next-css": "^1.0.1",
     "bcrypt": "^3.0.6",
     "class-transformer": "^0.2.3",
-    "class-validator": "^0.10.1",
+    "class-validator": "^0.10.2",
     "dotenv": "^8.1.0",
     "fontfaceobserver": "^2.1.0",
     "ky": "^0.15.0",
