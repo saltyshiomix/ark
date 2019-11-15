@@ -14,9 +14,9 @@
   },
   "dependencies": {
     "@material-ui/core": "^4.6.1",
-    "@nestjs/common": "^6.9.0",
-    "@nestjs/core": "^6.9.0",
-    "@nestjs/platform-express": "^6.9.0",
+    "@nestjs/common": "^6.10.1",
+    "@nestjs/core": "^6.10.1",
+    "@nestjs/platform-express": "^6.10.1",
     "@nestjs/typeorm": "^6.2.0",
     "@nestpress/next": "^1.2.3",
     "@nestpress/postgres-express-session": "^1.1.0",
