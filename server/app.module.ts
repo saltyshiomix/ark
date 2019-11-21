@@ -58,12 +58,5 @@ export class AppModule implements NestModule {
         path: '_next*',
         method: RequestMethod.GET,
       });
-
-    consumer
-      .apply(NextMiddleware)
-      .forRoutes({
-        path: '*',
-        method: RequestMethod.GET,
-      });
   }
 }
