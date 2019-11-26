@@ -13,11 +13,11 @@ import { NextService } from '../logics/next/next.service';
 @Controller()
 export class HomeController {
   constructor(
-    private readonly nextService: NextService,
+    private readonly next: NextService,
   ) {}
 
   @Get()
   public showHome(@Req() req: Request, @Res() res: Response) {
-    return this.nextService.render('/index', req, res);
+    return this.next.render('/index', req, res);
   }
 }
