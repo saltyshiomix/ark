@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "ark",
-  "version": "6.10.0",
+  "version": "6.11.0",
   "scripts": {
     "test": "run-p lint",
     "lint": "tslint --project tsconfig.json",
