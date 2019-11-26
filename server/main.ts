@@ -1,14 +1,14 @@
-import { config } from 'dotenv';
+import dotenv from 'dotenv';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { NextModule } from '@nestpress/next';
 import { AppModule } from './app.module';
 import { LogicModule } from './logics/logic.module';
 
-async function bootstrap() {
-  // enable environment variables
-  config();
+// enable environment variables
+dotenv.config();
 
+(async () => {
   // create nest server
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
@@ -22,6 +22,4 @@ async function bootstrap() {
       console.log(`[ ARK ] Ready on ${process.env.APP_PROTOCOL}://${process.env.APP_HOST}:${process.env.APP_PORT}`);
     });
   });
-}
-
-bootstrap();
+})();
