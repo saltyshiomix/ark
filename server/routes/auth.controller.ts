@@ -4,21 +4,21 @@ import {
   Req,
   Res,
 } from '@nestjs/common';
-import { NextService } from '@nestpress/next';
+import { NextService } from '../logics/next/next.service';
 
 @Controller('auth')
 export class AuthController {
   constructor(
-    private readonly nextService: NextService,
+    private readonly next: NextService,
   ) {}
 
   @Get('register')
   public showRegister(@Req() req, @Res() res) {
-    return this.nextService.render('/auth/register', req, res);
+    return this.next.render('/auth/register', req, res);
   }
 
   @Get('login')
   public showLogin(@Req() req, @Res() res) {
-    return this.nextService.render('/auth/login', req, res);
+    return this.next.render('/auth/login', req, res);
   }
 }
