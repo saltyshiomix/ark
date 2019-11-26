@@ -4,7 +4,7 @@ import {
   Req,
   Res,
 } from '@nestjs/common';
-import { NextService } from '@nestpress/next';
+import { NextService } from '../logics/next/next.service';
 
 @Controller('auth')
 export class AuthController {

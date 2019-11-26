@@ -8,7 +8,7 @@ import {
   Request,
   Response,
 } from 'express';
-import { NextService } from '@nestpress/next';
+import { NextService } from '../logics/next/next.service';
 
 @Controller()
 export class HomeController {

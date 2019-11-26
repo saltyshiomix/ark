@@ -1,9 +1,9 @@
 import dotenv from 'dotenv';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import { NextModule } from '@nestpress/next';
 import { AppModule } from './app.module';
 import { LogicModule } from './logics/logic.module';
+import { NextModule } from './logics/next/next.module';
 
 // enable environment variables
 dotenv.config();
@@ -15,7 +15,7 @@ dotenv.config();
   // initialize logics
   app.get(LogicModule).initialize(app);
 
-  // prepare Next.js
+  // prepare NEXT.js
   app.get(NextModule).prepare().then(() => {
     // start a server
     app.listen(process.env.APP_PORT, process.env.APP_HOST, () => {

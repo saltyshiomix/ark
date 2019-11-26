@@ -4,10 +4,8 @@ import {
   MiddlewareConsumer,
   RequestMethod,
 } from '@nestjs/common';
-import {
-  NextModule,
-  NextMiddleware,
-} from '@nestpress/next';
+import { NextModule } from './logics/next/next.module';
+import { NextMiddleware } from './logics/next/next.middleware';
 import { LogicModule } from './logics/logic.module';
 import { RouteModule } from './routes/route.module';
 import {
