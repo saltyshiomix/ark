@@ -10,6 +10,8 @@ dotenv.config();
 (async () => {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
+  app.useStaticAssets('public');
+
   app.get(LogicModule).initialize(app);
 
   app.get(NextModule).prepare().then(() => {
