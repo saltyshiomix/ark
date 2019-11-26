@@ -58,7 +58,7 @@ $ brew install postgresql
 # if you want to start postgresql in startup, try do this
 $ brew services start postgresql
 
-# [MUST] create user "arkuser" with password "arkark"
+# [MUST] create user "arkuser" with password "arkpass"
 $ createuser -P arkuser
 
 # [MUST] create database "arkdb" owened by "arkuser"
@@ -95,7 +95,7 @@ Because Ark uses [node.bcrypt.js](https://github.com/kelektiv/node.bcrypt.js), w
     - `General` Panel:
         - `Name`: `arkuser`
     - `Definition` Panel:
-        - `Password`: `arkark`
+        - `Password`: `arkpass`
     - `Priviledges` Panel:
         - Check all `Yes`
 - Right click `Databases` and `Create > Database`
@@ -126,7 +126,7 @@ The `.env` file is like this:
 DB_HOST=localhost
 DB_PORT=5432
 DB_USERNAME=arkuser
-DB_PASSWORD=arkark
+DB_PASSWORD=arkpass
 DB_DATABASE=arkdb
 DB_SYNCHRONIZE=true
 
