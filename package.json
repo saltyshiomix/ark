@@ -26,7 +26,7 @@
     "express": "^4.17.1",
     "express-session": "^1.17.0",
     "fontfaceobserver": "^2.1.0",
-    "ky": "^0.16.0",
+    "ky": "^0.16.1",
     "ky-universal": "^0.3.0",
     "next": "^9.1.4",
     "passport": "^0.4.0",
