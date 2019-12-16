@@ -37,7 +37,7 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.5.3",
     "typeface-roboto": "^0.0.75",
-    "typeorm": "^0.2.20"
+    "typeorm": "^0.2.21"
   },
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",
