@@ -28,7 +28,7 @@
     "fontfaceobserver": "^2.1.0",
     "ky": "^0.16.1",
     "ky-universal": "^0.3.0",
-    "next": "^9.1.4",
+    "next": "^9.1.5",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "pg": "^7.14.0",
