@@ -191,4 +191,5 @@ See the full informetion [here](https://github.com/microsoft/typescript-tslint-p
 
 ## Related
 
+- [YARK](https://github.com/saltyshiomix/yark) - Yet another easiest authentication system on top of NestJS, TypeORM, react-ssr and Material UI(v4)
 - [nestpress](https://github.com/saltyshiomix/nestpress) - Better NestJS Utilities and Examples
