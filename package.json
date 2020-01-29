@@ -14,9 +14,9 @@
   },
   "dependencies": {
     "@material-ui/core": "^4.9.0",
-    "@nestjs/common": "^6.10.11",
-    "@nestjs/core": "^6.10.11",
-    "@nestjs/platform-express": "^6.10.11",
+    "@nestjs/common": "^6.11.4",
+    "@nestjs/core": "^6.11.4",
+    "@nestjs/platform-express": "^6.11.4",
     "@zeit/next-css": "^1.0.1",
     "bcrypt": "^3.0.7",
     "class-transformer": "^0.2.3",
