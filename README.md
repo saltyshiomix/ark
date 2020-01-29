@@ -47,16 +47,16 @@
 
 ### Database Setup
 
-Ark uses [PostgreSQL](https://www.postgresql.org).
+Ark uses [PostgreSQL](https://www.postgresql.org) **v11**.
 
 #### For Mac Users
 
 ```bash
-# install postgresql
-$ brew install postgresql
+# install postgresql@11
+$ brew install postgresql@11
 
-# if you want to start postgresql in startup, try do this
-$ brew services start postgresql
+# if you want to start postgresql@11 in startup, try do this
+$ brew services start postgresql@11
 
 # [MUST] create user "arkuser" with password "arkpass"
 $ createuser -P arkuser
@@ -80,11 +80,11 @@ Because Ark uses [node.bcrypt.js](https://github.com/kelektiv/node.bcrypt.js), w
 
 ##### PostgreSQL
 
-- Download an installer at <https://www.postgresql.org/download/windows>
+- Download an installer at <https://www.postgresql.org/download/windows> (**v11**)
 - Run the installer with a flag `--install_runtimes 0` like this:
 
 ```cmd
-> postgresql-11.2-1-windows-x64.exe --install_runtimes 0
+> postgresql-11.6-3-windows-x64.exe --install_runtimes 0
 ```
 
 ##### pgAdmin
@@ -180,10 +180,6 @@ module.exports = {
 ### Top Page (Auth Guard)
 
 <p align="center"><img src="https://i.imgur.com/ym0XlJR.png"></p>
-
-## Editor Support of `typescript-tslint-plugin`
-
-See the full informetion [here](https://github.com/microsoft/typescript-tslint-plugin#editor-support).
 
 ## Articles
 
