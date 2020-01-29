@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "ark",
-  "version": "6.11.1",
+  "version": "6.11.2",
   "scripts": {
     "dev": "nodemon server/main.ts",
     "prebuild": "rimraf .next",
