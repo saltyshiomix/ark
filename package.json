@@ -47,7 +47,7 @@
     "@types/react": "^16.9.16",
     "@types/react-dom": "^16.9.4",
     "babel-plugin-transform-imports": "^2.0.0",
-    "cross-env": "^6.0.3",
+    "cross-env": "^7.0.0",
     "dotenv-webpack": "^1.7.0",
     "nodemon": "^2.0.2",
     "npm-run-all": "^4.1.5",
