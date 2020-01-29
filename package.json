@@ -55,7 +55,7 @@
     "ts-node": "^8.6.2",
     "tslint": "^5.20.1",
     "tslint-microsoft-contrib": "^6.2.0",
-    "typescript": "^3.7.3",
+    "typescript": "^3.7.5",
     "typescript-tslint-plugin": "^0.5.5",
     "url-loader": "^3.0.0",
     "webpack": "^4.41.2"
