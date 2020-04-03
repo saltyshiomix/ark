@@ -15,7 +15,6 @@
     "@nestjs/common": "^6.11.4",
     "@nestjs/core": "^6.11.4",
     "@nestjs/platform-express": "^6.11.4",
-    "@zeit/next-css": "^1.0.1",
     "bcrypt": "^3.0.7",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.11.0",
