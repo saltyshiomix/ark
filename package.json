@@ -49,6 +49,6 @@
     "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.8.3",
     "url-loader": "^4.0.0",
-    "webpack": "^4.41.5"
+    "webpack": "^4.42.1"
   }
 }
