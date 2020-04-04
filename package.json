@@ -3,7 +3,7 @@
   "name": "ark",
   "version": "6.11.2",
   "scripts": {
-    "dev": "tsnd --project tsconfig.server.json server/main.ts",
+    "dev": "tsnd --project tsconfig.server.json --ignore-watch .next server/main.ts",
     "build": "rimraf .next && run-p build:server build:client",
     "build:server": "tsc --project tsconfig.server.json",
     "build:client": "next build",
