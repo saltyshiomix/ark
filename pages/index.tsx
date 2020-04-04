@@ -1,4 +1,4 @@
-import { MouseEvent } from 'react';
+import React from 'react';
 import {
   Theme,
   makeStyles,
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const Index = ({ user }) => {
   const classes = useStyles({});
 
-  const onClick = async (e: MouseEvent) => {
+  const onClick = async (e: React.MouseEvent) => {
     e.preventDefault();
     const isLoggedOut: boolean = await http.post('api/auth/logout');
     if (isLoggedOut) {

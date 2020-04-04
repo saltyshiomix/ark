@@ -1,8 +1,4 @@
-import {
-  ChangeEvent,
-  FormEvent,
-  useState,
-} from 'react';
+import React from 'react';
 import {
   Theme,
   makeStyles,
@@ -46,15 +42,15 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Register = () => {
   const classes = useStyles({});
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
 
-  const onChangeName = (e: ChangeEvent<HTMLInputElement>) => setName(e.target.value);
-  const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
-  const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
+  const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value);
+  const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
+  const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
 
-  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const data = {

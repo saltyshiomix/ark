@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import React from 'react';
 import {
   CssBaseline,
   Toolbar,
@@ -7,22 +7,18 @@ import {
 import { ElevateAppBar } from './ElevateAppBar';
 
 interface LayoutProps {
-  children?: ReactNode,
+  children?: React.ReactNode,
 }
 
-const Layout = ({ children }: LayoutProps) => {
+export const Layout = ({ children }: LayoutProps) => {
   return (
-    <>
+    <React.Fragment>
       <CssBaseline />
       <ElevateAppBar />
       <Toolbar />
       <Container>
         {children}
       </Container>
-    </>
+    </React.Fragment>
   );
-};
-
-export {
-  Layout,
 };
