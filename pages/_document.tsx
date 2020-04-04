@@ -1,13 +1,8 @@
 import React from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/styles';
-import { initializeFonts } from '../lib';
 
 class MyDocument extends Document {
-  componentDidMount() {
-    initializeFonts();
-  }
-
   render() {
     return (
       <html lang="en" dir="ltr">
