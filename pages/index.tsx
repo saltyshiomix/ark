@@ -10,8 +10,8 @@ import {
   Card,
   CardContent,
 } from '@material-ui/core';
-import { Http } from '../lib';
-import { Layout } from '../components';
+import { Http } from '../lib/http';
+import { Layout } from '../components/Layout';
 
 const http = new Http();
 

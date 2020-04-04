@@ -16,8 +16,8 @@ import {
   FormControl,
   TextField,
 } from '@material-ui/core';
-import { Http } from '../../lib';
-import { Link } from '../../components';
+import { Http } from '../../lib/http';
+import { Link } from '../../components/Link';
 import { User } from '../../interfaces';
 
 const http = new Http();
