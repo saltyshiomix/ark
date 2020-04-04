@@ -19,7 +19,7 @@
 ## Technologies
 
 - Hot reloading for the developer experience :)
-  - [nodemon](https://nodemon.io) - Monitor for any changes in your node.js application and automatically restart the server
+  - [ts-node-dev](https://github.com/whitecolor/ts-node-dev) - Compiles your TS app and restarts when files are modified
   - [NEXT.js](https://nextjs.org) - The React Framework
 - Lang
   - [TypeScript](https://www.typescriptlang.org) - Javascript that scales
