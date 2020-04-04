@@ -14,7 +14,6 @@
 - API server - powered by [NestJS](https://nestjs.com)
 - Authentication - powered by [Passport](http://www.passportjs.org)
 - [Material UI](https://material-ui.com) design
-- Environment variables - powered by [dotenv](https://github.com/motdotla/dotenv)
 
 ## Technologies
 
@@ -40,8 +39,6 @@
   - [React](https://reactjs.org) - A JavaScript library for building user interfaces
   - [NEXT.js](https://nextjs.org) - The React Framework
   - [Material UI](https://material-ui.com) - React components that implement Google's Material Design.
-- Testing
-  - Linting: [tslint](https://github.com/palantir/tslint) and [tslint-microsoft-contrib](https://github.com/microsoft/tslint-microsoft-contrib)
 
 ## Setup
 
@@ -188,4 +185,3 @@ module.exports = {
 ## Related
 
 - [YARK](https://github.com/saltyshiomix/yark) - Yet another easiest authentication system on top of NestJS, TypeORM, react-ssr and Material UI(v4)
-- [nestpress](https://github.com/saltyshiomix/nestpress) - Better NestJS Utilities and Examples
