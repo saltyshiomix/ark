@@ -1,4 +1,4 @@
-import { MouseEvent } from 'react';
+import React from 'react';
 import {
   Theme,
   makeStyles,
@@ -10,10 +10,8 @@ import {
   Card,
   CardContent,
 } from '@material-ui/core';
-import { Http } from '../lib';
-import { Layout } from '../components';
-
-const http = new Http();
+import { Http } from '../lib/http';
+import { Layout } from '../components/Layout';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,10 +32,11 @@ const useStyles = makeStyles((theme: Theme) =>
 const Index = ({ user }) => {
   const classes = useStyles({});
 
-  const onClick = async (e: MouseEvent) => {
+  const onClick = async (e: React.MouseEvent) => {
     e.preventDefault();
-    const isLoggedOut: boolean = await http.post('api/auth/logout');
-    if (isLoggedOut) {
+    const http = new Http();
+    const response = await http.post('api/auth/logout');
+    if (response.ok) {
       location.href = '/auth/login';
     }
   };

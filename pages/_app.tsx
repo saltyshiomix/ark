@@ -1,11 +1,9 @@
-// tslint:disable:react-a11y-titles
-
 import React from 'react';
 import App from 'next/app';
 import Head from 'next/head';
 import { ThemeProvider } from '@material-ui/styles';
 import { CssBaseline } from '@material-ui/core';
-import { theme } from '../lib';
+import { theme } from '../lib/theme';
 
 class MyApp extends App {
   componentDidMount() {

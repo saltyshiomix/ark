@@ -1,8 +1,4 @@
-import {
-  ChangeEvent,
-  FormEvent,
-  useState,
-} from 'react';
+import React from 'react';
 import {
   Theme,
   makeStyles,
@@ -16,11 +12,8 @@ import {
   FormControl,
   TextField,
 } from '@material-ui/core';
-import { Http } from '../../lib';
-import { Link } from '../../components';
-import { User } from '../../interfaces';
-
-const http = new Http();
+import Link from '../../components/Link';
+import { Http } from '../../lib/http';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -46,16 +39,18 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Register = () => {
   const classes = useStyles({});
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
 
-  const onChangeName = (e: ChangeEvent<HTMLInputElement>) => setName(e.target.value);
-  const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
-  const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
+  const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value);
+  const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
+  const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
 
-  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const http = new Http();
 
     const data = {
       name: e.currentTarget.username.value,
@@ -63,15 +58,11 @@ const Register = () => {
       password: e.currentTarget.password.value,
     }
 
-    try {
-      const user: User = await http.post('api/auth/register', data);
-      if (user) {
-        location.href = '/';
-      } else {
-        alert('Failed to register!');
-      }
-    } catch (err) {
-      alert(`Failed to register! ${err}`);
+    const response = await http.post('api/auth/register', data);
+    if (response.ok) {
+      location.href = '/';
+    } else {
+      alert('Failed to register!');
     }
   }
 

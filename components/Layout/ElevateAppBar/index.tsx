@@ -1,7 +1,4 @@
-import {
-  ReactElement,
-  cloneElement,
-} from 'react';
+import React from 'react';
 import {
   AppBar,
   Toolbar,
@@ -10,7 +7,7 @@ import {
 } from '@material-ui/core';
 
 interface ElevateAppBarProps {
-  children: ReactElement;
+  children: React.ReactElement;
 }
 
 const ElevationScroll = (props: ElevateAppBarProps) => {
@@ -19,21 +16,19 @@ const ElevationScroll = (props: ElevateAppBarProps) => {
     disableHysteresis: true,
     threshold: 0,
   });
-  return cloneElement(children, {
+  return React.cloneElement(children, {
     elevation: trigger ? 4 : 0,
   });
 };
 
 export const ElevateAppBar = () => {
   return (
-    <>
-      <ElevationScroll>
-        <AppBar>
-          <Toolbar>
-            <Typography variant="h6">ARK</Typography>
-          </Toolbar>
-        </AppBar>
-      </ElevationScroll>
-    </>
+    <ElevationScroll>
+      <AppBar>
+        <Toolbar>
+          <Typography variant="h6">ARK</Typography>
+        </Toolbar>
+      </AppBar>
+    </ElevationScroll>
   );
 };

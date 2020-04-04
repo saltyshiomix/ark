@@ -1,21 +1,28 @@
 import ky from 'ky-universal';
 
-const prefixUrl: string = `${process.env.APP_PROTOCOL}://${process.env.APP_HOST}:${process.env.APP_PORT}`;
-
 export class Http {
-  public async get<T>(url: string): Promise<T> {
-    return ky.get(url, { prefixUrl }).json();
+  private readonly http: typeof ky;
+
+  constructor() {
+    this.http = ky.create({
+      throwHttpErrors: false,
+      prefixUrl: `${process.env.APP_PROTOCOL}://${process.env.APP_HOST}:${process.env.APP_PORT}`,
+    });
   }
 
-  public async post<T>(url: string, data?: any): Promise<T> {
-    return ky.post(url, { prefixUrl, json: data }).json();
+  public async get(url: string): Promise<Response> {
+    return this.http.get(url);
   }
 
-  public async put<T>(url: string, data?: any): Promise<T> {
-    return ky.put(url, { prefixUrl, json: data }).json();
+  public async post(url: string, data?: any): Promise<Response> {
+    return this.http.post(url, { json: data });
   }
 
-  public async delete<T>(url: string): Promise<T> {
-    return ky.delete(url, { prefixUrl }).json();
+  public async put(url: string, data?: any): Promise<Response> {
+    return this.http.put(url, { json: data });
+  }
+
+  public async delete(url: string): Promise<Response> {
+    return this.http.delete(url);
   }
 }
