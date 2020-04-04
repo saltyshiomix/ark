@@ -14,9 +14,6 @@ import {
 } from '@material-ui/core';
 import Link from '../../components/Link';
 import { Http } from '../../lib/http';
-import { User } from '../../interfaces';
-
-const http = new Http();
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -53,21 +50,19 @@ const Register = () => {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const http = new Http();
+
     const data = {
       name: e.currentTarget.username.value,
       email: e.currentTarget.email.value,
       password: e.currentTarget.password.value,
     }
 
-    try {
-      const user: User = await http.post('api/auth/register', data);
-      if (user) {
-        location.href = '/';
-      } else {
-        alert('Failed to register!');
-      }
-    } catch (err) {
-      alert(`Failed to register! ${err}`);
+    const response = await http.post('api/auth/register', data);
+    if (response.ok) {
+      location.href = '/';
+    } else {
+      alert('Failed to register!');
     }
   }
 

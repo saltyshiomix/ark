@@ -13,8 +13,6 @@ import {
 import { Http } from '../lib/http';
 import { Layout } from '../components/Layout';
 
-const http = new Http();
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -36,8 +34,9 @@ const Index = ({ user }) => {
 
   const onClick = async (e: React.MouseEvent) => {
     e.preventDefault();
-    const isLoggedOut: boolean = await http.post('api/auth/logout');
-    if (isLoggedOut) {
+    const http = new Http();
+    const response = await http.post('api/auth/logout');
+    if (response.ok) {
       location.href = '/auth/login';
     }
   };
