@@ -11,9 +11,9 @@
   },
   "dependencies": {
     "@material-ui/core": "^4.11.0",
-    "@nestjs/common": "^7.0.7",
-    "@nestjs/core": "^7.0.7",
-    "@nestjs/platform-express": "^7.0.7",
+    "@nestjs/common": "^7.4.4",
+    "@nestjs/core": "^7.4.4",
+    "@nestjs/platform-express": "^7.4.4",
     "bcrypt": "^5.0.0",
     "connect-pg-simple": "^6.1.0",
     "dotenv": "^8.2.0",
