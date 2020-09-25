@@ -24,7 +24,7 @@
     "next": "^9.5.3",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
-    "pg": "^8.0.0",
+    "pg": "^8.3.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "reflect-metadata": "^0.1.13",
