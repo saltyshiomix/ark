@@ -42,69 +42,14 @@
 
 ## Setup
 
-### Database Setup
-
-Ark uses [PostgreSQL](https://www.postgresql.org) **v11**.
-
-#### For Mac Users
-
-```bash
-# install postgresql@11
-$ brew install postgresql@11
-
-# if you want to start postgresql@11 in startup, try do this
-$ brew services start postgresql@11
-
-# [MUST] create user "arkuser" with password "arkpass"
-$ createuser -P arkuser
-
-# [MUST] create database "arkdb" owened by "arkuser"
-$ createdb arkdb -O arkuser
-```
-
-#### For Windows Users
-
-##### Python
-
-Because Ark uses [node.bcrypt.js](https://github.com/kelektiv/node.bcrypt.js), we need a Python:
-
-- Download an installer at <https://www.python.org/downloads/windows>
-- Install with "Add Python 3.X to PATH" checked
-
-##### [windows-build-tools](https://github.com/felixrieseberg/windows-build-tools)
-
-- Run `npm install --global --production windows-build-tools` from an elevated PowerShell or CMD.exe **as Administrator**
-
-##### PostgreSQL
-
-- Download an installer at <https://www.postgresql.org/download/windows> (**v11**)
-- Run the installer with a flag `--install_runtimes 0` like this:
-
-```cmd
-> postgresql-11.6-3-windows-x64.exe --install_runtimes 0
-```
-
-##### pgAdmin
-
-- Download a latest installer at <https://www.pgadmin.org/download>
-- Run the pgAdmin and login with a root user
-- Right click `Login/Group Roles` and `Create > Login/Group Role`
-    - `General` Panel:
-        - `Name`: `arkuser`
-    - `Definition` Panel:
-        - `Password`: `arkpass`
-    - `Priviledges` Panel:
-        - Check all `Yes`
-- Right click `Databases` and `Create > Database`
-    - `General` Tab:
-        - `Database`: `arkdb`
-        - `Owner`: `arkuser`
-
-### Application Setup
-
 ```bash
 # prepare `.env` and edit it for your own environments
 $ cp .env.example .env
+
+# setup database
+$ docker-compose up --detach
+$ docker-compose exec db psql -U postgres -c 'create user arkuser;'
+$ docker-compose exec db psql -U postgres -c 'create database arkdb;'
 
 # install dependencies
 $ yarn
